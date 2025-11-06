@@ -1,0 +1,39 @@
+"""Author: Asaf Ben-Zur
+Best used for: Foot
+This Module was created for a foot setup mainly.
+Some of it's main features are FK controls, BK (backward kinematics) controls, Roll control, Bank Controls, Heel and Tip controls, Dynamic pivot control.
+The best application for this module is placing it under a limb module, which will result in a connected (standard) behaviour.
+"""
+
+#guideSettingsUI
+kwargs.get("numOfGuides", 2) #arg; min = 2; blockCreationOnly = True;
+kwargs.get("matchParentOrient", False) #arg; blockCreationOnly = True;
+kwargs.get("alongAxis", 2) #arg; blockCreationOnly = True; optionBox = X, Y, Z, -X, -Y, -Z;
+
+kwargs.get("dividerFK", "Toes FK") #arg; simpleDivider = True;
+kwargs.get("FKControlShape", "cube" ) #arg; comment = Toes FK controls shape
+kwargs.get("FKChannelControl", {"t": (True, True, True), "r": (True, True, True), "s": (True,True,True)} )#arg; comment = Toes FK controls channel-box settings
+
+kwargs.get("dividerBK", "Toes BK") #arg;
+kwargs.get("BKControlShape", "diamond" ) #arg; comment = BK (Backward Kinematics) controls shape
+kwargs.get("BKChannelControl", {"t": (False, False, False), "r": (True, True, True), "s": (False,False,False)} )#arg; lockOffAttributes = True; comment = BK controls channel-box settings
+
+kwargs.get("dividerBank", "BankControls") #arg;
+kwargs.get("bankControlShape", "lightSphere" ) #arg; comment = Bank controls shape
+kwargs.get("bankChannelControl", {"t": (False, False, False), "r": (True, True, True), "s": (False,False,False)} )#arg; lockOffAttributes = True; comment = bank controls channel-box settings
+
+kwargs.get("dividerRollCtrl", "RollControl") #arg;
+kwargs.get("doRollCtrl", True) #arg; comment = If this is True, a foot Roll control will be created
+kwargs.get("rollControlShape", "cylinder" ) #arg; comment = Roll control channel-box settings
+kwargs.get("rollDefaultMaxAngle", 60.0 ) #arg; comment = Default Roll maximum limit angle. The roll control is used to roll the entire foot chain, and using an angle value to limit the roll of each section, before rolling the next section. This value will be used as default
+kwargs.get("straightenDefaultAngle", 130.0 ) #arg; comment = Default straighten angle. The foot toes will straighten between the max angle above and this angle. As the angle passes the above angle, along the range up to this angle, the rool angle will decrease- strightening the foot on the up position.
+
+kwargs.get("dividerDynPivCtrl", "DynamicPivotControl") #arg;
+kwargs.get("doDynamicPivCtrl", True) #arg; jntStructMember = True; comment = This feature will create a control that will try to trace the desired foot shape with it's pivot when rotating it. When choosing to create this control, use the relevant guide's shape to trace the outline of your foot
+kwargs.get("dynamicPivControlShape", "lightSphere" ) #arg; comment = Dynamic roll control shape
+kwargs.get("dynamicPivShapeSections", 8 ) #arg; blockCreationOnly = True; comment = Amount of sections for the outline shape guide
+kwargs.get("mapRotXTo", 2) #arg; optionBox = X, Y, Z, -X, -Y, -Z, None; comment = as this feature uses local channels, it is essential to map input values correctly. Please map the correct axes based on the orientation of your guide
+kwargs.get("mapRotYTo", 3) #arg; optionBox = X, Y, Z, -X, -Y, -Z, None; comment = as this feature uses local channels, it is essential to map input values correctly. Please map the correct axes based on the orientation of your guide
+kwargs.get("mapRotZTo", 6) #arg; optionBox = X, Y, Z, -X, -Y, -Z, None; comment = as this feature uses local channels, it is essential to map input values correctly. Please map the correct axes based on the orientation of your guide
+kwargs.get("distRateMultiplier", 5.0) #arg; comment = This feature will use the translation of a run-away transform to acquire the best pivot location along the given outline shape. This value will dictate the speed of translation
+kwargs.get("dynamicPivChannelControl", {"t": (False, False, False), "r": (True, True, False), "s": (False,False,False)} )#arg; lockOffAttributes = True; comment = Roll control channel-box settings

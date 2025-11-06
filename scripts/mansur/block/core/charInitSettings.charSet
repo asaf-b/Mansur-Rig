@@ -1,0 +1,32 @@
+#Character Rig creation initialize settings
+
+kwargs.get("characterName", "blkChar" ) #arg; comment = This will be the name of your character both in the rig nodes naming, and the main puppet curves label; alphabeticalOnly = True;
+kwargs.get("alpha", "A") #arg; comment = Rig's Alpha id;
+kwargs.get("id", 1) #arg; min = 1; comment = Rig's ID
+kwargs.get("assetScale", 1.0) #arg;  min = 0.01; comment = This value is a global scale multiplier, while value of 1.0 represents a 1.80 cm high human
+kwargs.get("rootCtrlScale", 1.0) #arg;  min = 0.01; comment = Scale multiplier for the puppet root control only
+kwargs.get("rigConstructAtPose", "T") #arg;  optionBox =  bind, T, A, concept, custom; comment = Choose in which guide pose you would like to build your rig from
+kwargs.get("shapesLoadMode", 1) #arg;  optionBox = Relative, Absolute; comment = Choose the method in which you want to build your custom control shapes. Absolute will build shapes in their absolute extracted position, relative will attempt to take the trasform pivot into account, moving the control shape to the relative pivot in which they were extracted.
+
+kwargs.get("bodyPickerImagePath", "") #arg; pathMode = 0; pathFileTypes = jpg, png; comment = Choose an image background for the body picker
+kwargs.get("facialPickerImagePath", "") #arg; pathMode = 0; pathFileTypes = jpg, png; comment = Choose an image background for the facial picker
+
+kwargs.get("preDefinedCnsCtrls", []) #arg; multiRowList = True; comment = For the input controls, create a CNS ost-construction. 
+
+kwargs.get("colorScheme", [(1,0.15,0.15), (0,1,0), (0,0,1),(1,0.15,0.15), (0.15,1,0.15), (0.15,0.15,1), (1,0.3,0.3), (0.3,1,0.3), (0.3,0.3,1),(1,0.45,0.45), (0.45,1,0.45), (0.45,0.45,1),(1,0.6,0.6), (0.6,1,0.6), (0.6,0.6,1)]) #arg; comment = The global color scheme for the entire rig. The colors can be overriden per-module if needed. 
+
+kwargs.get("dividerA", "Pre-Construct-Scripts" ) #arg;
+kwargs.get("execPreConstruct", False) #arg; comment = Execute Pre-Constructions custom actions
+kwargs.get("preConstructScripts", []) #arg; comment = Pre-Constructions custom actions
+
+kwargs.get("dividerB", "Post-Construct-Scripts" ) #arg;
+kwargs.get("execPostConstruct", False) #arg; comment = Execute Post-Constructions custom actions
+kwargs.get("postConstructScripts", []) #arg; comment = Post-Constructions custom actions
+
+kwargs.get("dividerC", "Pre-Deconstruct-Scripts" ) #arg;
+kwargs.get("execPreDeconstruct", False) #arg; comment = Execute Pre-Deconstructions custom actions
+kwargs.get("preDeconstructScripts", []) #arg; comment = Pre-Deconstructions custom actions
+
+kwargs.get("dividerD", "Post-Deconstruct-Scripts" ) #arg;
+kwargs.get("execPostDeconstruct", False) #arg; comment = Execute Post-Deconstructions custom actions
+kwargs.get("postDeconstructScripts", []) #arg; comment = Post-Deconstructions custom actions

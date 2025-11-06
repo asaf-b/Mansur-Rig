@@ -1,0 +1,51 @@
+"""Author: Asaf Ben-Zur
+Best used for: Free objects, General Control, Mesh Tweaker, Mesh Local Tweaker
+This Module is a general single control at it's base state.
+It also contains a Mesh-Tweaker feature that will allow you to create a "Double Directional" tweaker- meaning that the control will follow the input Mesh's position (Rivet) and will also be able to affect it.
+This effect is also commonly knowen as the "Dorito-Effect".
+This feature also includes a "local" mode, to tunnel deformations from the control to a local skinCluster, then a blend-shape to the main Mesh, creating multi-layered skinned mesh.
+All of these features will use the main joint as the effector.
+Note: When using the "Mesh-Tweaker" feture, when needing to affect a mesh that will also be used as the rivet input- make sure "sameMeshAffector" is set to ON.
+"""
+
+kwargs.get("symmetryType", 0) #arg; optionBox = None, mirroredX, mirroredY, mirroredZ, mirroredXY, mirroredXZ, mirroredYZ, mirroredXYZ, noMirrorGrp; comment = Choose the mirror type for right side controls
+
+#guideSettingsUI
+kwargs.get("dividerGlob", "Global Settings") #arg; simpleDivider = True;
+kwargs.get("controlShape", "circle" ) #arg; comment = Control shape
+kwargs.get("channelControl", {"t": (True, True, True), "r": (True, True, True), "s": (True,True,True)} )#arg; comment = Control channel-box settings
+kwargs.get("createJoint", True )#arg; jntStructMember = True; comment = Choose whether to create and attach a joint to this control
+
+#FK
+kwargs.get("asTweakerDivider", "MeshTweaker") #arg;
+kwargs.get("asMeshTweaker", False) #arg; comment = This control can aslo act as a live mesh tweaker. This means that you can attach this control to a mesh, having it follow the deformed mesh. In case you want this control to be affected by the mesh (position of the control) and also affect the mesh (using a skinCluster for example), please make sure that you leave sameMeshEffector attribute ON. You do not need to use any other meshes or joints to implement this behaviour
+kwargs.get("rivetToMesh", "") #arg; comment = The mesh you want to attach the control to
+kwargs.get("positionMode", 0) #arg; optionBox = closestFaceCenter, closestVertex; comment = this will determine the output rivet position mode.  
+kwargs.get("doRotation", False) #arg; comment = when off, the rivet will not inherit rotations from the mesh
+kwargs.get("sameMeshAffector", True) #arg; comment = If this is set to False, you will NOT be able to use this control's related joint within the deformation of the above mesh (this will result as a cycle). In case you want the control to follow the mesh as well as have it's related joint within the deformation of the mesh- please leave this ON. In case you want to attach this control to a mesh that will not be affected by the control's related joint, you can safely turn this attribute OFF.
+kwargs.get("isLocal", False) #arg; comment = In some cases, you may wish to use this control's related joint in a different skinCluster layer, channeled into the main mesh as a blendShape. If that is the case, you will need to set this attribute to ON. When set to ON, the related joint will be a part of the joint hierarchy, but will keep it's position at origin so you can you it in a local setup. In case the riveted mesh's deformation is affected by this module's related joint in any way, remember to keep sameMeshEffector ON, even if its not a part of the main skinCluster. This means that even if the joint is controlling a localized skin-cluter, and then channeled as a blend shape into the riveted mesh, sameMeshAffector should be left ON. 
+
+#spring
+kwargs.get("dividerSpring", "spring") #arg;
+kwargs.get("doSpring", False) #arg; comment = This feature will create a spring node below the control master. This will result in a procedural simple spring action. In case meshTweaker feature was selected, the slave control will not be visible. This feature will NOT be created in case isLocal is set to ON.
+kwargs.get("springX", True) #arg; comment = Select whether the X axis should be affected by the spring or not
+kwargs.get("springY", True) #arg; comment = Select whether the Y axis should be affected by the spring or not
+kwargs.get("springZ", True) #arg; comment = Select whether the Z axis should be affected by the spring or not
+kwargs.get("flipRightX", False) #arg; comment = This will Flip all connections for the local X channel.
+kwargs.get("flipRightY", False) #arg; comment = This will Flip all connections for the local Y channel.
+kwargs.get("flipRightZ", False) #arg; comment = This will Flip all connections for the local Z channel.
+kwargs.get("defaultStiffness", 0.5) #arg; comment = Spring stiffness default value
+kwargs.get("defaultDamping", 0.5) #arg; comment = Spring damping default value
+kwargs.get("springSlaveControlShape", "lightSphere" ) #arg; comment = Spring slave control shape
+
+#interpOrient
+kwargs.get("dividerInterpolatedOrientation", "InterpolatedOrientation") #arg; comment = This feature is used to create a weighten split orientation. When you need to create a weighted orientation for a control between two spaces, use this feature.
+kwargs.get("doInterpOrient", False) #arg; comment = This feature is used to create a weighten split orientation. When you need to create a weighted orientation for a control between two spaces, use this feature.
+kwargs.get("spaceA", "") #arg; comment = The first space to be interpolated. This can be a guide, joint, or control.
+kwargs.get("spaceB", "") #arg; comment = The second space to be interpolated. This can be a guide, joint, or control.
+kwargs.get("spaceAWeight", 0.5) #arg; min = 0.0; max = 1.0; comment = The deafult weight for the first space. The second space weight will be the complimentary weight adding to 1
+kwargs.get("doAngleBasedScale", False) #arg; comment = create an angle based scale driver, to scale the target slave joint when the angle changes between the two sources. Originally designed for double-chin setup
+kwargs.get("scaleWhenAngle", 0) #arg; optionBox = increases, decreases; comment = This setting controls the trigger mode for action. Icreases- means that the trigger for action will occur when the intorpolated angle increases, and do nothing when it decreases. decreases- means that the trigger for action will occur when the intorpolated angle decreases, and do nothing when it increases
+kwargs.get("maxScale", 2.0) #arg; comment = The actions maximum value clamp value
+kwargs.get("angleMaxRange", 180.0) #arg; comment = The maximum angle clamp that the action should be targeted to
+kwargs.get("connectToTargetAxis", 1) #arg; optionBox = x,y,z; comment = This setting will set the target axis to act on. Please map the axis needed to be scaled based on the orientation of your guide

@@ -1,0 +1,74 @@
+"""Author: Asaf Ben-Zur
+Best used for: General Chain, Spine, Neck, Tail, Elephant-Trunk, Tentacle 
+This Module when used in it's basic state, will create a simple FK hierarchy control chain. 
+Altough this module contains many layers with many features such as Variable FK, Spring, Embedded IK, Secondary IK chains (interpolation controls).
+Use as many layers an in any combination to create any form of FK chain behaviour.
+"""
+
+#guideSettingsUI
+kwargs.get("numOfGuides", 3) #arg; min = 2; blockCreationOnly = True; 
+kwargs.get("doAttributeHostCtrl", False) #arg; blockCreationOnly = True;
+
+#global settings
+kwargs.get("dividerGlob", "Global Settings") #arg; simpleDivider = True;
+kwargs.get("doInterpolationJoints", False) #arg; jntStructMember = True; comment = Create interpolation joints for this module
+kwargs.get("interpolationJoints", 2) #arg; min = 2; jntStructMember = True; comment = Minimun is the number of guides. This setting controls the number of driven interpolation joints needed. This interpolation joint chain will behave according to the module's design, and will inherit transformations that are required by this module. Usually the driven interpolation joint-chain is the compenents result behaviour in animation.
+kwargs.get("isolatePolesRotation", False) #arg; min = 2; jntStructSoftMod = True; comment = If this is set to True, the first and last interpolation joints orientation will be isolated. This is primarily used in combination with the EmbeddedIK feature to achive a stable spine setup 
+kwargs.get("offsetX", 20.0) #arg; jntStructSoftMod = True; comment = Up curve X value offset for the interpolation joints
+kwargs.get("offsetZ", 0.0) #arg; jntStructSoftMod = True; comment = Up curve Z value offset for the interpolation joints
+kwargs.get("scaleMode", 2) #arg; optionBox = absoluteCurveLength, addaptiveCurveLength, segmentLengthDependent; comment = Default scale mode. Please refer to the documentation of mnsPointsOnCurve node to learn more about each mode
+kwargs.get("squashMode", 0) #arg; optionBox = squashStretch, squash, stretch, unifom, none; comment = Default squash mode. Please refer to the documentation of mnsPointsOnCurve node to learn more about each mode
+kwargs.get("doPrimariesSpaceSwitch", False) #arg; boolExclusive = doEmbeddedIK; comment = If this is set to True, primary controls will receive a space switcher. NOTE: This feature cannot work alongside the embeddedIK feature- In case the embeddedIK feature is turned on, this setting will be set to False automatically
+kwargs.get("doIntepJntsSpring", False) #arg; comment = If this is set to True, a mnsSpringCurve node will be created on top of the primary curve controling the interpolation joints
+kwargs.get("doCurlAttrs", True) #arg; comment = If this is set to True, extra curl attributes will be created on the main primary control, to curl the entire primary chain in all axes
+
+#FK
+kwargs.get("dividerFK", "FK") #arg;
+kwargs.get("FKcontrolShape", "circle" ) #arg; comment = FK controls shape
+kwargs.get("doFKSeconderyIK", False) #arg; comment = If this is set to True, another level of IK controls will be created below the FK controls
+kwargs.get("FKSecondaryIKControlShape", "diamond") #arg; comment = Secodary IK controls shape
+kwargs.get("primaryCurveDegree", 3) #arg; min = 1; max = 5; jntStructSoftMod = True; comment = Primary interpolation joints curve generation degree. Please refer to the documentation of mnsBuildTransformsCurve node to learn more about curve generation degree
+kwargs.get("primaryCurveMode",  0) #arg; optionBox = parametric, uniform, fixedLength; jntStructSoftMod = True; comment = Primary interpolation joints curve sampling mode. Please refer to the documentation of mnsPointsOnCurve node to learn more about curve each mode
+kwargs.get("primaryInterpolaion", 0) #arg; optionBox = EPs, CVs, Hermite, TangentedCVs, Bezier; jntStructSoftMod = True; comment = Primary interpolation joints curve generation interpolation mode. Please refer to the documentation of mnsBuildTransformsCurve node to learn more about each mode
+kwargs.get("FKChannelControl", {"t": (True, True, True), "r": (True, True, True), "s": (True,True,True)} )#arg; comment = FK controls channel-box settings
+
+#EmbeddedIK
+kwargs.get("dividerEmbedIK", "EmbeddedIK") #arg;
+kwargs.get("doEmbeddedIK", False) #arg; comment = This feature is mainly used to create a spine setup, where another layer of IK control is needed. The result of this feature is three IK controls - Root, Mid and End controls, which will allow IK control over the entire chain
+kwargs.get("defaultVisibilityMode", 1) #arg; optionBox = IK, FK, Both; comment = Default visibility settings. FK and IK main controls can be used in combination, or indevidually- hence a manuall visibility switch
+kwargs.get("embIKMode", 1) #arg; optionBox = btcTranslation, btcRotation; comment = Setup mode. btcTranslation is legacy, please use btcRotation
+kwargs.get("ikCurveInterpolation", 0) #arg; optionBox = EPs, CVs; comment = IK curve interpolation mode
+kwargs.get("embIKCurveDegree", 3) #arg; min = 1; max = 5; comment = Embedded IK curve degree. Please refer to the documentation of mnsBuildTransformsCurve node to learn more about curve generation degree
+kwargs.get("doMidTangentCtrls", True) #arg; comment = If this is set to True, two extra tangent controls will be build from the IK Mid control
+kwargs.get("embIKControlShape", "flatDiamond" ) #arg; comment = Main shape for the embedded IK controls
+kwargs.get("embIKChannelControl", {"t": (True, True, True), "r": (True, True, True), "s": (True,True,True)} )#arg; lockOffAttributes = True; comment = Embedded IK controls channel-box settings
+
+#IK (Secondaries)
+kwargs.get("dividerIK", "IK_Secondaries") #arg;
+kwargs.get("doSecondaryIKCtrls", False) #arg; jntStructSoftMod = True; comment = This feature will create a secondary IK controls layer below the primary FK chain controls. The number of IK Secondaries MUST be equel or greater then the number of guides/Primary FK controls for this layer to execute. This layer's will not execute without creating Interp-Joints. 
+kwargs.get("numIKControls", 2) #arg; min = 2; comment = Amount of secondary layer controls, this value MUST be equel or greater then the number of guides/Primary FK controls.
+kwargs.get("isolateSecPolesRotation", False) #arg; comment = If this is set to True, the first and last controls orientation will be isolated.
+kwargs.get("IKControlShape", "dial" ) #arg; comment = Secondary IK layer control shape
+kwargs.get("secondaryCurveDegree", 3) #arg; min = 1; max = 5; jntStructSoftMod = True; comment = Secondary IK curve generation degree. Please refer to the documentation of mnsBuildTransformsCurve node to learn more about curve generation degree; 
+kwargs.get("secondaryCurveMode",  0) #arg; optionBox = parametric, uniform, fixedLength; jntStructSoftMod = True; comment = Secondary IK curve sampling mode. Please refer to the documentation of mnsPointsOnCurve node to learn more about curve each mode
+kwargs.get("secondaryInterpolaion", 0) #arg; optionBox = EPs, CVs, Hermite, TangentedCVs, Bezier; jntStructSoftMod = True; comment = Secondary IK curve generation interpolation mode. Please refer to the documentation of mnsBuildTransformsCurve node to learn more about each mode
+kwargs.get("doIKSpring", False) #arg; comment = If this is set to True, a mnsSpringCurve node will be created on top of the secondary curve
+kwargs.get("IKChannelControl", {"t": (True, True, True), "r": (True, True, True), "s": (True,True,True)} )#arg; lockOffAttributes = True; comment = Secondary IK controls channel-box settings
+
+##var FK
+kwargs.get("dividerVFK", "VariableFK") #arg; 
+kwargs.get("doVariableFK", False) #arg; jntStructSoftMod = True; comment = This will create a veriable FK setup on this chain. NOTE: Setting this attribute to True when the curve mode is set to PARAMETRIC, will force the joint structure curve mode to UNIFORM.  This layer's will not execute without creating Interp-Joints.
+kwargs.get("numVarFKControls", 2) #arg; min = 2; comment = Number of variable FK controls
+kwargs.get("varFKControlShape", "pinchedCircle" ) #arg; comment = Variable FK control shape
+kwargs.get("varFKDegree", 3) #arg; min = 1; max = 5; jntStructSoftMod = True; comment = Variable FK curve degree. Please refer to the documentation of mnsBuildTransformsCurve node to learn more about curve generation degree
+kwargs.get("defaultFalloff", 0.5) #arg; min = 0.01; comment = Default falloff value for the variable FK controls
+kwargs.get("varFKSubsteps", 20) #arg; min = 5; comment = The variable FK setup is able to re-sample the curve to any amount of control points to refine the fidelity of the setup. This is the default sampling value
+kwargs.get("doVarFKSpring", False) #arg; comment = If this is set to True, a mnsSpringCurve node will be created on top of the variable FK controls
+kwargs.get("varFKChannelControl", {"t": (True, True, True), "r": (True, True, True), "s": (False,False,False)} )#arg; lockOffAttributes = True; comment = Variable FK controls channel-box settings
+
+#tweakers
+kwargs.get("dividerTwekers", "Tweakers") #arg; 
+kwargs.get("doTweakControls", False) #arg; comment = This feature is a global extra layer to tweak the final result cuvre samples rotation and scale.  This layer's will not execute without creating Interp-Joints.
+kwargs.get("numTweakers", 2) #arg; min = 1; comment = Number of tweak controls to create
+kwargs.get("tweakControlShape", "dialSquare" ) #arg; comment = Tweak controls shape
+kwargs.get("tweakersChannelControl", {"t": (False, False, False), "r": (True, True, True), "s": (True,True,True)} )#arg; lockOffAttributes = True; comment = Tweak controls channel-box settings

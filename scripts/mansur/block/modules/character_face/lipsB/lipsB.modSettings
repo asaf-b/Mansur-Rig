@@ -1,0 +1,47 @@
+"""Author: Asaf Ben-Zur
+Best used for: Lips
+This module was designed around lips behaviour.
+This module has a few layers that will allow general as well as extremely fiddle control (based on parameters) over the lips deformation.
+Some of the main features in this module include: Macro corner controls, Along Surface feature, Around Center Feature, Jaw connections, Global "Full-Lips" control, Zip Controls, Curve meet controls, Tweak controls, Cheek Raise connection,  and much more.
+The joint structure of this module will be dictated by input vertices on a given mesh.
+"""
+
+kwargs.get("isFacial", True) #arg; 
+kwargs.get("postSymmetryJntStruct", True) #arg; 
+kwargs.get("alongSurface", "") #arg; disabled = True;
+kwargs.get("symmetryType", 1) #arg; optionBox = None, mirroredX, mirroredY, mirroredZ, mirroredXY, mirroredXZ, mirroredYZ, mirroredXYZ, noMirrorGrp; comment = Choose the mirror type for right side controls
+
+#guideSettingsUI
+kwargs.get("dividerGlob", "Global Settings") #arg; simpleDivider = True;
+kwargs.get("upperEdgeVerts", []) #arg; jntStructMember = True; meshComponents = True; comment = These verticies will be used to build the joint structure for the upper section. Please select a sequence of vertices along the same loop, starting from the inner corner. First and last vertices should match between the upper and lower section, representing a single closed loop. Corner vertices will be present twice- once on the upper section, once on the lower section
+kwargs.get("lowerEdgeVerts", []) #arg; jntStructMember = True; meshComponents = True; comment = These verticies will be used to build the joint structure for the lower section. Please select a sequence of vertices along the same loop, starting from the inner corner. First and last vertices should match between the upper and lower section, representing a single closed loop. Corner vertices will be present twice- once on the lower section, once on the lower section
+kwargs.get("midsPosition", 0) #arg; jntStructSoftMod = True; optionBox = auto, custom; comment = In case this setting is set to custom, once the settings are updated, 4 new locator guides will become visible- 2 for the upper lip, and 2 for the lower lip. These locators can be manually set to a custom mid-lip position. In some cases, based on the models geometry, the mid-lip automatic control position may not be calculated correctly. If this is your case, turn this setting on and set the guide locators to the required mid-lip position for both upper and lower lips
+
+kwargs.get("dividerCtrlShapes", "ctrlShapes") #arg;
+kwargs.get("cornerControlShape", "fourArrow" ) #arg; comment = Main corenr controls shape
+kwargs.get("upperLowerControlShape", "squareRound" ) #arg; comment = Main upper and lower controls shape
+kwargs.get("midsControlShape", "circle" ) #arg; comment = Main mid controls shape
+
+kwargs.get("dividerJawConnection", "JawConnection") #arg;
+kwargs.get("connectJaw", True) #arg; comment = In case this attribute is off, the jaw connection will not be created.
+kwargs.get("jawRootGuide", "") #arg; comment = In case this module is used for lips (main use), input the Jaw control root guide. This will implement the Jaw control within the setup and will result in a better behaving setup
+kwargs.get("connectUpMotionRot", True) #arg; comment = In case this attribute is ON, the up rotation of the jaw will affect the upper lip.
+kwargs.get("upMotionRotAxis", "-x") #arg; optionBox = x, y, z, -x, -y, -z; comment = Rotation axis axis to connect the up motion to. This is based on the selected orientation for te jaw.
+kwargs.get("connectUpMotionTran", True) #arg; comment = In case this attribute is ON, the up translation of the jaw will affect the upper lip.
+kwargs.get("upMotionTranAxis", "y") #arg; optionBox = x, y, z, -x, -y, -z; comment = Rotation axis axis to connect the up motion to. This is based on the selected orientation for te jaw.
+
+kwargs.get("dividerLayerBCtrls", "LayerBCtrls") #arg;
+kwargs.get("doLayerBCtrls", True) #arg; comment = Second layer tweakers
+kwargs.get("numLayerBCtrlsPerSection", 9) #arg; min = 3; comment = Number of tweak controls per section
+kwargs.get("layerBSamplingMode", 2) #arg; optionBox = uniform, parametric, parametricallyUniform; comment = Second layer tweak sampling mode.
+kwargs.get("layerBInterpolation", 1) #arg; optionBox = EPs, CVs, Hermite, TangentedCVs, Bezier; comment = Second layer tweak interpolation type.
+kwargs.get("layerBControlShape", "cube") #arg; comment = Second layer tweak controls shape
+
+kwargs.get("dividerCheekRaise", "CheekRaise") #arg;
+kwargs.get("doCheekRaise", False) #arg; comment = when dealing with joint based facial deformation, and using this module as a lips setup, it is sometimes desired to incorporate another control that represents the cheek to achive a more lively deformation. Use this feature to do just that. Plug in the rootGuide of the cheeck control you wish to drive, then control the raise and push values based on your preferences or requirements
+kwargs.get("l_CheekRaiseRoot", "") #arg; comment = Left side cheeck Root Guide
+kwargs.get("r_CheekRaiseRoot", "") #arg; comment = Right side cheeck Root Guide
+kwargs.get("raiseValue", 0.5) #arg; comment = Raise default value
+kwargs.get("connectRaiseToAxis", "y") #arg; optionBox = x,y,z,-x,-y,-z; comment = Raise channel connection axis
+kwargs.get("pushValue", 0.5) #arg; comment = Push-Out default value
+kwargs.get("connectPushToAxis", "z") #arg; optionBox = x,y,z,-x,-y,-z; comment = Raise channel connection axis

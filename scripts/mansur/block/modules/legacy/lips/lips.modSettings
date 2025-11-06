@@ -1,0 +1,49 @@
+"""Author: Asaf Ben-Zur
+Best used for: Lips
+This module was designed around lips behaviour.
+This module has a few layers that will allow general as well as extremely fiddle control (based on parameters) over the lips deformation.
+Some of the main features in this module include: Macro corner controls, Along Surface feature, Around Center Feature, Jaw connections, Global "Full-Lips" control, Zip Controls, Curve meet controls, Tweak controls, Cheek Raise connection,  and much more.
+The joint structure of this module will be dictated by input vertices on a given mesh.
+"""
+
+kwargs.get("isFacial", True) #arg; 
+kwargs.get("postSymmetryJntStruct", True) #arg; 
+kwargs.get("alongSurface", "") #arg; disabled = True;
+
+#guideSettingsUI
+kwargs.get("dividerGlob", "Global Settings") #arg; simpleDivider = True;
+kwargs.get("upperEdgeVerts", []) #arg; jntStructMember = True; meshComponents = True; comment = These verticies will be used to build the joint structure for the upper section. Please select a sequence of vertices along the same loop, starting from the inner corner. First and last vertices should match between the upper and lower section, representing a single closed loop. Corner vertices will be present twice- once on the upper section, once on the lower section
+kwargs.get("lowerEdgeVerts", []) #arg; jntStructMember = True; meshComponents = True; comment = These verticies will be used to build the joint structure for the lower section. Please select a sequence of vertices along the same loop, starting from the inner corner. First and last vertices should match between the upper and lower section, representing a single closed loop. Corner vertices will be present twice- once on the lower section, once on the lower section
+kwargs.get("upCurveOffset", 1.0) #arg; jntStructMember = True;
+kwargs.get("reverseCorners", False) #arg; comment = Offset value for the up curve generation
+kwargs.get("aroundCenter", False) #arg; comment = Around center will normalize the result vectors around a given center matrix (module root in this case). This will provide a better range of motion, tranlating the joints around a sphere (assumed from the center matrix). This can be changed and animated post-construction
+kwargs.get("curveResolution", 24) #arg; min = 12; jntStructMember = True; comment = Resample curve amount 
+kwargs.get("midCurveHeight", 0.5) #arg; min = 0.0; max = 1.0; comment = This dictates the height of the Mid-Meet point between the upper and lower sections
+
+kwargs.get("jawRootGuide", "") #arg; comment = In case this module is used for lips (main use), input the Jaw control root guide. This will implement the Jaw control within the setup and will result in a better behaving setup
+
+kwargs.get("dividerAlongSurface", "AlongSurface") #arg;
+kwargs.get("doAlongSurface", False) #arg; comment = In case it is desired, an internal surface(Nurbs)-follow mechanism is built in this module. In some cases, it is desired to model a pre-existing NurbsSurface that describes the range or limits of the joints related to this module. If a valid input is insrted, the setup will be created automatically. Remember that the follow controls will be pinned to the given surface, so remember to skin the surface to parent module which will follow the world position of the guide surface. Freezing transformation on the given setup is essential for this feature to behave as expected
+kwargs.get("inputSurface", "") #arg; comment = Input surface (Nurbs) to follow
+kwargs.get("baseSurfaceJointFollow", "") #arg; comment = It is recommended to use this attribute in conjunction with the alongSurface module. The alongSurface feature is stabler when a baseSurface is present. In order to create that base surface automatically, Block needs a joint to flood a skin to, in order to follow the world space position of the character. For example, if your input surface is skinned to the head joint and the jaw joint, the recommended input in this attribute will be the head joint. When this attribute is empty or invalid a base surface will not be created.
+
+kwargs.get("dividerCheekRaise", "CheekRaise") #arg;
+kwargs.get("doCheekRaise", False) #arg; comment = when dealing with joint based facial deformation, and using this module as a lips setup, it is sometimes desired to incorporate another control that represents the cheek to achive a more lively deformation. Use this feature to do just that. Plug in the rootGuide of the cheeck control you wish to drive, then control the raise and push values based on your preferences or requirements
+kwargs.get("l_CheekRaiseRoot", "") #arg; comment = Left side cheeck Root Guide
+kwargs.get("r_CheekRaiseRoot", "") #arg; comment = Right side cheeck Root Guide
+kwargs.get("raiseValue", 0.5) #arg; comment = Raise default value
+kwargs.get("connectRaiseToAxis", "y") #arg; optionBox = x,y,z,-x,-y,-z; comment = Raise channel connection axis
+kwargs.get("pushValue", 0.5) #arg; comment = Push-Out default value
+kwargs.get("connectPushToAxis", "z") #arg; optionBox = x,y,z,-x,-y,-z; comment = Raise channel connection axis
+
+kwargs.get("dividerTweakCtrls", "TweakControls") #arg;
+kwargs.get("doTweakControls", True) #arg; comment = First layer tweakers
+kwargs.get("numTweakControlsPerSection", 5) #arg; min = 3; comment = Number of tweak controls per section
+kwargs.get("cornersControlShape", "diamond") #arg; comment = Tweak coreners control shape
+kwargs.get("tweakersControlShape", "lightSphere") #arg; comment = Tweak controls shape
+kwargs.get("tweakCurvesInterpolation", 4) #arg; optionBox = EPs, CVs, Hermite, TangentedCVs, Bezier; comment = First layer tweaks curve interpolation type
+
+kwargs.get("dividerLayerBCtrls", "LayerBCtrls") #arg;
+kwargs.get("doLayerBCtrls", False) #arg; comment = Second layer tweakers
+kwargs.get("numLayerBCtrlsPerSection", 9) #arg; min = 3; comment = Number of tweak controls per section
+kwargs.get("layerBControlShape", "cube") #arg; comment = Second layer tweak controls shape

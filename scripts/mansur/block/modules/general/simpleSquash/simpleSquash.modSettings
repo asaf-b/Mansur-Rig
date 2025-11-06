@@ -1,0 +1,29 @@
+"""Author: Asaf Ben-Zur
+Best used for: Head Squash, Nose, any general squash behaviour
+This module will create a squash behaviour to it's slave joint.
+Any child modules under this module will inherit the squash behaviour.
+The squash behaviour can be set by the module's settings, and can also be adjusted and keyed post construction. 
+"""
+
+
+#guideSettingsUI
+kwargs.get("dividerGlob", "Global Settings") #arg; simpleDivider = True;
+kwargs.get("controlShape", "arrow" ) #arg; comment = Main control shape
+kwargs.get("upLocalDirection", 0) #arg; optionBox = X, Y, Z, -X, -Y, -Z; comment = Use this setting to choose which up-axis should the module use on calculation. This is based on the orientation of your guide. Choose the correct complimentary axis based on set aim guide
+
+kwargs.get("dividerSquash", "Squash") #arg; simpleDivider = True;
+kwargs.get("squashFactor", 0.5) #arg; min = 0.001; comment = Squash Factor default value
+kwargs.get("squashMin", 0.8) #arg; min = 0.001; max = 1.0; comment = Squash Minimum scale value
+kwargs.get("squashMax", 1.2) #arg; min = 0.001; comment = Squash Maximum scale value
+
+kwargs.get("dividerStretch", "Stretch") #arg; simpleDivider = True;
+kwargs.get("stretchFactor", 0.5) #arg; min = 0.001; comment = Stretch Factor default value
+kwargs.get("stretchMin", 0.8) #arg; min = 0.001; max = 1.0; comment = Stretch Minimum scale value
+kwargs.get("stretchMax", 1.2)#arg; min = 0.001; comment = Stretch Maximum scale value
+
+kwargs.get("dividerCC", "ChanControl") #arg; simpleDivider = True;
+kwargs.get("channelControl", {"t": (True, True, True), "r": (False, False, False), "s": (False,False,False)} )#arg; lockOffAttributes = True; comment = Squash control channel-box settings
+
+kwargs.get("dividerSlave", "SlaveControl") #arg;
+kwargs.get("slaveControlShape", "lightSphere" ) #arg; comment = Slave control shape
+kwargs.get("slaveChannelControl", {"t": (True, True, True), "r": (True, True, True), "s": (True,True,True)} )#arg; lockOffAttributes = True; comment = Squash slave control channel-box settings

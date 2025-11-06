@@ -1,0 +1,20 @@
+"""Author: Asaf Ben-Zur
+Best used for: chassis
+This module will yield four corner controls, which will be avaraged determine the main control's translation and orientation. 
+The aim of this module is creating an easy to use control for a chassis orientation on a vehicle.
+Using the four corner controls, the main joint will be avaraged to detrmine the best orientation and translation for the module.
+Best used alongside geometry constraints to follow a ground mesh for automatic orientation and translation of vehicles.  
+"""
+
+kwargs.get("matchParentOrient", False) #arg; blockCreationOnly = True;
+kwargs.get("alongAxis", 1) #arg; blockCreationOnly = True; optionBox = X, Y, Z, -X, -Y, -Z; 
+
+#guideSettingsUI
+kwargs.get("dividerGlob", "Global Settings") #arg; simpleDivider = True;
+kwargs.get("forwardAxis", 2) #arg; optionBox = z, y, z, -x, -y, -z; comment = Forward direction of the vehicle. This will determine the up direction for the slave orientation.
+kwargs.get("pivotsControlShape", "diamond" ) #arg; comment = Chasis pivots control shape
+kwargs.get("slaveControlShape", "cube" ) #arg; comment = Main slave control shape
+
+kwargs.get("dividerGroundControls", "groundControls") #arg; simpleDivider = True;
+kwargs.get("doGroundCtrls", False ) #arg; comment = Create ground controls
+kwargs.get("groundControlShape", "arrow" ) #arg; comment = ground controls shape

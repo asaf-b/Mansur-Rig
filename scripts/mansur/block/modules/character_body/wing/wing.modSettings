@@ -1,0 +1,65 @@
+"""Author: Asaf Ben-Zur
+Best used for: Bird Wings
+This module is designed for birds (feathered) wings.
+This is a compound module.
+The main module is based on the limb module, including most of it's features.
+On top of the main limb module, there is a compound FK chain modules extending from each of the main modules main guides, to create a global feathers silhouette control.
+Out of these compounds, a grid of interp-joints is created to control the shape's deformation, using mnsPointOnCuveNode as a driver.
+As a bird wing is incredibly complex, controlling it precisely is incredibly difficult.
+With that in mind, the grid of interp joints is designed to control the overall shape of the feathers as a group, mid-controls to curl them as a group, as well as control each feather row individually.
+Use featherJoints attribute to define the number of feathers along the wings main skeleton.
+Post joint-struct creation, use the custom position adjustment attribute on the root-guide to adjust the position of the joint grid to match your needs.
+This module also contains multiple features to make animation even better:
+Feathers spring, global wave control, individual feather control, bendy limbs, extension-to-look-at for easy wing fold control.
+"""
+
+kwargs.get("doAttributeHostCtrl", True) #arg; blockCreationOnly = True;
+kwargs.get("numOfGuides", 5) #arg; min = 3; max = 7; blockCreationOnly = True; comment = This value will essentially dicate the ampunt of fingers to create. In case you are creating a bat wing setup, keep in mind that the wrist extension counts as a finger, and will always be created. For example, if you have a bat wing with 4 fingers total, use a value of 6- shoulder, elbow, 3 fingers, while using the wrist extention as a forth finger. 
+kwargs.get("matchParentOrient", False) #arg; blockCreationOnly = True;
+kwargs.get("alongAxis", 3) #arg; blockCreationOnly = True; optionBox = X, Y, Z, -X, -Y, -Z; 
+kwargs.get("symmetryType", 1) #arg; blockCreationOnly = True; optionBox = None, mirroredX, mirroredY, mirroredZ, mirroredXY, mirroredXZ, mirroredYZ, mirroredXYZ, noMirrorGrp
+
+#guideSettingsUI
+kwargs.get("dividerGlob", "Global Settings") #arg; simpleDivider = True;
+kwargs.get("interpolationJoints", 5) #arg; min = 3; jntStructMember = True; comment = Increments of (numOfGuides - 1), starting from (numOfGuides). This setting controls the number of driven interpolation joints needed. This interpolation joint chain will behave according to the module's design, and will inherit transformations that are required by this module. Usually the driven interpolation joint-chain is the compenents result behaviour in animation. This value must be higher or equal to numOfGuides
+kwargs.get("asBatWing", False) #arg; comment = Technically this means that the interpolatiom joints created will span from the first guide to the third, exluding anything elese down the chain. When using this module for a bat wing, the wrist and finger extensions are used for the fingers, hence the main chain behaviour should be limited to the shoulder, elbow and wrist.
+kwargs.get("offsetX", 20.0) #arg; jntStructSoftMod = True; comment = Up curve X value offset for the interpolation joints
+kwargs.get("offsetZ", 0.0) #arg; jntStructSoftMod = True; comment = Up curve Z value offset for the interpolation joints
+kwargs.get("FKSymmetryType", 0) #arg; optionBox = None, mirroredX, mirroredY, mirroredZ, mirroredXY, mirroredXZ, mirroredYZ, mirroredXYZ, noMirrorGrp; comment = FK controls symmetry type, in case it needs to differ from the main symmetry type; 
+kwargs.get("scaleMode", 2) #arg; optionBox = absoluteCurveLength, addaptiveCurveLength, segmentLengthDependent; comment = Default scale mode. Please refer to the documentation of mnsPointsOnCurve node to learn more about each mode
+kwargs.get("squashMode", 4) #arg; optionBox = squashStretch, squash, stretch, unifom, none; comment = Default squash mode. Please refer to the documentation of mnsPointsOnCurve node to learn more about each mode
+kwargs.get("ikFkBlendDefault", 1.0) #arg; min = 0.0; max = 1.0; comment = Default value for the main IK-FK blend channel. 0 is IK, 1 is FK.
+kwargs.get("doIndexFingerTweak", False) #arg; comment = if this is set to true, a tweaker setup will be created for the last finger in the chain (the index finger).
+
+#feathers
+kwargs.get("dividerFeathers", "Feathers Settings") #arg; simpleDivider = True;
+kwargs.get("featherJoints", 15) #arg; min = 3; jntStructMember = True; comment = The amount of primary feathers. Ideally, a joint chain will be craeted for each primary feather for the most control in animation. This setting sets the mount of primary feathers, or the amount of feather column chains created
+kwargs.get("featherFKSections", 3) #arg; min = 1; jntStructMember = True; comment = The amount of sections each primary feather joint column will consist of. In case the amount of sections set is 3 for example, a column of 4 joints will be created for the amount of feather joints selected above
+kwargs.get("doFeathersSpring", False) #arg; jntStructMember = True; comment = Choose whether create the automatic feather spring feature or not
+kwargs.get("doFeatherIsolatedCtrls", True) #arg; comment = In case this setting is set to true, the isolated-feather controls feature will be created
+kwargs.get("featherFKControlShape", "cube" ) #arg; comment = Feather FK controls shape
+kwargs.get("featherIsolatedControlShape", "square" ) #arg; comment = Feather isolted controls shape
+kwargs.get("extensionLookAtControlShape", "lightPin" ) #arg; comment = Extensions look-at control shape
+
+#IK
+kwargs.get("dividerIK", "IK") #arg;
+kwargs.get("stretchLimit", 1.0) #arg; min = 1.0; comment = IK Handle stratch limit default value
+kwargs.get("softness", 0.0) #arg; comment = IK handle softness default value
+kwargs.get("iKHandleMatchOrient", "") #arg; comment = Select a guide to match the IK-Handle's orientation. This will override the native orientation as well as all symmetry options
+
+kwargs.get("dividerMainCS", "Main-Ctrl-Shapes") #arg;
+kwargs.get("rootControlShape", "plus" ) #arg; comment = Module root control control shape
+kwargs.get("ikHandleControlShape", "square" ) #arg; comment = IK Handle control shape
+kwargs.get("poleVectorControlShape", "diamond" ) #arg; comment = Pole Vector control shape
+kwargs.get("fkControlShape", "cylinder" ) #arg; comment = FK controls shape
+kwargs.get("tertiariesControlShape", "flatDiamond" ) #arg; comment = Tweak tertiary controls shape
+
+#Tweakers
+kwargs.get("dividerTweakers", "tweakers/bendy-Limbs") #arg;
+kwargs.get("doTweakers", False) #arg; jntStructSoftMod = True; comment = This feature will create a secondary tweak layer below the main control chain. This is commonly known as Bendy-Limbs
+kwargs.get("tweakersSymmetryType", 3) #arg; optionBox = None, mirroredX, mirroredY, mirroredZ, mirroredXY, mirroredXZ, mirroredYZ, mirroredXYZ, noMirrorGrp; comment = Tweak controls symmetry type, in case it needs to differ from the main symmetry type; 
+kwargs.get("tweakersPerSection", 1) #arg; min = 1; max = 1; disabled = True; jntStructSoftMod = True; comment = The amount of bendy controls per section. A value of one will create two controls in total - one for the upper section of the limb, on for the lower section 
+kwargs.get("createExtraAttributes", True) #arg; comment = If this is set to True, some extra tertiary channel-box control attributes will be added to the attribute-host 
+kwargs.get("tweakControlShape", "dialSquare" ) #arg; comment = Tweak controls shape
+kwargs.get("negateOffsetOnSymmetry", False) #arg; comment = If this is set to True, the above offsetX and offsetZ value for the up curve will be negated
+kwargs.get("tweakersChannelControl", {"t": (True, True, True), "r": (True, True, True), "s": (True,True,True)} )#arg; lockOffAttributes = True; comment = Tweak controls channel-box settings

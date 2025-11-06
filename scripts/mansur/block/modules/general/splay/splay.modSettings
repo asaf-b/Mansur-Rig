@@ -1,0 +1,29 @@
+"""Author: Asaf Ben-Zur
+Best used for: fingers, bat wings
+This is a general module used for splaying behaviour for any slave modules.
+This module does not create any joints.
+This module's behaviour is matched to the Meta module's splay behaviour, but can be implemented for any slave module.
+A control will be created, and it's translation and rotation values will be connected to all input slave guides in the module settings, creating a gradual translation/rotation for all slaves- creating the splay behaviour.
+Splay multipliers that can be manipulated will be created as well on the given control.
+This module contains the choice of adding another Splay-Mid control, which will be added to the calculation, creating a gradual behaviour from the middle slave outwards in both directions, instead of the top-to-bottom splay that the main control offers.
+Make sure to load slaves IN-ORDER to achive correct behaviour.
+Valid-Slaves are root-guide and guides only. The slaves will be the direct related controls to these input guides.
+Important: The behaviour is a result of a local channel connection. Since the slaves' orientation is unknowen, you need to make sure that this module's orientation matches the target slaves orientation.
+"""
+
+kwargs.get("symmetryType", 0) #arg; optionBox = None, mirroredX, mirroredY, mirroredZ, mirroredXY, mirroredXZ, mirroredYZ, mirroredXYZ, noMirrorGrp; comment = Choose the mirror type for right side controls
+
+#guideSettingsUI
+kwargs.get("dividerGlob", "Global Settings") #arg; simpleDivider = True;
+kwargs.get("controlShape", "lightPin" ) #arg; comment = Control shape
+kwargs.get("channelControl", {"t": (True, True, True), "r": (True, True, True), "s": (False,False,False)} )#arg; comment = Control channel-box settings; lockOffAttributes = True;
+kwargs.get("createJoint", False ) #arg; jntStructMember = True; comment = Choose whether to create and attach a joint to this control; disabled = True;
+kwargs.get("slaveModules", []) #arg; multiRowList = True; comment = All guides- IN ORDER - that will be locally controlled by this splay control. Only root guides and guides are valid inputs, all other types will be ignored;
+kwargs.get("flipRightX", False)#arg; comment = This will Flip all connections for the local X channel.
+kwargs.get("flipRightY", False)#arg; comment = This will Flip all connections for the local Y channel.
+kwargs.get("flipRightZ", False)#arg; comment = This will Flip all connections for the local Z channel.
+
+kwargs.get("dividerSplayMid", "Splay Mid") #arg; simpleDivider = True;
+kwargs.get("doSplayMid", False ) #arg; jntStructMember = True; comment = Choose whether to create a mid splay control
+kwargs.get("midControlShape", "lightPin") #arg; comment = Splay Mid Control shape
+kwargs.get("midChannelControl", {"t": (True, True, True), "r": (True, True, True), "s": (False,False,False)} )#arg; comment = Control channel-box settings; lockOffAttributes = True;

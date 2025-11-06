@@ -1,0 +1,46 @@
+"""Author: Asaf Ben-Zur
+Best used for: Arms, Legs
+This module was designed to create a generic 3 joint limb control.
+This module will create both the FK and IK controls, and the standard blend control.
+On top of the standard behaviour, based on parameters, this module can also include bendy limb controls (as many as you want), Arc layer and Sleeve layer.
+Note: When used as a leg, try using the foot module as a direct child of this module to automatically achive a connected behaviour.
+"""
+
+kwargs.get("doAttributeHostCtrl", True) #arg; blockCreationOnly = True; comment = Number of guides needed in this module chain
+kwargs.get("numOfGuides", 4) #arg; min = 4; max = 4; blockCreationOnly = True;
+kwargs.get("matchParentOrient", False) #arg; blockCreationOnly = True;
+kwargs.get("alongAxis", 4) #arg; blockCreationOnly = True; optionBox = X, Y, Z, -X, -Y, -Z; 
+kwargs.get("symmetryType", 1) #arg; blockCreationOnly = True; optionBox = None, mirroredX, mirroredY, mirroredZ, mirroredXY, mirroredXZ, mirroredYZ, mirroredXYZ, noMirrorGrp
+
+#guideSettingsUI
+kwargs.get("dividerGlob", "Global Settings") #arg; simpleDivider = True;
+kwargs.get("interpolationJoints", 4) #arg; min = 4; intIncrement = 3; jntStructMember = True; comment = Increments of 3, starting from 4. This setting controls the number of driven interpolation joints needed. This interpolation joint chain will behave according to the module's design, and will inherit transformations that are required by this module. Usually the driven interpolation joint-chain is the compenents result behaviour in animation.
+kwargs.get("offsetX", 20.0) #arg; jntStructSoftMod = True; comment = Up curve X value offset for the interpolation joints
+kwargs.get("offsetZ", 0.0) #arg; jntStructSoftMod = True; comment = Up curve Z value offset for the interpolation joints
+kwargs.get("FKSymmetryType", 0) #arg; optionBox = None, mirroredX, mirroredY, mirroredZ, mirroredXY, mirroredXZ, mirroredYZ, mirroredXYZ, noMirrorGrp; comment = FK controls symmetry type, in case it needs to differ from the main symmetry type; 
+kwargs.get("scaleMode", 2) #arg; optionBox = absoluteCurveLength, addaptiveCurveLength, segmentLengthDependent; comment = Default scale mode. Please refer to the documentation of mnsPointsOnCurve node to learn more about each mode
+kwargs.get("squashMode", 0) #arg; optionBox = squashStretch, squash, stretch, unifom, none; comment = Default squash mode. Please refer to the documentation of mnsPointsOnCurve node to learn more about each mode
+kwargs.get("ikFkBlendDefault", 0) #arg; min = 0; max = 1; comment = Default value for the main IK-FK blend channel. 0 is IK, 1 is FK.
+
+#IK
+kwargs.get("dividerIK", "IK") #arg;
+kwargs.get("stretchLimit", 1.0) #arg; min = 1.0; comment = IK Handle stratch limit default value
+kwargs.get("iKHandleMatchOrient", "") #arg; comment = Select a guide to match the IK-Handle's orientation. This will override the native orientation as well as all symmetry options.
+
+kwargs.get("dividerMainCS", "Main-Ctrl-Shapes") #arg;
+kwargs.get("rootControlShape", "lightSphere" ) #arg; comment = Module root control control shape
+kwargs.get("ikHandleControlShape", "square" ) #arg; comment = IK Handle control shape
+kwargs.get("poleVectorControlShape", "diamond" ) #arg; comment = Pole Vector control shape
+kwargs.get("ankleBendControlShape", "squareRound" ) #arg; comment = IK Ankle Bend control shape
+kwargs.get("fkControlShape", "hexagon" ) #arg; comment = FK controls shape
+kwargs.get("tertiariesControlShape", "flatDiamond" ) #arg; comment = Tweak tertiary controls shape
+
+#Tweakers
+kwargs.get("dividerTweakers", "tweakers/bendy-Limbs") #arg;
+kwargs.get("doTweakers", False) #arg; jntStructSoftMod = True; comment = This feature will create a secondary tweak layer below the main control chain. This is commonly known as Bendy-Limbs
+kwargs.get("tweakersSymmetryType", 3) #arg; optionBox = None, mirroredX, mirroredY, mirroredZ, mirroredXY, mirroredXZ, mirroredYZ, mirroredXYZ, noMirrorGrp; comment = Tweak controls symmetry type, in case it needs to differ from the main symmetry type; 
+kwargs.get("tweakersPerSection", 1) #arg; min = 1; jntStructSoftMod = True; comment = The amount of bendy controls per section. A value of one will create two controls in total - one for the upper section of the limb, on for the lower section 
+kwargs.get("createExtraAttributes", True) #arg; comment = If this is set to True, some extra tertiary channel-box control attributes will be added to the attribute-host 
+kwargs.get("tweakControlShape", "dialSquare" ) #arg; comment = Tweak controls shape
+kwargs.get("negateOffsetOnSymmetry", False) #arg; comment = If this is set to True, the above offsetX and offsetZ value for the up curve will be negated
+kwargs.get("tweakersChannelControl", {"t": (True, True, True), "r": (True, True, True), "s": (True,True,True)} )#arg; lockOffAttributes = True; comment = Tweak controls channel-box settings

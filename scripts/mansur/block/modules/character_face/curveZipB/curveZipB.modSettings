@@ -1,0 +1,53 @@
+"""Author: Asaf Ben-Zur
+Best used for: Eyelids, Eyelashes
+This facial module was created to allow adavnced control over eyelids and eyelashes.
+Based on settings, this module will create a very flexible control over eyelids, and if choosen (Attachment Curves) to eyelashes on top of the eyelids as well.
+The main features of this modules are: Joint positions based on a center matrix (Around the eye), Blink controls, Blink height control, Eyelid tweak controls (dynamic), Zip controls, and much more.
+The joint structure of this module will be dictated by input vertices on a given mesh.
+Note: Please select upper and lower vertices along a single closed loop, selecting each section from inner corener to outer corenr.
+"""
+
+kwargs.get("isFacial", True) #arg;
+
+#guideSettingsUI
+kwargs.get("dividerGlob", "Global Settings") #arg; simpleDivider = True;
+kwargs.get("upperEdgeVerts", []) #arg; jntStructMember = True; meshComponents = True; comment = These verticies will be used to build the joint structure for the upper section. Please select a sequence of vertices along the same loop, starting from the inner corner. First and last vertices should match between the upper and lower section, representing a single closed loop. Corner vertices will be present twice- once on the upper section, once on the lower section
+kwargs.get("lowerEdgeVerts", []) #arg; jntStructMember = True; meshComponents = True; comment = These verticies will be used to build the joint structure for the lower section. Please select a sequence of vertices along the same loop, starting from the inner corner. First and last vertices should match between the upper and lower section, representing a single closed loop. Corner vertices will be present twice- once on the upper section, once on the lower section
+kwargs.get("upCurveOffset", 1.0) #arg; jntStructMember = True; comment = Offset value for the up curve generation
+kwargs.get("doBindTweak", False) #arg; jntStructMember = True; comment = This is used to create editable curves at guides state, in order to change the bind position for eyelids. This was designed mainly for a closed eye scenario. If you need to tweak the bind position of your mesh pre-construction, check this attribute on. Pre-Construction, skin your mesh then save a bind pose for this module. Then, tweak the curves to their desired construction pose, and save it T pose for this module. You can move between the bind and t shapes by loading bind or t pose ofr this module.
+kwargs.get("aroundCenter", True) #arg; comment = Around center will normalize the result vectors around a given center matrix (module root in this case). This will provide a better range of motion, tranlating the joints around a sphere (assumed from the center matrix). Place your roog guide at the center of the eye (for example) for this to behave as expected
+kwargs.get("curveResolution", 24) #arg; min = 12; jntStructMember = True; comment = Resample curve amount 
+kwargs.get("midCurveMode", 1) #arg; optionBox = oneToOne, regenerate;comment = Mid curve generation mode
+kwargs.get("midCurveResolution", 5) #arg; min = 1; comment = Mid curve generation sampling amount
+kwargs.get("blinkHeight", 0.5) #arg; min = 0.0; max = 1.0; comment = Default value for the Blink height. This dictates the height of the Mid-Meet point between the upper and lower sections
+kwargs.get("postSymmetryJntStruct", True) #arg; comment = In case this setting is set to True, an exception will be triggered to re-build this modules joint structure once the module is symmetrized. Normally this shouldn't be changed by the user.
+
+kwargs.get("dividerEyelidsCtrls", "EyelidsControls") #arg;
+kwargs.get("raiseRange", 0.5) #arg; min = 0.0; comment = This value dictates the upper and lower controls opposite direction movement range.
+kwargs.get("uiCtrlsScale", 0.15) #arg; min = 0.01; comment = Scale multiplier for the remote control style controls for upper and lower lids 
+kwargs.get("uiCtrlsPositionOffset", 1.0) #arg; min = 0.0; comment = Offset value (Pointing away from the root guide) to offset the remote control style controls
+kwargs.get("doZipControls", True) #arg; comment = Create the Zip controls feature
+
+kwargs.get("dividerTweakCtrls", "TweakCcontrols") #arg;
+kwargs.get("doTweakControls", True) #arg; comment = Build the tweak controls feature for this module 
+kwargs.get("numTweakControlsPerSection", 3) #arg; min = 3; comment = The amount of tweak controls per section (lower and upper)
+kwargs.get("cornersControlShape", "diamond") #arg; comment = Tweak corners controls shape
+kwargs.get("tweakersControlShape", "lightSphere") #arg; comment = Tweak controls shape
+kwargs.get("tweakCurvesInterpolation", 1) #arg; optionBox = EPs, CVs, Hermite, TangentedCVs, Bezier; comment = Tweak controls interpolation type
+kwargs.get("flipRightX", False) #arg; comment = In some cases, based on the symmetry type set, this modules right side controls may behave abnormally on some axes. If this is your case, use this setting to un-flip the abnormally bahaving controls back to norm for the X axis
+kwargs.get("flipRightY", False) #arg; comment = In some cases, based on the symmetry type set, this modules right side controls may behave abnormally on some axes. If this is your case, use this setting to un-flip the abnormally bahaving controls back to norm for the Y axis
+kwargs.get("flipRightZ", False) #arg; comment = In some cases, based on the symmetry type set, this modules right side controls may behave abnormally on some axes. If this is your case, use this setting to un-flip the abnormally bahaving controls back to norm for the Z axis
+
+kwargs.get("dividerFollow", "FollowRotation") #arg;
+kwargs.get("doFollowRotation", False) #arg; comment = This feture is mainly used for eye configurations. Follow rotation will create a new layer of orientation control, allowing the animator th choose the amount follow desired based on the given eye module input. This is commonly known as Fleshy-Eye
+kwargs.get("jntToFollow", "") #arg; comment = The joint orientation to follow
+kwargs.get("horizontalFollow", 0.05) #arg; comment = Horizontal follow default value
+kwargs.get("verticalFollow", 0.1) #arg; comment = Vertical follow default value
+
+kwargs.get("dividerUpperAttachmentCrvs", "UpperAttachmentCrv") #arg;
+kwargs.get("doUpperAttachment", False) #arg; jntStructMember = True; comment = This feature is mainly used to create another layer of controls for eyelashes. Since eyelashes should always follow the eyelids outline shape, common tendency is to simply skin them to the eyelid joints. Although in some cases, eyelashes control is required or desired. This feature will create a slave curve based controls layer that will allow for eyelash control, on top of the master eyelid solve that drives the main animation
+kwargs.get("upperJntCount", 2) #arg; jntStructMember = True; min = 2; comment = The amount of upper-attachment joints to create
+
+kwargs.get("dividerLowerAttachmentCrvs", "LowerAttachmentCrv") #arg;
+kwargs.get("doLowerAttachment", False) #arg; jntStructMember = True;comment = This feature is mainly used to create another layer of controls for eyelashes. Since eyelashes should always follow the eyelids outline shape, common tendency is to simply skin them to the eyelid joints. Although in some cases, eyelashes control is required or desired. This feature will create a slave curve based controls layer that will allow for eyelash control, on top of the master eyelid solve that drives the main animation
+kwargs.get("lowerJntCount", 2) #arg; jntStructMember = True; min = 2; comment = The amount of lower-attachment joints to create

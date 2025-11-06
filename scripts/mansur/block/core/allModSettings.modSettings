@@ -1,0 +1,39 @@
+kwargs.get("numOfGuides", 1) #arg; min = 1; max = 1; blockCreationOnly = True; comment = The amount of guides you want to create
+
+kwargs.get("dividerMName", "Module-Name") #arg; simpleDivider = True; 
+kwargs.get("body", "") #arg; comment = Main module name
+kwargs.get("blkSide", "center") #arg; comment = Module side
+kwargs.get("alpha", "A") #arg; comment = Module's Alpha id
+
+kwargs.get("dividerCreation", "Creation-Attributes") #arg; simpleDivider = True; blockCreationOnly = True;
+kwargs.get("matchParentOrient", True) #arg; blockCreationOnly = True; comment = If True, the newly created guide root will orient the same way as it's parent guide. In case you want to choose a worl axis to orient the new module, set this attribute to False
+kwargs.get("alongAxis", 1) #arg; optionBox = X, Y, Z, -X, -Y, -Z; blockCreationOnly = True; comment = Select a world axis to align the new guides with. Applies only if matchParentOrient is set to False
+
+kwargs.get("dividerTAttrs", "Type-Attributes") #arg; simpleDivider = True;
+kwargs.get("isFacial", False) #arg; comment = Choose whether this module is marked as a facial module. This attribute is going to be used by the Picker and ModuleVisUI tools to seperate controls/modules in a Body group and a Facial group.
+kwargs.get("symmetryType", 3) #arg; optionBox = None, mirroredX, mirroredY, mirroredZ, mirroredXY, mirroredXZ, mirroredYZ, mirroredXYZ, noMirrorGrp; comment = Choose the mirror type for right side controls
+kwargs.get("controlsMultiplier", 2.0) #arg;  min = 0.01; comment = Scale multiplier for this module's controls
+kwargs.get("alongSurface", "") #arg; comment = Input surface to attach all joints within this module to the selected surface when constructing the rig. NurbsSurface is recommended
+kwargs.get("doGimbleCtrls", False) #arg; comment = Not implemented currently
+kwargs.get("doPivotCtrls", False) #arg; comment = Not implemented currently
+kwargs.get("postSymmetryJntStruct", False) #arg; comment = If this attribute is set to true, a joint structure re-build will be initiated after this module is symmetrized
+
+kwargs.get("dividerIJntAttrs", "Interpolation-Joints-Controls") #arg; simpleDivider = True;
+kwargs.get("interpJointsIsolatedCtrls", False) #arg; comment = If this is checked ON, a control for each interpolated-joint within this module will be created.
+kwargs.get("interpJointsIsolatedControlShape", "circle") #arg; comment = The shape created for the isolated interpolation joints controls
+
+kwargs.get("dividerAttrHost", "Attribute-Host") #arg;
+kwargs.get("doAttributeHostCtrl", False) #arg; comment = If this is set to True, a new attribute host control will be created along with this module in the position set by it's guide. Depending on the module, all relevant custom channel box attributes/contrls will be created on it for the sake of order and coherence controling the module
+kwargs.get("attributeHostControlShape", "plus") #arg; comment = The shape created for the attribute host control
+kwargs.get("attrHostSpace", "") #arg; comment = The space of which the attribute host control will be parented to. This cannot be changed post construction.
+
+kwargs.get("dividerSpas", "Space-Attributes") #arg;
+kwargs.get("spaces", []) #arg; comment = Drag and drop items to reorder. Depending on the module, all relevant space-switch controls will contain these spaces. Valid object types are Guides, Joints, and iterpJoints
+kwargs.get("splitOrientSpace", False) #arg; comment = If this is set to True, all space switch attributes for this module will split into two spaces- Translate and Orient, for the animator to be able to set different space for tranlation and orientation. 
+
+kwargs.get("dividerColor", "Color") #arg;
+kwargs.get("colOverride", False) #arg; comment = Override the main rig's color scheme for this module only
+kwargs.get("schemeOverride", [(0,1,0),(0.15,1,0.15),(0.3,1,0.3), (0.45,1,0.45), (0.6,1,0.6)]) #arg; comment =  Override with these colors
+
+kwargs.get("dividerExtraChannels", "Extra-Channels") #arg;
+kwargs.get("extraChannels", "") #arg; comment = Use this UI to create custom attributes within your modules and automatically connect to an attribute.

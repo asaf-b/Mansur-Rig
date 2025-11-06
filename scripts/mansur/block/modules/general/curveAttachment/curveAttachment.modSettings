@@ -1,0 +1,19 @@
+"""Author: Asaf Ben-Zur
+Best used for: Sliding doors, curtains
+This is a simple module that allows a control attachment to a given curve.
+The attachment can also be created with an offset to current position, as well as some attachment modes and up modes.
+Use this module in case you need to attach a control or joint to a curve
+"""
+
+kwargs.get("symmetryType", 0) #arg; optionBox = None, mirroredX, mirroredY, mirroredZ, mirroredXY, mirroredXZ, mirroredYZ, mirroredXYZ, noMirrorGrp; comment = Choose the mirror type for right side controls
+kwargs.get("numOfGuides", 1) #arg; min = 1; blockCreationOnly = True; 
+
+#guideSettingsUI
+kwargs.get("dividerGlob", "Global Settings") #arg; simpleDivider = True;
+kwargs.get("controlShape", "arrow" ) #arg; comment = Control shape
+kwargs.get("attachmentCurve", "" ) #arg; comment = Curve to attach to.
+kwargs.get("attachmentUpCurve", "" ) #arg; comment = Up curve to use. This curve will be used to determine the up vector of the created ctrl. In case this isn't used, global module orient will be used.
+kwargs.get("objectOrientUpAxis", 0) #arg; optionBox = x, y, z, -x, -y, -z; comment = In case no up curve is used, this global module rotation axis will be used;
+kwargs.get("attachmentMode",  0) #arg; optionBox = parametric, uniform, fixedLength; comment = Curve sampling mode. Please refer to the documentation of mnsPointsOnCurve node to learn more about curve each mode
+kwargs.get("maintainOffset", True) #arg; comment = Whether to maintain control to curve offset of construction. In case this is True, the guide position will be maintained. In case this is False, the ctrl will be created at U0 position of the input attachment curve.
+kwargs.get("channelControl", {"t": (True, True, True), "r": (True, True, True), "s": (True,True,True)} )#arg; comment = Control channel-box settings

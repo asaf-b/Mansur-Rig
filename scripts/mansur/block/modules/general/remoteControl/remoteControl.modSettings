@@ -1,0 +1,57 @@
+"""Author: Asaf Ben-Zur
+Best used for: Blend Shape Targets, Facial-Remotes, General Extra-Setups
+This moudle, upon construction, will create a remote-control style control.
+It will create a frame, with a control within, limited to that frame.
+The frame range is dictated by the settings below.
+Use the min-max values for both vertical and horizontal directions to create the remote that best fitting to your needs.
+You can freely use both vertical and horizontal directions in combination.
+This type of control is often seen when creating a blend-shape-based facial rig, with an adjacent remote control to easily and visually animate the targets instead of using the channel box directly.
+
+Also, you can control the target value range for your control.
+That means that the control and target ranges can differ.
+For example, a blend shape target with values between 0 and 1 is needed to be controlled.
+You can set the control range between 0 and 5, while keeping the target range between 0 and 1, which will result in a slower behaving control for more fidelity.
+
+The target connection is handled post-construction so connecting to constructed objects is also possible.
+Multiple targets can be input into the same target. Simply select multiple targets and input. Alternatively manually input the targets, separated by commas.
+
+Module build assumptions/requisites:
+- targetMin < targetMax
+- rangeMin < rangeMax
+- A target can be shared within a direction minimum and maximum
+- Output ranges between 0.0 and TargetMax given 0.0 and range Max
+- Output ranges between 0.0 and TargetMin given 0.0 and range Min
+- AKA the module assumes 0.0 as a default value for both input range and target range
+"""
+
+kwargs.get("symmetryType", 0) #arg; optionBox = None, mirroredX, mirroredY, mirroredZ, mirroredXY, mirroredXZ, mirroredYZ, mirroredXYZ, noMirrorGrp; comment = Choose the mirror type for right side controls
+kwargs.get("doAttributeHostCtrl", False) #arg; disabled = True;
+kwargs.get("attributeHostControlShape", "plus") #arg; disabled = True;
+kwargs.get("attrHostSpace", "") #arg; disabled = True;
+kwargs.get("matchParentOrient", False) #arg; blockCreationOnly = True;
+
+#guideSettingsUI
+kwargs.get("dividerGlob", "Global Settings") #arg; simpleDivider = True;
+kwargs.get("controlScale", 1.0) #arg; comment = Size of the remote created
+kwargs.get("textScale", 1.0) #arg; comment = Size of the text label, relative to the control scale
+kwargs.get("upTraget", "") #arg; comment = Attribute. Select the target attribute in the main channel-box, then click the input arrow to the right of the field box to insert it
+kwargs.get("downTraget", "") #arg; comment = Attribute. Select the target attribute in the main channel-box, then click the input arrow to the right of the field box to insert it
+kwargs.get("leftTraget", "") #arg; comment = Attribute. Select the target attribute in the main channel-box, then click the input arrow to the right of the field box to insert it
+kwargs.get("rightTraget", "") #arg; comment = Attribute. Select the target attribute in the main channel-box, then click the input arrow to the right of the field box to insert it
+
+kwargs.get("dividerRange", "Remote Range") #arg; simpleDivider = True;
+kwargs.get("verticalMinimum", 0.0) #arg; comment = Vertical range minimum
+kwargs.get("verticalMaximum", 1.0) #arg; comment = Vertical range maximum
+kwargs.get("verticalDefault", 0.0) #arg; comment = Vertical range default
+kwargs.get("horizontalMinimum", 0.0) #arg; comment = Horizontal range minimum
+kwargs.get("horizontalMaximum", 0.0) #arg; comment = Horizontal range maximum
+kwargs.get("horizontalDefault", 0.0) #arg; comment = Horizontal range default
+
+kwargs.get("dividerTraget", "Remote Traget Values") #arg; simpleDivider = True;
+kwargs.get("verticalTargetMinimum", 0.0) #arg; comment = Vertical target minimum
+kwargs.get("verticalTargetMaximum", 1.0) #arg; comment = Vertical target maximum
+kwargs.get("horizontalTargetMinimum", 0.0) #arg; comment = Horizontal target minimum
+kwargs.get("horizontalTargetMaximumm", 1.0) #arg; comment = Horizontal target maximum
+
+
+

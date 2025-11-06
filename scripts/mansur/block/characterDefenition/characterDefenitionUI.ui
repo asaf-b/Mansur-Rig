@@ -1,0 +1,835 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>mWindow</class>
+ <widget class="QMainWindow" name="mWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>704</width>
+    <height>733</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MANSUR - Character Defenition</string>
+  </property>
+  <property name="locale">
+   <locale language="English" country="UnitedStates"/>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout_11">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_7">
+        <item>
+         <spacer name="horizontalSpacer_8">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="iconLbl">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_7">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>5</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="Line" name="line_2">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_6">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>5</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="label">
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+            <italic>true</italic>
+           </font>
+          </property>
+          <property name="text">
+           <string>Character Defenition</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_9">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="groupBox_7">
+        <property name="title">
+         <string>Import Preset</string>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_16">
+         <item row="0" column="1">
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Preset</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QComboBox" name="charDefPresets_cb">
+           <property name="styleSheet">
+            <string notr="true">QPushButton{
+background-color:#535252;
+border-style: solid;
+border-color: black;
+border-width: 1px;
+border-radius: 5px;}
+QPushButton:hover{background-color:#707070;}
+QPushButton:pressed{background-color:#1d1d1d;}</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="3">
+          <widget class="QLabel" name="label_3">
+           <property name="text">
+            <string>Target </string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="3">
+          <widget class="QComboBox" name="targetSkel_cb">
+           <property name="styleSheet">
+            <string notr="true">QPushButton{
+background-color:#535252;
+border-style: solid;
+border-color: black;
+border-width: 1px;
+border-radius: 5px;}
+QPushButton:hover{background-color:#707070;}
+QPushButton:pressed{background-color:#1d1d1d;}</string>
+           </property>
+           <item>
+            <property name="text">
+             <string>Block Skeleton</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Target Skeleton</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>HIK Slot</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item row="1" column="4">
+          <widget class="QPushButton" name="importPreset_btn">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>22</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton{
+background-color:#535252;
+border-style: solid;
+border-color: black;
+border-width: 1px;
+border-radius: 5px;}
+QPushButton:hover{background-color:#707070;}
+QPushButton:pressed{background-color:#1d1d1d;}</string>
+           </property>
+           <property name="text">
+            <string>Import</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="7">
+          <widget class="QPushButton" name="exportPreset_btn">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>22</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton{
+background-color:#535252;
+border-style: solid;
+border-color: black;
+border-width: 1px;
+border-radius: 5px;}
+QPushButton:hover{background-color:#707070;}
+QPushButton:pressed{background-color:#1d1d1d;}</string>
+           </property>
+           <property name="text">
+            <string>Export</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="5">
+          <widget class="QPushButton" name="importFromFile_btn">
+           <property name="minimumSize">
+            <size>
+             <width>22</width>
+             <height>22</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>22</width>
+             <height>22</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton{
+background-color:#535252;
+border-style: solid;
+border-color: black;
+border-width: 1px;
+border-radius: 5px;}
+QPushButton:hover{background-color:#707070;}
+QPushButton:pressed{background-color:#1d1d1d;}</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="6">
+          <widget class="Line" name="line_7">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="Line" name="line">
+        <property name="styleSheet">
+         <string notr="true">border: 1px ; 
+padding: 0px 0px 0px 0px;
+border-style: solid;
+border-color: #292929;
+border-radius: 4px;</string>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_5">
+        <item>
+         <widget class="QLabel" name="filterIcon_lbl">
+          <property name="minimumSize">
+           <size>
+            <width>23</width>
+            <height>23</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>23</width>
+            <height>23</height>
+           </size>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_6">
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Filter</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="search_le">
+          <property name="minimumSize">
+           <size>
+            <width>200</width>
+            <height>0</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="searchClear_btn">
+          <property name="minimumSize">
+           <size>
+            <width>50</width>
+            <height>22</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton{
+background-color:#535252;
+border-style: solid;
+border-color: black;
+border-width: 1px;
+border-radius: 5px;}
+QPushButton:hover{background-color:#707070;}
+QPushButton:pressed{background-color:#1d1d1d;}</string>
+          </property>
+          <property name="text">
+           <string>Clear</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Expanding</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="updateSelection_cbx">
+          <property name="text">
+           <string>Update Selection</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Expanding</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="resetView_btn">
+          <property name="minimumSize">
+           <size>
+            <width>80</width>
+            <height>23</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton{
+background-color:#643252;
+border-style: solid;
+border-color: black;
+border-width: 1px;
+border-radius: 5px;}
+QPushButton:hover{background-color:#ab537f;}
+QPushButton:pressed{background-color:#5b2e4b;}</string>
+          </property>
+          <property name="text">
+           <string>Reset UI</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>23</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="Line" name="line_6">
+        <property name="styleSheet">
+         <string notr="true">border: 1px ; 
+padding: 0px 0px 0px 0px;
+border-style: solid;
+border-color: #292929;
+border-radius: 4px;</string>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QGridLayout" name="gridLayout">
+        <property name="sizeConstraint">
+         <enum>QLayout::SetDefaultConstraint</enum>
+        </property>
+        <item row="2" column="2">
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QLineEdit" name="blockNameSpace_le"/>
+          </item>
+          <item>
+           <widget class="QPushButton" name="loadSelectedBlockNS_btn">
+            <property name="minimumSize">
+             <size>
+              <width>22</width>
+              <height>22</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>22</width>
+              <height>22</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton{
+background-color:#535252;
+border-style: solid;
+border-color: black;
+border-width: 1px;
+border-radius: 5px;}
+QPushButton:hover{background-color:#707070;}
+QPushButton:pressed{background-color:#1d1d1d;}</string>
+            </property>
+            <property name="text">
+             <string>&lt;</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="Line" name="line_5">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="1" column="1" colspan="4">
+         <widget class="Line" name="line_4">
+          <property name="styleSheet">
+           <string notr="true">border: 1px ; 
+padding: 0px 0px 0px 0px;
+border-style: solid;
+border-color: #292929;
+border-radius: 4px;</string>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="3">
+         <widget class="QLabel" name="label_5">
+          <property name="text">
+           <string>Traget Name-Space:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1" colspan="4">
+         <widget class="Line" name="line_3">
+          <property name="styleSheet">
+           <string notr="true">border: 1px ; 
+padding: 0px 0px 0px 0px;
+border-style: solid;
+border-color: #292929;
+border-radius: 4px;</string>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLabel" name="label_4">
+          <property name="text">
+           <string>Block Name-Space:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="4">
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <item>
+           <widget class="QLineEdit" name="targetNameSpace_le"/>
+          </item>
+          <item>
+           <widget class="QPushButton" name="loadSelectedTargetNS_btn">
+            <property name="minimumSize">
+             <size>
+              <width>22</width>
+              <height>22</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>22</width>
+              <height>22</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton{
+background-color:#535252;
+border-style: solid;
+border-color: black;
+border-width: 1px;
+border-radius: 5px;}
+QPushButton:hover{background-color:#707070;}
+QPushButton:pressed{background-color:#1d1d1d;}</string>
+            </property>
+            <property name="text">
+             <string>&lt;</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="0" column="1" colspan="4">
+         <widget class="QTreeWidget" name="charDef_trv">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="editTriggers">
+           <set>QAbstractItemView::DoubleClicked</set>
+          </property>
+          <property name="alternatingRowColors">
+           <bool>true</bool>
+          </property>
+          <property name="indentation">
+           <number>0</number>
+          </property>
+          <property name="sortingEnabled">
+           <bool>true</bool>
+          </property>
+          <column>
+           <property name="text">
+            <string>Component</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Block Skeleton</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Target Skeleton</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Human IK Slot</string>
+           </property>
+          </column>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="groupBox">
+      <property name="title">
+       <string>Match Targets</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="1" column="0">
+        <widget class="QPushButton" name="connectTargetSkel_btn">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>23</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton{
+background-color:#643252;
+border-style: solid;
+border-color: black;
+border-width: 1px;
+border-radius: 5px;}
+QPushButton:hover{background-color:#ab537f;}
+QPushButton:pressed{background-color:#5b2e4b;}</string>
+         </property>
+         <property name="text">
+          <string>Connect Target Skeleton</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QPushButton" name="matchGuidesToTarget_btn">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>23</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton{
+background-color:#643252;
+border-style: solid;
+border-color: black;
+border-width: 1px;
+border-radius: 5px;}
+QPushButton:hover{background-color:#ab537f;}
+QPushButton:pressed{background-color:#5b2e4b;}</string>
+         </property>
+         <property name="text">
+          <string>Match Block Guides To Target</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QPushButton" name="disconnectTargetSkel_btn">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>23</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton{
+background-color:#643252;
+border-style: solid;
+border-color: black;
+border-width: 1px;
+border-radius: 5px;}
+QPushButton:hover{background-color:#ab537f;}
+QPushButton:pressed{background-color:#5b2e4b;}</string>
+         </property>
+         <property name="text">
+          <string>Disonnect Target Skeleton</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="groupBox_2">
+      <property name="title">
+       <string>Human IK</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="0" column="4">
+        <widget class="QLabel" name="label_7">
+         <property name="text">
+          <string>Character Name</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="4">
+        <widget class="QLineEdit" name="charName_le">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="placeholderText">
+          <string>Human IK Character Name</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QPushButton" name="humanIKCharacterize_btn">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>22</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton{
+background-color:#643252;
+border-style: solid;
+border-color: black;
+border-width: 1px;
+border-radius: 5px;}
+QPushButton:hover{background-color:#ab537f;}
+QPushButton:pressed{background-color:#5b2e4b;}</string>
+         </property>
+         <property name="text">
+          <string>Characterize</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QComboBox" name="characterizeMode_cb">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton{
+background-color:#535252;
+border-style: solid;
+border-color: black;
+border-width: 1px;
+border-radius: 5px;}
+QPushButton:hover{background-color:#707070;}
+QPushButton:pressed{background-color:#1d1d1d;}</string>
+         </property>
+         <item>
+          <property name="text">
+           <string>Block Offset Skeleton (if exists)</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Target Skeleton</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QPushButton" name="humanIKUI_btn">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>23</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton{
+background-color:#643252;
+border-style: solid;
+border-color: black;
+border-width: 1px;
+border-radius: 5px;}
+QPushButton:hover{background-color:#ab537f;}
+QPushButton:pressed{background-color:#5b2e4b;}</string>
+         </property>
+         <property name="text">
+          <string>Human IK UI</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3" rowspan="2">
+        <widget class="Line" name="line_8">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>704</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionImport_prefrences">
+   <property name="text">
+    <string>import prefrences</string>
+   </property>
+  </action>
+  <action name="actionExpoer_prefrences">
+   <property name="text">
+    <string>expoer prefrences</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

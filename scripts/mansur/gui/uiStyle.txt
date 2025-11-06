@@ -1,0 +1,513 @@
+/* ****** Main Window ******** */
+QMainWindow,QWidget#centralwidget
+{
+    background-color: qradialgradient(cx:1.0, cy:0.0, radius:0.43, fx:1.4, fy:0.0, stop:0 $UIBackground-start$, stop:1 $UIBackground-end$);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+
+/* ********* global ************ */
+
+QWidget{
+    background:transparent;
+    outline: none; 
+    border: 0px ; 
+
+    /*
+    font-family:Poppins;
+    font-size:12px;
+    */
+}
+
+QStatusBar
+{
+    background-color: $status-bar$;
+    min-height: 11px;
+}
+
+QWidget[accessibleName="HLine"]
+{
+    background: $line$;
+    max-height: 2px;
+}
+
+QWidget[accessibleName="VLine"]
+{
+    background: $line$;
+    max-Width: 2px;
+}
+
+/* ****** Title Bar ******** */
+QWidget[accessibleName="TitleBar"]
+{
+    background-color:$title-bar$;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    font-size:13px;
+}
+
+QWidget[accessibleName="TitleBar"]::hover
+{
+    background-color:$title-bar-hover$;
+}
+
+QLabel[accessibleName="TitleBar"]
+{
+    background: transparent;
+    font-weight: bold;
+    padding-top:4px;
+}
+
+QLabel[accessibleName="header"]
+{
+    font-size:16px;
+}
+
+QHeaderView::section {
+    background-color: $QHeaderView-section$;
+    height: 24px;
+}
+
+QLineEdit[accessibleName="logLbl"]
+{
+    background: $QLabel-log$;
+    color: $QLabel-log-text$;
+}
+
+QPushButton[accessibleName="TitleBar"]
+{
+    background-color: $QPushButton-TitleBar$;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 0px; 
+    padding-top:6px;
+    padding-left:1px;
+}
+
+QPushButton[accessibleName="TitleBar"]::hover
+{
+    background-color: $QPushButton-TitleBar-hover$;
+}
+
+QPushButton[accessibleName="TitleBar"]::pressed
+{
+    background-color: $QPushButton-TitleBar-pressed$;
+}
+
+
+/* ****** Tab Buttons ********** */
+QGroupBox[accessibleName="tab"]
+{
+    background-color: $QGroupBox-tab$;
+}
+
+QPushButton
+{
+    border-radius: 3px;
+    border-style: solid;
+    border-color: $QPushButton-border$;
+    border-width: 1px;
+    padding: 3px;
+    max-height: 16px;
+    background-color: $QPushButton$;
+}
+
+QPushButton::hover
+{
+    background-color: $QPushButton-hover$;
+}
+
+QPushButton::pressed
+{
+    background-color: $QPushButton-pressed$;
+}
+
+QPushButton::checked
+{
+    background-color: $QPushButton-checked$;
+}
+
+QPushButton[accessibleName="deleteAction"]
+{
+    border-radius: 3px;
+    border-style: solid;
+    border-color: $QPushButton-deleteAction-border$;
+    border-width: 1px;
+    padding: 3px;
+    max-height: 16px;
+    background-color: $QPushButton-deleteAction$;
+}
+
+QPushButton[accessibleName="deleteAction"]::hover
+{
+    background-color: $QPushButton-deleteAction-hover$;
+}
+
+QPushButton[accessibleName="deleteAction"]::pressed
+{
+    background-color: $QPushButton-deleteAction-pressed$;
+}
+
+
+QPushButton[accessibleName="saveAction"]
+{
+    border-radius: 3px;
+    border-style: solid;
+    border-color: $QPushButton-saveAction-border$;
+    border-width: 1px;
+    padding: 3px;
+    max-height: 16px;
+    background-color: $QPushButton-saveAction$;
+}
+
+QPushButton[accessibleName="saveAction"]::hover
+{
+    background-color: $QPushButton-saveAction-hover$;
+}
+
+QPushButton[accessibleName="saveAction"]::pressed
+{
+    background-color: $QPushButton-saveAction-pressed$;
+}
+
+QPushButton[accessibleName="loadAction"]
+{
+    border-radius: 3px;
+    border-style: solid;
+    border-color: $QPushButton-loadAction-border$;
+    border-width: 1px;
+    padding: 3px;
+    max-height: 16px;
+    background-color: $QPushButton-loadAction$;
+}
+
+QPushButton[accessibleName="loadAction"]::hover
+{
+    background-color: $QPushButton-loadAction-hover$;
+}
+
+QPushButton[accessibleName="loadAction"]::pressed
+{
+    background-color: $QPushButton-loadAction-pressed$;
+}
+
+
+
+
+QPushButton[accessibleName="infoAction"]
+{
+    border-radius: 3px;
+    border-style: solid;
+    border-color: $QPushButton-infoAction-border$;
+    border-width: 1px;
+    padding: 3px;
+    max-height: 16px;
+    background-color: $QPushButton-infoAction$;
+}
+
+QPushButton[accessibleName="infoAction"]::hover
+{
+    background-color: $QPushButton-infoAction-hover$;
+}
+
+QPushButton[accessibleName="infoAction"]::pressed
+{
+    background-color: $QPushButton-infoAction-pressed$;
+}
+
+
+QPushButton[accessibleName="majorAction"]
+{
+    border-radius: 3px;
+    border-style: solid;
+    border-color: $QPushButton-majorAction-border$;
+    border-width: 1px;
+    padding: 3px;
+    max-height: 16px;
+    background-color: $QPushButton-majorAction$;
+}
+
+QPushButton[accessibleName="majorAction"]::hover
+{
+    background-color: $QPushButton-majorAction-hover$;
+}
+
+QPushButton[accessibleName="majorAction"]::pressed
+{
+    background-color: $QPushButton-majorAction-pressed$;
+}
+
+
+QPushButton[accessibleName="minorAction"]
+{
+    border-radius: 3px;
+    border-style: solid;
+    border-color: $QPushButton-minorAction-border$;
+    border-width: 1px;
+    padding: 3px;
+    max-height: 16px;
+    background-color: $QPushButton-minorAction$;
+}
+
+QPushButton[accessibleName="minorAction"]::hover
+{
+    background-color: $QPushButton-minorAction-hover$;
+}
+
+QPushButton[accessibleName="minorAction"]::pressed
+{
+    background-color: $QPushButton-minorAction-pressed$;
+}
+
+QGroupBox {
+    background-color: $QGroupBox$;
+    border-radius: 3px;
+}
+
+QGroupBox[accessibleName="transparent"]
+{
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 0px;
+}
+
+QFrame[accessibleName="dropDownTitle"]
+{
+    background-color: $QFrame-dropDownTitle$;
+    border-radius: 4px;
+}
+
+QTabBar::tab {
+  border: 1px solid $QTabBar-tab-border$; 
+  border-radius: 0px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-width: 0px;
+  margin-left:2px;
+  margin-right:2px;
+  padding-left: 8px;
+  padding-right: 8px;
+} 
+
+QTabBar::tab:selected {
+  background-color: $QTabBar-tab-selected$;
+  font-weight: strong;
+} 
+
+
+QTabWidget::pane {
+    background: transparent;
+    border: 0px solid $QTabWidget-pane-border$;
+    border-top-width: 2px;
+}
+
+
+QRadioButton::indicator {
+    border: 1px solid $QRadioButton-indicator-border$; 
+    width: 7px;
+    height: 7px;
+    border-radius: 4px;
+    background: $QRadioButton-indicator$;
+}
+
+QRadioButton::indicator::unchecked{ 
+    border: 0px solid $QRadioButton-indicator-unchecked-border$; 
+    background: $QRadioButton-indicator-unchecked$;
+    width: 9px; 
+    height: 9px; 
+}
+
+QRadioButton::indicator::unchecked::hover{ 
+    border: 1px solid $QRadioButton-indicator-unchecked-hover-border$; 
+    border-radius: 4px; 
+    background: $QRadioButton-indicator-unchecked-hover$;
+    width: 7px; 
+    height: 7px; 
+}
+
+QSpinBox, QDoubleSpinBox{
+    background: $QSpinBox$;
+    font-family: MS Shell Dlg 2;
+    font-size: 12px;
+    padding: 3px;
+    border: 1px solid $QSpinBox-border$;
+    min-width: 40px;
+}
+
+QDoubleSpinBox::up-button,QSpinBox::up-button {
+    image: url(:moveUVUp.png) 1;
+    border: 1px outset $QSpinBox-button-border$;
+    width: 16px;
+    height: 10px;
+    padding: 0px;
+    background: $QSpinBox-button$;
+}
+
+QDoubleSpinBox::up-button::pressed, QSpinBox::up-button::pressed {
+    border-style: inset;
+}
+
+QDoubleSpinBox::down-button, QSpinBox::down-button {
+    image: url(:moveUVDown.png) 1;
+    border: 1px outset $QSpinBox-button-border$;
+    width: 16px;
+    height: 10px;
+    background: $QSpinBox-button$;
+}
+
+QDoubleSpinBox::down-button::pressed, QSpinBox::down-button::pressed 
+{
+    border-style: inset;
+}
+
+QDoubleSpinBox::indicator, QSpinBox::indicator {
+    border: 0px solid $QSpinBox-indicator-border$; 
+    border-radius: 2px;
+    width: 13px;
+    height: 13px;
+    image: url(:LM_on.png) 1;
+    background: $QSpinBox-indicator$;
+}
+
+QCheckBox::indicator {
+    border: 0px solid $QCheckBox-indicator-border$; 
+    border-radius: 2px;
+    width: 13px;
+    height: 13px;
+    image: url(:LM_on.png) 1;
+    background: $QCheckBox-indicator$;
+}
+
+QCheckBox::indicator::unchecked{ 
+    border: 0px solid $QCheckBox-indicator-unchecked-border$; 
+    background: $QCheckBox-indicator-unchecked$;
+    width: 13px; 
+    height: 13px; 
+    image: url();
+}
+
+QCheckBox::indicator::unchecked::hover{ 
+    border: 1px solid $QCheckBox-indicator-unchecked-hover-border$; 
+    background: $QCheckBox-indicator-unchecked-hover$;
+    width: 11px; 
+    height: 11px; 
+}
+
+QProgressBar {
+    border: 1px solid $QProgressBar-border$;
+    text-align: center;
+    color: white;
+    border-radius: 6px;
+    background: $QProgressBar-bg$;
+    padding: 3px;
+}
+
+QProgressBar::chunk {
+    background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
+    stop: 0 $QProgressBar-chunk-start$,
+    stop: 1 $QProgressBar-chunk-end$
+    );
+    border-radius: 2px;
+}
+
+
+QAbstractItemView{
+    qproperty-alternatingRowColors: true;
+    background: #2a2a2a;
+    alternate-background-color: #393939;
+    border: 1px solid grey;
+    border-radius: 3px;
+}
+
+QComboBox{
+    background: $QComboBox-bg$;
+    max-height: 18px;
+    border: 0px solid $QComboBox-border$;
+    padding: 2px 2px 2px 4px;
+    border-radius: 3px;
+}   
+
+QComboBox[accessibleName="ctrlShapes"]{
+    background: $QComboBox-bg$;
+    max-height: 23px;
+    border: 0px solid $QComboBox-border$;
+    padding: 0px 0px 0px 2px;
+    border-radius: 3px;
+}   
+
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    image: url(:teDownArrow.png) 0.1;
+    width: 10px;
+    border-radius: 2px;
+    padding-right: 5px;
+}
+
+QComboBox::down-arrow {
+    width: 24px;
+    height: 100%;
+    border-left-width: 2px;
+    border-left-color: $QComboBox-seperator$;
+    border-left-style: solid; /* just a single line */
+}
+
+QComboBox QAbstractItemView{
+    qproperty-alternatingRowColors: false;
+    background: $QAbstractItemView$;
+    border: 1px solid $QAbstractItemView-border$;
+    border-radius: 3px;
+    padding: 4px 0px 0px 3px;
+    border-radius: 2px;
+}
+
+QScrollBar {
+    background: $QScrollBar-bg$;
+    border-radius: 3px;
+}
+
+QScrollBar:horizontal {
+    height: 14px;
+}
+
+QScrollBar:vertical {
+    width: 14px;
+}
+
+QScrollBar::handle {
+    background: $QScrollBar-handle$;
+    border-radius: 3px;
+    border: 1px outset $QScrollBar-handle-border$;
+}
+
+QLineEdit {
+    background: $QLineEdit$;
+    border: 1px solid grey;
+    border-radius: 3px;
+}
+
+QHeaderView {
+    border: 0px;
+}
+
+QSlider::groove:horizontal {
+    border: 0px;
+    height: 7px; /* the groove expands to the size of the slider by default. by giving it a height, it has a fixed size */
+    background: $QSlider-groove$;
+    margin: 2px 0;
+}
+
+QSlider::handle:horizontal {
+    background: $QSlider-handle$;
+    border: 1px solid $QSlider-handle-border$;
+    width: 8px;
+    margin: -7px 0; /* handle is placed by default on the contents rect of the groove. Expand outside the groove */
+    border-radius: 3px;
+}
+
+QSlider::groove:horizontal:disabled {
+    background: $QSlider-groove-disabled$;
+}
+
+QSlider::handle:horizontal:disabled {
+    background: $QSlider-handle-disabled$;
+}

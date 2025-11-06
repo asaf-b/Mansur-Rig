@@ -1,0 +1,27 @@
+"""Author: Asaf Ben-Zur
+Best used for: Metacarpal (Fingers), Metatarsal (Toes)
+This module will create a control for every root guide position, as well as a few global splay controls for the collection of controls based on settings.
+The play controls will behave as a global tweaker for the control collection, allowing easier animation.
+In order to implement "splayB" feature, simply parent a FK chain modules under each of the main meta guides.
+This module construction will try to detect a FK module under each guide, and if any exist, will create the second layer splay control for these FK chains.
+"""
+
+#guideSettingsUI
+kwargs.get("numOfGuides", 4) #arg; min = 1; blockCreationOnly = True;
+kwargs.get("matchParentOrient", False) #arg; blockCreationOnly = True;
+
+#global settings
+kwargs.get("dividerGlob", "Global Settings") #arg; simpleDivider = True;
+kwargs.get("tweakersControlShape", "cone" ) #arg; comment = Meta main controls shape
+kwargs.get("tweakerChannelControl", {"t": (True, True, True), "r": (True, True, True), "s": (True,True,True)} )#arg; comment = Meta control channel-box settings
+
+kwargs.get("dividerSplay", "Splay Settings") #arg; simpleDivider = True;
+kwargs.get("doSplayA", True) #arg; comment = Choose if you want to create Splay A control
+kwargs.get("doSplayAMid", True) #arg; comment = Choose if you want to create Splay A Mid control
+kwargs.get("doSplayB", True) #arg; comment = Choose if you want to create Splay B control
+kwargs.get("doSplayBMid", True) #arg; comment = Choose if you want to create Splay B Mid control
+kwargs.get("splayControlShape", "diamond" ) #arg; comment = splay controls shape
+kwargs.get("splayChannelControl", {"t": (True, True, True), "r": (True, True, True), "s": (False,False,False)} )#arg; lockOffAttributes = True; comment = Splay control channel-box settings
+
+kwargs.get("dividerCurls", "CurlSettings") #arg; simpleDivider = True;
+kwargs.get("doCurls", True) #arg; comment = If this setting is set to True, global curl channel-box chnnels will be created on the root guide

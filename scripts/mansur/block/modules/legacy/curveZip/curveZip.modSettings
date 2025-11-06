@@ -1,0 +1,51 @@
+"""Author: Asaf Ben-Zur
+Best used for: 
+This module is deprecated. Please use CurveZipB.
+"""
+
+kwargs.get("isFacial", True) #arg;
+
+#guideSettingsUI
+kwargs.get("dividerGlob", "Global Settings") #arg; simpleDivider = True;
+kwargs.get("upperEdgeVerts", []) #arg; jntStructMember = True; meshComponents = True; comment = This module is depreciated, please use curveZipB
+kwargs.get("lowerEdgeVerts", []) #arg; jntStructMember = True; meshComponents = True; comment = This module is depreciated, please use curveZipB
+kwargs.get("upCurveOffset", 1.0) #arg; jntStructMember = True; comment = This module is depreciated, please use curveZipB
+kwargs.get("reverseCorners", False) #arg; comment = This module is depreciated, please use curveZipB
+kwargs.get("aroundCenter", True) #arg; comment = This module is depreciated, please use curveZipB
+kwargs.get("curveResolution", 24) #arg; min = 12; jntStructMember = True; comment = This module is depreciated, please use curveZipB
+kwargs.get("blinkHeight", 0.5) #arg; min = 0.0; max = 1.0; comment = This module is depreciated, please use curveZipB
+kwargs.get("postSymmetryJntStruct", True) #arg; comment = This module is depreciated, please use curveZipB
+
+kwargs.get("dividerZipControls", "ZipControls") #arg;
+kwargs.get("raiseRange", 0.5) #arg; min = 0.0; comment = This module is depreciated, please use curveZipB
+kwargs.get("uiCtrlsScale", 0.15) #arg; min = 0.01; comment = This module is depreciated, please use curveZipB
+kwargs.get("uiCtrlsPositionOffset", 0.5) #arg; min = 0.0; comment = This module is depreciated, please use curveZipB
+
+kwargs.get("dividerTweakCtrls", "TweakCcontrols") #arg;
+kwargs.get("doTweakControls", True) #arg; comment = This module is depreciated, please use curveZipB
+kwargs.get("numTweakControlsPerSection", 3) #arg; min = 3; comment = This module is depreciated, please use curveZipB
+kwargs.get("cornersControlShape", "diamond") #arg; comment = This module is depreciated, please use curveZipB
+kwargs.get("tweakersControlShape", "lightSphere") #arg; comment = This module is depreciated, please use curveZipB
+kwargs.get("tweakCurvesInterpolation", 1) #arg; optionBox = EPs, CVs, Hermite, TangentedCVs, Bezier; comment = This module is depreciated, please use curveZipB
+kwargs.get("offsetX", 20.0) #arg;  comment = This module is depreciated, please use curveZipB
+kwargs.get("offsetZ", 0.0) #arg;  comment = This module is depreciated, please use curveZipB
+kwargs.get("doTweakTangents", False) #arg; comment = This module is depreciated, please use curveZipB
+kwargs.get("doCornerTangents", False) #arg; comment = This module is depreciated, please use curveZipB
+
+kwargs.get("dividerBlinkTweak", "BlinkTweak") #arg;
+kwargs.get("doBlinkTweak", True) #arg; comment = This module is depreciated, please use curveZipB
+kwargs.get("blinkTweakControlShape", "diamond") #arg; comment = This module is depreciated, please use curveZipB
+
+kwargs.get("dividerFollow", "FollowRotation") #arg;
+kwargs.get("doFollowRotation", False) #arg; comment = This module is depreciated, please use curveZipB
+kwargs.get("jntToFollow", "") #arg; comment = This module is depreciated, please use curveZipB
+kwargs.get("horizontalFollow", 0.05) #arg; comment = This module is depreciated, please use curveZipB
+kwargs.get("verticalFollow", 0.1) #arg; comment = This module is depreciated, please use curveZipB
+
+kwargs.get("dividerUpperAttachmentCrvs", "UpperAttachmentCrv") #arg;
+kwargs.get("doUpperAttachment", False) #arg; jntStructMember = True; comment = This module is depreciated, please use curveZipB
+kwargs.get("upperJntCount", 2) #arg; jntStructMember = True; min = 2; comment = This module is depreciated, please use curveZipB
+
+kwargs.get("dividerLowerAttachmentCrvs", "LowerAttachmentCrv") #arg;
+kwargs.get("doLowerAttachment", False) #arg; jntStructMember = True; comment = This module is depreciated, please use curveZipB
+kwargs.get("lowerJntCount", 2) #arg; jntStructMember = True; min = 2; comment = This module is depreciated, please use curveZipB

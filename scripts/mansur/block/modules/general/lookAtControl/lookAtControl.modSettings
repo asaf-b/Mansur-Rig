@@ -1,0 +1,36 @@
+"""Author: Asaf Ben-Zur
+Best used for: Eyes, Generic Orientation based components
+This module was written to function as an eye IK (look at setup), but can be used for many other generic components.
+This module will create a slave control (at root position) which is aim-constraint to custom look-at guide.
+The slave control will be the control authority for the joint, as the look-at control will control its orientation.
+"""
+
+#guideSettingsUI
+kwargs.get("dividerGlob", "Global Settings") #arg; simpleDivider = True;
+kwargs.get("slaveControlShape", "lightSphere" ) #arg; comment = Origin slave control shape
+kwargs.get("targetControlShape", "circle" ) #arg; comment = Main control shape
+kwargs.get("upLocalDirection", 0) #arg; optionBox = X, Y, Z, -X, -Y, -Z; ; comment = Main control shape
+kwargs.get("channelControl", {"t": (True, True, True), "r": (True, True, True), "s": (True,True,True)} )#arg; comment = Main control channel-box settings
+
+kwargs.get("dividerInterpolatedOrientation", "InterpolatedOrientation") #arg; comment = This feature is used to create a weighten split orientation. When you need to create a weighted orientation for a control between two spaces, use this feature
+kwargs.get("doInterpOrient", False) #arg; comment = This feature is used to create a weighten split orientation. When you need to create a weighted orientation for a control between two spaces, use this feature
+kwargs.get("spaceA", "") #arg; comment = The first space to be interpolated. This can be a guide, joint, or control.
+kwargs.get("spaceB", "") #arg; comment = The second space to be interpolated. This can be a guide, joint, or control.
+kwargs.get("spaceAWeight", 0.5) #arg; min = 0.0; max = 1.0; comment = The deafult weight for the first space. The second space weight will be the complimentary weight adding to 1
+kwargs.get("doAngleBasedScale", False) #arg; comment = create an angle based scale driver, to scale the target slave joint when the angle changes between the two sources. Originally designed for double-chin setup
+kwargs.get("scaleWhenAngle", 0) #arg; optionBox = increases, decreases; comment = This setting controls the trigger mode for action. Icreases- means that the trigger for action will occur when the intorpolated angle increases, and do nothing when it decreases. decreases- means that the trigger for action will occur when the intorpolated angle decreases, and do nothing when it increases
+kwargs.get("maxScale", 2.0) #arg; comment = The actions maximum value clamp value
+kwargs.get("angleMaxRange", 180.0) #arg; comment = The maximum angle clamp that the action should be targeted to
+kwargs.get("connectToTargetAxis", 1) #arg; optionBox = x,y,z; comment = This setting will set the target axis to act on. Please map the axis needed to be scaled based on the orientation of your guide
+
+kwargs.get("dividerSpring", "spring") #arg; comment = This feature will create a spring node blowe the look-at master. This will result in a rotation-based spring, mostly used for vehicle center suspension to achive secondary motion
+kwargs.get("doLookAtSpring", False) #arg; comment = This feature will create a spring node blowe the look-at master. This will result in a rotation-based spring, mostly used for vehicle center suspension to achive secondary motion
+kwargs.get("defaultStiffness", 0.5) #arg; comment = Spring default stiffness value
+kwargs.get("defaultDamping", 0.5) #arg; comment = Spring default damping value
+
+kwargs.get("dividerAsEye", "asEyeLook") #arg;
+kwargs.get("pupilDilateAttribute", "") #arg; comment = Input bland-shape attribute to connect pupil dialation control to 
+kwargs.get("pupilContractAttribute", "") #arg; comment = Input bland-shape attribute to connect pupil contaction control to 
+kwargs.get("irisDilateAttribute", "") #arg; comment = Input bland-shape attribute to connect iris dialation control to 
+kwargs.get("irisContractAttribute", "") #arg; comment = Input bland-shape attribute to connect iris contaction control to 
+kwargs.get("combinedAttributeHost", "") #arg; comment = If this is set to True, a global attribute for the above pupil and iris controls will be created on the specified attribute host. This feature is mainly to combine two different eye shapes controls into one single control, or moving the location of this attribute to a diffent module in case the eye meshs are combined 

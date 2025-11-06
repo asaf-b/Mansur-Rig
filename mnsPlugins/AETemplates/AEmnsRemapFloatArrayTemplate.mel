@@ -1,0 +1,14 @@
+global proc AEmnsRemapFloatArrayTemplate( string $nodeName )
+{
+    editorTemplate -beginScrollLayout;
+ 
+        editorTemplate -beginLayout "Dynamic Attributes" -collapse 0;
+            AEaddRampControl( $nodeName + ".valuesMap" );
+        editorTemplate -endLayout;
+ 	
+ 	editorTemplate -suppress "caching";
+	editorTemplate -suppress "frozen";
+
+    editorTemplate -addExtraControls;
+    editorTemplate -endScrollLayout;
+}

@@ -1,0 +1,21 @@
+"""Author: Asaf Ben-Zur
+Best used for: Wheels
+A simple module to create an auto-drive for wheels.
+This module will calculate the rotation of a wheel based on the input settings, using the module's world position.
+This will yield an auto-drive for wheels.
+The behaviour will not be confined to a single control being moved, but rather to the modules world position.
+This will apply to translation, as well as rotation, in all directions.
+"""
+
+kwargs.get("matchParentOrient", False) #arg; blockCreationOnly = True;
+kwargs.get("alongAxis", 2) #arg; blockCreationOnly = True; optionBox = X, Y, Z, -X, -Y, -Z; 
+
+#guideSettingsUI
+kwargs.get("dividerGlob", "Global Settings") #arg; simpleDivider = True;
+kwargs.get("controlShape", "circle" ) #arg; comment = Control shape
+kwargs.get("channelControl", {"t": (True, True, True), "r": (True, True, True), "s": (True,True,True)} )#arg; comment = Control channel-box settings
+kwargs.get("wheelDiameter", 20.0) #arg; comment = The driven wheel diameter. This is the base of the calculation and needs to be set accurately
+kwargs.get("gearRatio", 1.0) #arg; comment = In case you target is a driven gear, you can set the diameter above to the driver gears diameter, and set the ratio between them for accurate results
+kwargs.get("mapRoatationToAxis", 0) #arg; optionBox = X, Y, Z; comment = Map the rotation axis needs to be acted on. This is based on the orientaton of your guide
+kwargs.get("reverseDirection", False) #arg; comment = In some cases the direction of the drive is flipped. If this is your case, set this setting to True to correct this issue
+kwargs.get("autoDriveDefault", 1.0) #arg; comment = Auto-Drive channel default state

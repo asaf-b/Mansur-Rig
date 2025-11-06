@@ -1,0 +1,17 @@
+global proc AEmnsSpringCurveTemplate( string $nodeName )
+{
+    editorTemplate -beginScrollLayout;
+ 
+        editorTemplate -beginLayout "Dynamic Attributes" -collapse 0;
+            AEaddRampControl( $nodeName + ".stiffness" );
+            AEaddRampControl( $nodeName + ".damping" );
+        editorTemplate -endLayout;
+ 	
+ 	editorTemplate -suppress "caching";
+	editorTemplate -suppress "frozen";
+	editorTemplate -suppress "inputCurve";
+	editorTemplate -suppress "inputOffsetCurve";
+
+    editorTemplate -addExtraControls;
+    editorTemplate -endScrollLayout;
+}

@@ -1,0 +1,64 @@
+"""Author: Asaf Ben-Zur
+Best used for: Arms, Legs
+This module was designed to create a generic 3 joint limb control.
+This module will create both the FK and IK controls, and the standard blend control.
+On top of the standard behaviour, based on parameters, this module can also include bendy limb controls (as many as you want), Arc layer and Sleeve layer.
+Note: When used as a leg, try using the foot module as a direct child of this module to automatically achive a connected behaviour.
+"""
+
+kwargs.get("doAttributeHostCtrl", True) #arg; blockCreationOnly = True;
+kwargs.get("numOfGuides", 3) #arg; min = 3; max = 3; blockCreationOnly = True;
+kwargs.get("matchParentOrient", False) #arg; blockCreationOnly = True;
+kwargs.get("alongAxis", 4) #arg; blockCreationOnly = True; optionBox = X, Y, Z, -X, -Y, -Z; 
+kwargs.get("symmetryType", 1) #arg; blockCreationOnly = True; optionBox = None, mirroredX, mirroredY, mirroredZ, mirroredXY, mirroredXZ, mirroredYZ, mirroredXYZ, noMirrorGrp
+
+#guideSettingsUI
+kwargs.get("dividerGlob", "Global Settings") #arg; simpleDivider = True;
+kwargs.get("interpolationJoints", 3) #arg; min = 3; jntStructMember = True; intIncrement = 2; comment = Increments of 2, starting from 3. This setting controls the number of driven interpolation joints needed. This interpolation joint chain will behave according to the module's design, and will inherit transformations that are required by this module. Usually the driven interpolation joint-chain is the compenents result behaviour in animation
+kwargs.get("offsetX", 20.0) #arg; jntStructSoftMod = True; comment = Up curve X value offset for the interpolation joints
+kwargs.get("offsetZ", 0.0) #arg; jntStructSoftMod = True; comment = Up curve Z value offset for the interpolation joints
+kwargs.get("FKSymmetryType", 0) #arg; optionBox = None, mirroredX, mirroredY, mirroredZ, mirroredXY, mirroredXZ, mirroredYZ, mirroredXYZ, noMirrorGrp; comment = FK controls symmetry type, in case it needs to differ from the main symmetry type; 
+kwargs.get("scaleMode", 2) #arg; optionBox = absoluteCurveLength, addaptiveCurveLength, segmentLengthDependent; comment = Default scale mode. Please refer to the documentation of mnsPointsOnCurve node to learn more about each mode
+kwargs.get("squashMode", 0) #arg; optionBox = squashStretch, squash, stretch, unifom, none; comment = Default squash mode. Please refer to the documentation of mnsPointsOnCurve node to learn more about each mode
+kwargs.get("ikFkBlendDefault", 0) #arg; min = 0; max = 1; comment = Default value for the main IK-FK blend channel. 0 is IK, 1 is FK.
+
+#IK
+kwargs.get("dividerIK", "IK") #arg;
+kwargs.get("stretchLimit", 1.0) #arg; min = 1.0; comment = IK Handle stratch limit default value
+kwargs.get("softness", 0.0) #arg; comment = IK handle softness default value
+kwargs.get("iKHandleMatchOrient", "") #arg; comment = Select a guide to match the IK-Handle's orientation. This will override the native orientation as well as all symmetry options.
+
+kwargs.get("dividerMainCS", "Main-Ctrl-Shapes") #arg;
+kwargs.get("rootControlShape", "lightSphere" ) #arg; comment = Module root control control shape
+kwargs.get("ikHandleControlShape", "square" ) #arg; comment = IK Handle control shape
+kwargs.get("poleVectorControlShape", "diamond" ) #arg; comment = Pole Vector control shape
+kwargs.get("fkControlShape", "hexagon" ) #arg; comment = FK controls shape
+kwargs.get("tertiariesControlShape", "flatDiamond" ) #arg; comment = Tweak tertiary controls shape
+
+#Tweakers
+kwargs.get("dividerTweakers", "tweakers/bendy-Limbs") #arg;
+kwargs.get("doTweakers", False) #arg; jntStructSoftMod = True; comment = This feature will create a secondary tweak layer below the main control chain. This is commonly known as Bendy-Limbs
+kwargs.get("tweakersSymmetryType", 3) #arg; optionBox = None, mirroredX, mirroredY, mirroredZ, mirroredXY, mirroredXZ, mirroredYZ, mirroredXYZ, noMirrorGrp; comment = Tweak controls symmetry type, in case it needs to differ from the main symmetry type; 
+kwargs.get("tweakersPerSection", 1) #arg; min = 1; jntStructSoftMod = True; comment = The amount of bendy controls per section. A value of one will create two controls in total - one for the upper section of the limb, on for the lower section 
+kwargs.get("createExtraAttributes", True) #arg; comment = If this is set to True, some extra tertiary channel-box control attributes will be added to the attribute-host 
+kwargs.get("tweakControlShape", "dialSquare" ) #arg; comment = Tweak controls shape
+kwargs.get("negateOffsetOnSymmetry", False) #arg; comment = If this is set to True, the above offsetX and offsetZ value for the up curve will be negated
+kwargs.get("tweakersChannelControl", {"t": (True, True, True), "r": (True, True, True), "s": (True,True,True)} )#arg; lockOffAttributes = True; comment = Tweak controls channel-box settings
+
+#arc
+kwargs.get("divider", "arc") #arg;
+kwargs.get("doArc", False) #arg; jntStructSoftMod = True; comment = This feature will use mnsThreePointArc node to create an automatic arc layer on the final curve output
+kwargs.get("arcDegree", 3) #arg; comment = Arc's curve degree. Refer to mnsThreePointArc node documentation to learn more about this attribute
+kwargs.get("arcSections", 8) #arg; comment = The amount of samples used to create the arc. Since three samples will create no effect (the result arc needs more points in between to describe the shape), use a higher value to create an effect. The higher the sample amount, the more precise the arc will be
+kwargs.get("resampleCurveSections", 16) #arg; comment = Post creation sample amount
+kwargs.get("collinearAction", 0) #arg; optionBox = inputCurve, resample; comment = this attribute will be used to dictate what to do when the limb is straight (the collinear case). Input curve will match the input curve plugged into this node (recommended), re-sample will create a new curve based on the node's attributes
+kwargs.get("conformToMidPoint", True) #arg; comment = If this is set to True, the node will attempt to pin the middle origin sample in its place, resulting in a much stabler result. If this is set to False, the middle origin sample might shift while animating the arc value (not recommended)
+kwargs.get("addSwipes", True) #arg; comment = Add swipe channel-channel box attributes to the attribute host
+
+#sleeve
+kwargs.get("dividerSleeve", "sleeve") #arg;
+kwargs.get("doSleeve", False) #arg; jntStructMember = True; comment = Do sleeve feature. This feature will create a curbe and controls along the result interpolation joints of this module. This will result in the ability to control a sleeve position along the limb as well as many other features
+kwargs.get("numSleeveJoints", 3) #arg; min = 3; jntStructMember = True; comment = The amount of joints to sample along the sleeve curve
+kwargs.get("sleeveControlShape", "octagon" ) #arg; comment = Sleeve control shape
+kwargs.get("sleeveCurveDegree", 3) #arg; min = 1; max = 5; jntStructSoftMod = True; comment = Sleeve curve degree
+kwargs.get("sleeveBuildMode", 0) #arg; optionBox = EPs, CVs; jntStructSoftMod = True; comment = Sleeve curve generation mode

@@ -1,0 +1,34 @@
+"""Author: Asaf Ben-Zur
+Best used for: Clumps of controls. i.e. the first layer of controls in a clump of 5 hair strands (FK chains).
+This module was developed to allow a local control driver, over clumps of controls.
+For example, a block rig contains 10 hair strands, controled by 10 FK-Shain modules, with 3 controls each.
+In some cases it is easier to pose the hair treting it as a single unit instead of indevidual strands.
+So, a clump-control can be created for each layer of controls (3, 1 for every unit in each chain).
+The control will be created using local channels in order to not break the FK behaviour of the strands.
+In case any other method was used (spaces, module parenting), each indevidual strand FK behaviour would have been broken.
+The clump controls can also be parented under one another to create a layered-FK behaviour.
+This will result in a main clump-fk chain, treating the hair as a single unit, and FK chains below to tread each strand indevidually.
+
+In case you want to mimic a normal parenting behaviour, use the conformPivot attribute, which will conform all local driven controls to the pivot of this master clump control.
+Leaving conformPivot OFF, will simply connect to the local channels of the slave, leaving its pivots intact. This will result in a slightly different behaviour.
+You can also use connectToChannelControl attribute to decide which attributes you want to connect to, and the ones you want to leave out.
+"""
+
+#guideSettingsUI
+kwargs.get("dividerGlob", "Global Settings") #arg; simpleDivider = True;
+kwargs.get("controlShape", "circle" ) #arg; comment = Control shape;
+kwargs.get("clumpSlaves", []) #arg; multiRowList = True; comment = All guides that will be locally controlled by this clump;
+kwargs.get("connectToChannelControl", {"t": (True, True, True), "r": (True, True, True), "s": (True,True,True)} )#arg; comment = This will determine which channels or axes will be connected to the slaves.
+kwargs.get("conformPivot", True) #arg; comment = When ON, the pivot of the target slaves will be conformed to the pivot of this master control. When OFF, the original pivots of the slaves will be preserved.
+kwargs.get("createJoint", False )#arg; jntStructMember = True; comment = Choose whether to create and attach a joint to this control
+kwargs.get("channelControl", {"t": (True, True, True), "r": (True, True, True), "s": (True,True,True)} )#arg; comment = Control channel-box settings
+kwargs.get("dividerFlip", "Flip Settings") #arg; simpleDivider = True;
+kwargs.get("flipRightTX", False)#arg; comment = This will Flip all connections for the local TX channel.
+kwargs.get("flipRightTY", False)#arg; comment = This will Flip all connections for the local TY channel.
+kwargs.get("flipRightTZ", False)#arg; comment = This will Flip all connections for the local TZ channel.
+kwargs.get("flipRightRX", False)#arg; comment = This will Flip all connections for the local RX channel.
+kwargs.get("flipRightRY", False)#arg; comment = This will Flip all connections for the local RY channel.
+kwargs.get("flipRightRZ", False)#arg; comment = This will Flip all connections for the local RZ channel.
+kwargs.get("flipRightSX", False)#arg; comment = This will Flip all connections for the local SX channel.
+kwargs.get("flipRightSY", False)#arg; comment = This will Flip all connections for the local SY channel.
+kwargs.get("flipRightSZ", False)#arg; comment = This will Flip all connections for the local SZ channel.

@@ -1,0 +1,18 @@
+"""Author: Asaf Ben-Zur
+Best used for: Balls, BB-8-Style
+A simple module to drive a sphere roll based on position.
+Upon contruction, based on the given settings, the main joint orientation will be driven by the module's position.
+This module will calculate the roll of the sphere needed to reach the target position, without slipping, in any direction.
+This behaviour is not confined to a single control being moved, but rather calculated based on the module's world-position.
+"""
+
+kwargs.get("matchParentOrient", False) #arg; blockCreationOnly = True;
+kwargs.get("alongAxis", 1) #arg; blockCreationOnly = True; optionBox = X, Y, Z, -X, -Y, -Z; 
+kwargs.get("splitOrientSpace", True) #arg;
+
+#guideSettingsUI
+kwargs.get("dividerGlob", "Global Settings") #arg; simpleDivider = True;
+kwargs.get("controlShape", "lightSphere" ) #arg; comment = Control shape
+kwargs.get("channelControl", {"t": (True, True, True), "r": (True, True, True), "s": (True,True,True)} )#arg; comment = Control channel-box settings
+kwargs.get("sphereRadius", 20.0) #arg; comment = The controled sphere radius. This is the source of the calculation and needs to be set accurately
+kwargs.get("autoRollDefault", 1.0) #arg; comment = Auto-Roll channel default state

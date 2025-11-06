@@ -1,0 +1,40 @@
+{
+  "Account":{
+    "autoLogin": 1
+  },
+  "Global": {
+    "mnsProjectScale": 1.0,
+    "numberSuffixPadding": 2,
+    "logFileSizeLimit": 250,
+    "collapsibleWidgetBehavior": 0,
+    "rootGuideScaleMultiplier": 50,
+    "rootGuideScaleMultiplier": 50,
+    "closeSettingsWindowOnApply": 1,
+    "attempt4KmonitorFix": false,
+    "UIColorScheme": 0
+  },
+  "Picker": {
+    "pickerDefaultWidth": 600,
+    "pickerDefaultHeight": 800,
+
+    "l_PLGText_fontSize": 8,
+    "l_PLGText_color": [1.0, 1.0, 1.0],
+    "l_PLGText_bold": false,
+    "l_PLGText_italic": false,
+    "l_PLGText_underline": false,
+
+    "c_PLGText_fontSize": 8,
+    "c_PLGText_color": [0.0, 0.0, 0.0],
+    "c_PLGText_bold": false,
+    "c_PLGText_italic": false,
+    "c_PLGText_underline": false,
+
+    "r_PLGText_fontSize": 8,
+    "r_PLGText_color": [1.0, 1.0, 1.0],
+    "r_PLGText_bold": false,
+    "r_PLGText_italic": false,
+    "r_PLGText_underline": false,
+
+    "pickerImagesFallbackPath": ""
+  }
+}

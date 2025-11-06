@@ -1,0 +1,14 @@
+"""Author: Asaf Ben-Zur
+Best used for: Hydraulic Piston, Mechanical Springs
+A simple module to create a piston style control.
+Combining aim and translation constraints, this module will create a piston like behaviour, keeping the main orientation of the module towards the aim control, while stretching an inner piston along its axis regadless of the module orientation, keeping the piston within its outer tube.
+"""
+
+kwargs.get("numOfGuides", 2) #arg; min = 2; max = 2; blockCreationOnly = True; 
+
+#guideSettingsUI
+kwargs.get("dividerGlob", "Global Settings") #arg; simpleDivider = True;
+kwargs.get("slaveControlShape", "lightSphere" ) #arg; comment = Origin slave control shape
+kwargs.get("targetControlShape", "circle" ) #arg; comment = Main control shape
+kwargs.get("upLocalDirection", 1 ) #arg; optionBox = X, Y, Z, -X, -Y, -Z; comment = Use this setting to choose which up-axis should the module use on calculation. This is based on the orientation of your guide. Choose the correct complimentary axis based on set aim guide
+kwargs.get("channelControl", {"t": (True, True, True), "r": (True, True, True), "s": (True,True,True)} )#arg; comment = Main control channel-box settings

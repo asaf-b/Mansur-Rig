@@ -1,0 +1,45 @@
+"""Author: Asaf Ben-Zur
+Best used for: Tank-Treads, Bike-Chains, Ferris-Wheel, Tire, Conveyor-Belt
+This is a comprehensive module, to create a link-chain style behaviour.
+Originally created for tank-treads, but can be used for a range of components.
+On creation, based on the number on the numberOfLinks setting, joints will be created on a circle Nurbs curve with shapeSections setting amount.
+After creation, the shape can be tweaked to fit any need. 
+IMPORTANT NOTE: This module requires a joint-struct-rebuild once the Nurbs shape has been tweaked.
+Once the joint-struct is revuilt, the joints will be layed out uniformally along the given shape.
+Upon construction, a main control will be created for controlling the entire position of the module.
+Under, a chain-driver control will be created. Rotating it will drive the joint chain along the curve in both forwards and backwards directions.
+Also, use the shape-tweak layer to create a tweak feature for the shape on construction. This will allow manipulation of the shape dynamically while the chain is driven.
+Automatic drive based on position is also possible wihin this module using the AutoDrive layer.
+"""
+
+kwargs.get("matchParentOrient", False) #arg; blockCreationOnly = True;
+kwargs.get("alongAxis", 2) #arg; blockCreationOnly = True; optionBox = X, Y, Z, -X, -Y, -Z; 
+kwargs.get("splitOrientSpace", True) #arg; comment = If this is set to True, all space switch attributes for this module will split into two spaces- Translate and Orient, for the animator to be able to set different space for tranlation and orientation 
+
+#guideSettingsUI
+kwargs.get("dividerGlob", "Global Settings") #arg; simpleDivider = True;
+kwargs.get("shapeSections", 8) #arg; blockCreationOnly = True; comment = A custom shape guide will dectate the bind shape for the link chain, this attribute will dectate how many section (control points) this curve consists of
+kwargs.get("numberOfLinks", 16) #arg; jntStructMember = True; comment = Amount of links in the chain. A joint will be created for every link
+kwargs.get("reverseOffsetDirection", False) #arg; jntStructSoftMod = True; comment = In case the the rotation post construction is reversed, set this attribute to ON
+kwargs.get("upCurveOffset", 5.0) #arg; jntStructSoftMod = True; comment = The offset value to generate the up curve, based on a center matrix- the modules root joint
+kwargs.get("controlShape", "circle" ) #arg; comment = Control shape
+kwargs.get("slaveControlShape", "dodecagon" ) #arg; comment = Slave control shape
+kwargs.get("wheelDiameter", 20.0) #arg; comment = The diameter of your wheel. This is very important to set correctly as the diameter of the wheel is one of the source attributes for the wheels rotation calculation
+kwargs.get("mapRoatationToAxis", 0) #arg; optionBox = X, Y, Z; comment = Map the rotation action you need to be acted on. This is based on the orientation of your guide
+kwargs.get("rotationMode", 0) #arg; optionBox = lookAtNext, curveTangent; jntStructSoftMod = True; comment = In case your chain links are connected to one another- it is recommended to use lookAtNext. In case there isn't a connection between your links, curveTangent might be a better choice
+kwargs.get("slaveChannelControl", {"t": (False, False, False), "r": (True, True, True), "s": (False,False,False)} )#arg; lockOffAttributes = True; comment = Slave control channel-box settings
+
+kwargs.get("dividerShapeTweak", "ShapeTweak")#arg;
+kwargs.get("doShapeTweakers", False) #arg; comment = If this setting in set to True, the shape-tweak feature will be created. In case you want to tweak the shape of the closed-shaped link chain curve in animation, turn this feature on
+kwargs.get("shapeTweakers", []) #arg; multiRowList = True; comment = Input guides/joints- In order. A closed nurbs-curve shape will be constructed from the inputs and will be used as a tweak to deform the main shape driving the chain. These MUST be Mansur-Rig objects, and a part of the same Block rig.
+kwargs.get("tweakMethod", 1) #arg; optionBox = rebuildThenSkin, mnsBuildTransformsCurve, directSkin; comment = This attribute will determine the shape tweak method. In Direct-Skin mode, the link chain shape will be directly skinned to all input tweakers. In Build-Transforms-Curve mode a new curve will be constructed based on the curve mode selected and input tweakers, which will be used to deform the master shape indirectly. This mode will allow for a better control over the deformation, as it is based on curve re-generation instead of direct curve deformation. Build transforms curve mode will generate a new closed shape curve based on the input tweak transforms, hence it is order sensative. In case you wish to use this mode, make sure you input the tweakers in order which makes sense to generate a closed curve shape. Rebuild-Then-Skin mode will first rebuild the curve based on the input re-build number of spans attribute, then skin the curve and deform the master curve indirectly
+kwargs.get("rebuildNumOfSpans", 16) #arg; comment = relevant only on rebuildThenSkin tweak method. This attribute dectates the amount of sections to rebuild the curve to before skinning
+kwargs.get("tweakCurveInterpolaion", 1) #arg; optionBox = EPs, CVs, Hermite, TangentedCVs, Bezier; comment = relevant only on mnsBuildTransformsCurve tweak method
+kwargs.get("tweakCurveDegree", 3) #arg; min = 1; max = 5; comment = relevant only on mnsBuildTransformsCurve, and rebuild then skin tweak methods
+
+kwargs.get("dividerAutoDrive", "AutoDrive")#arg; comment = This feature will create an auto-drive mechanism, that will automatically drive the chain when it moves in space
+kwargs.get("doAutoDrive", False) #arg; comment = This feature will create an auto-drive mechanism, that will automatically drive the chain when it moves in space
+kwargs.get("autoDriveWheelDiameter", 20.0) #arg; comment = The diameter of the driver wheel, whether it exists or not. This diameter is derived from the main gear driving this link-chain. This diameter will be used to calculate the drive of the chain
+kwargs.get("gearRatio", 1.0) #arg; comment = In case your main driver is derived from another gear, you can set its ratio here to get accurate results
+kwargs.get("reverseDirection", False) #arg; comment = In some cases the direction of the drive is flipped. If this is your case, set this setting to True to correct this issue
+kwargs.get("autoDriveDefault", 1.0) #arg; comment = Auto-Drive channel default state
