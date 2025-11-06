@@ -2135,10 +2135,9 @@ def loadBlock():
 	
 	previousPosition = mnsUIUtils.reloadWindow("mnsBLOCK_UI")
 
-	if mnsUtils.mnsLicStatusCheck(1):
-		blockWin = MnsBlockBuildUI()
-		blockWin.loadWindow()
-		if previousPosition: blockWin.move(previousPosition)
+	blockWin = MnsBlockBuildUI()
+	blockWin.loadWindow()
+	if previousPosition: blockWin.move(previousPosition)
 
 def reloadBlock(previousBlockWindow):
 	mnsUtils.reloadLib()

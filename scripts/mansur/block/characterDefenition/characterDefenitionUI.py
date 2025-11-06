@@ -731,14 +731,13 @@ def loadCharacterDefenitionUI():
 
 	previousPosition = mnsUIUtils.reloadWindow("mnsCharacterDefenitionUI")
 	
-	if mnsUtils.mnsLicStatusCheck(1):
-		charDefUI = MnsCharacterDefenitionUI()
-		globals().update({"mnsCharacterDefenitionUI": charDefUI})
-		charDefUI.loadWindow()
-		if previousPosition: charDefUI.move(previousPosition)
-		if charDefData:
-			pass
-			charDefUI.charDefData = charDefData
-			charDefUI.blockNameSpace = blockNameSpace
-			charDefUI.targetNameSpace = targetNameSpace
-			charDefUI.drawData()
+	charDefUI = MnsCharacterDefenitionUI()
+	globals().update({"mnsCharacterDefenitionUI": charDefUI})
+	charDefUI.loadWindow()
+	if previousPosition: charDefUI.move(previousPosition)
+	if charDefData:
+		pass
+		charDefUI.charDefData = charDefData
+		charDefUI.blockNameSpace = blockNameSpace
+		charDefUI.targetNameSpace = targetNameSpace
+		charDefUI.drawData()

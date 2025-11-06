@@ -365,9 +365,8 @@ def loadModulePresetEditor(parent=mnsUIUtils.get_maya_window()):
 	mnsLog.log("mnsModulePresetEditor Tool Load Pressed.")
 	previousPosition = mnsUIUtils.reloadWindow("mnsModulePresetEditor")
 
-	if mnsUtils.mnsLicStatusCheck(1):
-		mnsModulePresetEditorWin = MnsModulePresetEditor(parent = parent)
-		mnsModulePresetEditorWin.loadWindow()
-		if previousPosition: mnsModulePresetEditorWin.move(previousPosition)
-		return mnsModulePresetEditorWin
+	mnsModulePresetEditorWin = MnsModulePresetEditor(parent = parent)
+	mnsModulePresetEditorWin.loadWindow()
+	if previousPosition: mnsModulePresetEditorWin.move(previousPosition)
+	return mnsModulePresetEditorWin
 

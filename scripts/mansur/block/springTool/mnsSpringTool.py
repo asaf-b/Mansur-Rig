@@ -465,8 +465,7 @@ def loadSpringTool():
 	mnsLog.log("Spring Tool Load Pressed.")
 	previousPosition = mnsUIUtils.reloadWindow("mnsSpringTool")
 
-	if mnsUtils.mnsLicStatusCheck():
-		mnsSpringToolWin = MnsSpringTool()
-		mnsSpringToolWin.loadWindow()
-		if previousPosition: mnsSpringToolWin.move(previousPosition)
-		return mnsSpringToolWin
+	mnsSpringToolWin = MnsSpringTool()
+	mnsSpringToolWin.loadWindow()
+	if previousPosition: mnsSpringToolWin.move(previousPosition)
+	return mnsSpringToolWin

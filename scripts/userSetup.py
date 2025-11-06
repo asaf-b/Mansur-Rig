@@ -16,14 +16,11 @@ if not cmds.about(batch=True):
 
 from mansur import mnsMayaMenu
 from mansur.core import utility as mnsUtils
-from mansur.licensing import licensingUI as mnsLicensing
 
 if not cmds.about(batch=True):
 	if int(cmds.about(version = True)) > 2020:
 		maya.utils.executeDeferred(mnsMayaMenu.createMansurMayaMenu)
-		maya.utils.executeDeferred(mnsLicensing.autoLogin)
 		maya.utils.executeDeferred(mnsUtils.autoLoadMnsPlugins)
 	else:
 		cmds.evalDeferred(mnsMayaMenu.createMansurMayaMenu)
-		cmds.evalDeferred(mnsLicensing.autoLogin)
 		cmds.evalDeferred(mnsUtils.autoLoadMnsPlugins)

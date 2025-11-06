@@ -28,10 +28,6 @@ from .globalUtils import defSearch as mnsDefSearch
 reload(mnsDefSearch)
 from .globalUtils import dynUI as mnsDynUI
 reload(mnsDynUI)
-from .adminUtils import pluginRelease as mnsPluginRelease
-reload(mnsPluginRelease)
-from .adminUtils import productRelease as mnsProductRelease
-reload(mnsProductRelease)
 #from . import block as mnsBlock
 #reload(mnsBlock)
 from .block.core import buildModules as mnsBuildModules
@@ -42,10 +38,6 @@ from .block.core import controlShapes as blkCtrlShps
 reload(blkCtrlShps)
 from .block.core import blockUtility as blkUtils
 reload(blkUtils)
-from .adminUtils.documentationBuild import docBuildMansur
-reload(docBuildMansur)
-from .adminUtils.schemeEditor import schemeEditor
-reload(schemeEditor)
 from .block.picker2 import picker2 as mnsPicker
 reload(mnsPicker)
 from .block.picker2 import plgSettings as mnsPlgSettings
@@ -54,10 +46,6 @@ from .preferences import preferences as mnsPreferences
 reload(mnsPreferences)
 from . import mnsMayaMenu as mnsMayaMenu
 reload(mnsMayaMenu)
-from .licensing import licensingUI as mnsLicensingUI
-reload(mnsLicensingUI)
-from .versionManager import versionManager as mnsVersionManager
-reload(mnsVersionManager)
 from .block.moduleVisUI import moduleVisUI as mnsModuleVisUI
 reload(mnsModuleVisUI)
 from .block.cnsTool import cnsTool as mnsCnsTool

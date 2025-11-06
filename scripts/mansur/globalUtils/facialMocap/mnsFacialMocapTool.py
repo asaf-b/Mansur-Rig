@@ -687,9 +687,8 @@ def loadFacialMocapTool():
 	mnsLog.log("Facial Mocap Tool Load Pressed.")
 	previousPosition = mnsUIUtils.reloadWindow("mnsFacialMocapTool")
 
-	if mnsUtils.mnsLicStatusCheck():
-		mnsUtils.isPluginLoaded("mnsPoseBlend")
-		MnsFacialMocapToolWin = MnsFacialMocapTool()
-		MnsFacialMocapToolWin.loadWindow()
-		if previousPosition: MnsFacialMocapToolWin.move(previousPosition)
-		return MnsFacialMocapToolWin
+	mnsUtils.isPluginLoaded("mnsPoseBlend")
+	MnsFacialMocapToolWin = MnsFacialMocapTool()
+	MnsFacialMocapToolWin.loadWindow()
+	if previousPosition: MnsFacialMocapToolWin.move(previousPosition)
+	return MnsFacialMocapToolWin

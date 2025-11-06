@@ -1138,16 +1138,15 @@ class MnsPicker2(form_class, base_class):
 			return self.faceQGV.getControllersInView()
 
 	def newInstance(self):
-		if mnsUtils.mnsLicStatusCheck():
-			previousPosition = self.pos()
-			offset = QtCore.QPoint(30,30)
-			previousPosition += offset
+		previousPosition = self.pos()
+		offset = QtCore.QPoint(30,30)
+		previousPosition += offset
 
-			mnsPicker2Win = MnsPicker2()
-			mnsPicker2Win.loadWindow()
-			mnsPicker2Win.move(previousPosition)
-			mnsPicker2Win.setWindowSize()
-			
+		mnsPicker2Win = MnsPicker2()
+		mnsPicker2Win.loadWindow()
+		mnsPicker2Win.move(previousPosition)
+		mnsPicker2Win.setWindowSize()
+		
 	def loadWindow(self):
 		"""Show window method.
 		"""
@@ -1183,9 +1182,8 @@ def loadPicker():
 	
 	previousPosition = closeAllInstances()
 
-	if mnsUtils.mnsLicStatusCheck():
-		mnsPicker2Win = MnsPicker2()
-		mnsPicker2Win.loadWindow()
-		if previousPosition: mnsPicker2Win.move(previousPosition)
-		mnsPicker2Win.setWindowSize()
-		return mnsPicker2Win
+	mnsPicker2Win = MnsPicker2()
+	mnsPicker2Win.loadWindow()
+	if previousPosition: mnsPicker2Win.move(previousPosition)
+	mnsPicker2Win.setWindowSize()
+	return mnsPicker2Win

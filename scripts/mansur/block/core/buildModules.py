@@ -32,7 +32,6 @@ from ...core import string as mnsString
 from ...globalUtils import dynUI as mnsDynUI
 from . import controlShapes as blkCtrlShps
 from . import blockUtility as blkUtils
-from ...licensing import licensingUI as mnsLicensingUI
 
 #Qt dependencies
 if int(cmds.about(version = True)) > 2024:
@@ -774,7 +773,7 @@ class MnsRig(object):
 			rigName = self.rigTop.body
 			mnsVersion = mnsUtils.getCurrentVersion()
 			timeStamp = time.ctime()
-			user = mnsLicensingUI.loadLicensingUI(silent = True).user
+			user = "Unknown"
 			numBuiltModules = len(self.modules.keys())
 			buildTime = "N/A"
 			mayaVersion = GLOB_mayaVersion

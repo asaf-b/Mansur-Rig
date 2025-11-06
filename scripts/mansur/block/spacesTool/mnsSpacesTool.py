@@ -426,8 +426,7 @@ def loadSpacesTool():
 	mnsLog.log("Spaces Tool Load Pressed.")
 	previousPosition = mnsUIUtils.reloadWindow("mnsSpacesTool")
 
-	if mnsUtils.mnsLicStatusCheck():
-		mnsSpacesToolWin = MnsSpacesTool()
-		mnsSpacesToolWin.loadWindow()
-		if previousPosition: mnsSpacesToolWin.move(previousPosition)
-		return mnsSpacesToolWin
+	mnsSpacesToolWin = MnsSpacesTool()
+	mnsSpacesToolWin.loadWindow()
+	if previousPosition: mnsSpacesToolWin.move(previousPosition)
+	return mnsSpacesToolWin

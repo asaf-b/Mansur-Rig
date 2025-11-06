@@ -325,7 +325,6 @@ def loadDefSearch():
 	
 	previousPosition = mnsUIUtils.reloadWindow("mnsDefSearch")
 
-	if mnsUtils.mnsLicStatusCheck(1):
-		mnsDefSearchWin = MnsDefSearch()
-		mnsDefSearchWin.loadWindow()
-		if previousPosition: mnsDefSearchWin.move(previousPosition)
+	mnsDefSearchWin = MnsDefSearch()
+	mnsDefSearchWin.loadWindow()
+	if previousPosition: mnsDefSearchWin.move(previousPosition)

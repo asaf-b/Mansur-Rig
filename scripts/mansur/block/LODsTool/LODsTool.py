@@ -342,9 +342,8 @@ def loadLodsTool():
 	mnsLog.log("LODs Tool Load Pressed.")
 	previousPosition = mnsUIUtils.reloadWindow("mnsLodsTool")
 
-	if mnsUtils.mnsLicStatusCheck(1):
-		mnsLodsToolWin = MnsLodsTool()
-		mnsLodsToolWin.loadWindow()
-		if previousPosition: mnsLodsToolWin.move(previousPosition)
-		return mnsLodsToolWin
+	mnsLodsToolWin = MnsLodsTool()
+	mnsLodsToolWin.loadWindow()
+	if previousPosition: mnsLodsToolWin.move(previousPosition)
+	return mnsLodsToolWin
 

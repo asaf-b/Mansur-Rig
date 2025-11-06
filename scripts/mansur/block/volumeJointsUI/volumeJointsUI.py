@@ -685,10 +685,9 @@ def loadVolumeJointsUI():
 	
 	previousPosition = mnsUIUtils.reloadWindow("mnsVolumeJointsUI")
 
-	if mnsUtils.mnsLicStatusCheck(1):
-		mnsVJWin = MnsVolumeJointsUI()
-		mnsVJWin.loadWindow()
-		if previousPosition: mnsVJWin.move(previousPosition)
+	mnsVJWin = MnsVolumeJointsUI()
+	mnsVJWin.loadWindow()
+	if previousPosition: mnsVJWin.move(previousPosition)
 
 ###CBs
 def volJointStateChangedCB(msg, plug, otherPlug, clientData, **kwargs):

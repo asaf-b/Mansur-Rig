@@ -1113,8 +1113,7 @@ def loadAnimationExporter():
 	mnsLog.log("Animation Exporter Tool Load Pressed.")
 	previousPosition = mnsUIUtils.reloadWindow("mnsAnimationExporter")
 
-	if mnsUtils.mnsLicStatusCheck():
-		MnsAnimExporterWin = MnsAnimationExporter()
-		MnsAnimExporterWin.loadWindow()
-		if previousPosition: MnsAnimExporterWin.move(previousPosition)
-		return MnsAnimExporterWin
+	MnsAnimExporterWin = MnsAnimationExporter()
+	MnsAnimExporterWin.loadWindow()
+	if previousPosition: MnsAnimExporterWin.move(previousPosition)
+	return MnsAnimExporterWin

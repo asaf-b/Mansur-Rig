@@ -36,9 +36,6 @@ from .core import UIUtils as mnsUIUtils
 from .core import utility as mnsUtils
 from .globalUtils.defSearch import defSearch as mnsDefSearch
 reload(mnsDefSearch)
-from .versionManager import versionManager as mnsVersionManager
-reload(mnsVersionManager)
-from .licensing import licensingUI as mnsLicensingUI
 from .globalUtils import dynUI as mnsDynUI
 reload(mnsDynUI)
 from .preferences import preferences as mnsPrefs
@@ -95,31 +92,6 @@ def createMenuItems(menuWidget = None, parentWid = mnsUIUtils.get_maya_window())
 		action = menuWidget.addAction(parentWid.tr("Block Builder"))
 		action.setIcon(QtGui.QIcon(QtGui.QPixmap(mnsGlobals.GLOB_guiIconsDir + "/logo/block_t5_noText.png")))
 		action.triggered.connect(mnsBlkBuildUI.loadBlock)
-		menuWidget.addSeparator()
-
-		######   account   #########
-		accountMenu = menuWidget.addMenu(parentWid.tr("Account"))
-		accountMenu.setTearOffEnabled(True)
-		accountMenu.setIcon(QtGui.QIcon(QtGui.QPixmap(mnsGlobals.GLOB_guiIconsDir + "/menu/account.png")))
-
-		action = accountMenu.addAction(parentWid.tr("My-Account"))
-		action.setIcon(QtGui.QIcon(QtGui.QPixmap(mnsGlobals.GLOB_guiIconsDir + "/menu/loginIcon.png")))
-		action.triggered.connect(mnsLicensingUI.loadLicensingUI)
-
-		action = accountMenu.addAction(parentWid.tr("Version-Manager"))
-		action.setIcon(QtGui.QIcon(QtGui.QPixmap(mnsGlobals.GLOB_guiIconsDir + "/menu/version.png")))
-		action.triggered.connect(mnsVersionManager.loadVersionManager)
-		
-		isNewVesrionAvailable = mnsUtils.checkForVersionUpdates()
-		if isNewVesrionAvailable:
-			action.setText(action.text() + " (*)")
-			boldFont = QtGui.QFont()
-			boldFont.setBold(True)
-			action.setFont(boldFont)
-		
-		action = accountMenu.addAction(parentWid.tr("Preferences"))
-		action.setIcon(QtGui.QIcon(QtGui.QPixmap(mnsGlobals.GLOB_guiIconsDir + "/menu/preferences.png")))
-		action.triggered.connect(mnsPrefs.loadPreferences)
 
 		######   block tools   #########
 		menuWidget.addSeparator()
@@ -142,6 +114,10 @@ def createMenuItems(menuWidget = None, parentWid = mnsUIUtils.get_maya_window())
 		action = blockMenu.addAction(parentWid.tr("Joint Radius"))
 		action.setIcon(QtGui.QIcon(QtGui.QPixmap(mnsGlobals.GLOB_guiIconsDir + "/menu/jointRadiusIcon.png")))
 		action.triggered.connect(mnsJointRadiusTool.loadJointRadiusTool)
+
+		action = blockMenu.addAction(parentWid.tr("Preferences"))
+		action.setIcon(QtGui.QIcon(QtGui.QPixmap(mnsGlobals.GLOB_guiIconsDir + "/menu/preferences.png")))
+		action.triggered.connect(mnsPrefs.loadPreferences)
 
 		action = blockMenu.addAction(parentWid.tr("Reload Block"))
 		action.setIcon(QtGui.QIcon(QtGui.QPixmap(mnsGlobals.GLOB_guiIconsDir + "/menu/direction.png")))

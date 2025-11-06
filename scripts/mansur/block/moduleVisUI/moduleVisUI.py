@@ -705,11 +705,10 @@ def loadModuleVisUI():
 	
 	previousPosition = mnsUIUtils.reloadWindow("mnsModuleVisUI")
 
-	if mnsUtils.mnsLicStatusCheck():
-		mnsModuleVisWin = MnsModuleVisUI()
-		mnsModuleVisWin.loadWindow()
-		if previousPosition: mnsModuleVisWin.move(previousPosition)
-		return mnsModuleVisWin
+	mnsModuleVisWin = MnsModuleVisUI()
+	mnsModuleVisWin.loadWindow()
+	if previousPosition: mnsModuleVisWin.move(previousPosition)
+	return mnsModuleVisWin
 
 def rigTopSubGrpEnumChangedCB(msg, plug, otherPlug, clientData, **kwargs):
 	modVisUIObj = clientData["modVisUIObj"]

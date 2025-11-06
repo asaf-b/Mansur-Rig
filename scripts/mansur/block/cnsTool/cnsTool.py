@@ -104,7 +104,6 @@ def loadCnsTool():
 	
 	previousPosition = mnsUIUtils.reloadWindow("mnsCnsTool")
 
-	if mnsUtils.mnsLicStatusCheck():
-		mnsCnsToolWin = MnsCnsTool()
-		mnsCnsToolWin.loadWindow()
-		if previousPosition: mnsCnsToolWin.move(previousPosition)
+	mnsCnsToolWin = MnsCnsTool()
+	mnsCnsToolWin.loadWindow()
+	if previousPosition: mnsCnsToolWin.move(previousPosition)
