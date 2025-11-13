@@ -457,14 +457,25 @@ def adlNode(input1 = None, input2 = None, output = None, **kwargs):
 	alpha = kwargs.get("alpha", "A") #arg; comment = Node's Alpha id
 	id = kwargs.get("id", 1) #arg; min = 1; comment = Node's ID
 	incrementAlpha = kwargs.get("incrementAlpha", False) #arg; comment = Search new node name incrementing Alpha instead of the id if True
-	nameStd = mnsUtils.createNodeReturnNameStd(side = side, body = body, alpha = alpha, id = id, buildType = "addDoubleLinear", incrementAlpha = incrementAlpha)
+	
+	if GLOB_mayaVersion > 2025:
+		nameStd = mnsUtils.createNodeReturnNameStd(side = side, body = body, alpha = alpha, id = id, buildType = "sumDL", incrementAlpha = incrementAlpha)
+		
+		if input1: connectSetAttempt(input1, nameStd.node.attr("input[0]"), float)
+		if input2: connectSetAttempt(input2, nameStd.node.attr("input[1]"), float)
+		if output: connectAttrAttempt(nameStd.node.attr("output"), output)
 
-	if input1: connectSetAttempt(input1, nameStd.node.attr("input1"), float)
-	if input2: connectSetAttempt(input2, nameStd.node.attr("input2"), float)
-	if output: connectAttrAttempt(nameStd.node.attr("output"), output)
+		#return;MnsNameStd (addDoubleLinear node)
+		return nameStd
+	else:
+		nameStd = mnsUtils.createNodeReturnNameStd(side = side, body = body, alpha = alpha, id = id, buildType = "addDoubleLinear", incrementAlpha = incrementAlpha)
 
-	#return;MnsNameStd (addDoubleLinear node)
-	return nameStd
+		if input1: connectSetAttempt(input1, nameStd.node.attr("input1"), float)
+		if input2: connectSetAttempt(input2, nameStd.node.attr("input2"), float)
+		if output: connectAttrAttempt(nameStd.node.attr("output"), output)
+
+		#return;MnsNameStd (addDoubleLinear node)
+		return nameStd
 
 def mdlNode(input1 = None, input2 = None, output = None, **kwargs):
 	"""Create a new multiplyDoubleLinear node using the given inputs.
@@ -475,14 +486,25 @@ def mdlNode(input1 = None, input2 = None, output = None, **kwargs):
 	alpha = kwargs.get("alpha", "A") #arg; comment = Node's Alpha id
 	id = kwargs.get("id", 1) #arg; min = 1; comment = Node's ID
 	incrementAlpha = kwargs.get("incrementAlpha", False) #arg; comment = Search new node name incrementing Alpha instead of the id if True
-	nameStd = mnsUtils.createNodeReturnNameStd(side = side, body = body, alpha = alpha, id = id, buildType = "multDoubleLinear", incrementAlpha = incrementAlpha)
 
-	if input1: connectSetAttempt(input1, nameStd.node.attr("input1"), float)
-	if input2: connectSetAttempt(input2, nameStd.node.attr("input2"), float)
-	if output: connectAttrAttempt(nameStd.node.attr("output"), output)
+	if GLOB_mayaVersion > 2025:
+		nameStd = mnsUtils.createNodeReturnNameStd(side = side, body = body, alpha = alpha, id = id, buildType = "multiplyDL", incrementAlpha = incrementAlpha)
 
-	#return;MnsNameStd (multiplyDoubleLinear node)
-	return nameStd
+		if input1: connectSetAttempt(input1, nameStd.node.attr("input[0]"), float)
+		if input2: connectSetAttempt(input2, nameStd.node.attr("input[1]"), float)
+		if output: connectAttrAttempt(nameStd.node.attr("output"), output)
+
+		#return;MnsNameStd (addDoubleLinear node)
+		return nameStd
+	else:
+		nameStd = mnsUtils.createNodeReturnNameStd(side = side, body = body, alpha = alpha, id = id, buildType = "multDoubleLinear", incrementAlpha = incrementAlpha)
+
+		if input1: connectSetAttempt(input1, nameStd.node.attr("input1"), float)
+		if input2: connectSetAttempt(input2, nameStd.node.attr("input2"), float)
+		if output: connectAttrAttempt(nameStd.node.attr("output"), output)
+
+		#return;MnsNameStd (multiplyDoubleLinear node)
+		return nameStd
 
 def decomposeMatrixNode(inputMatrix = None, outputTranslate = None, outputRotate = None, outputScale = None, **kwargs):
 	"""Create a new multiplyDoubleLinear node using the given inputs.
@@ -2134,3 +2156,16 @@ def mnsPoseBlendNode(**kwargs):
 	
 	#return;MnsNameStd (quatBlend node)
 	return nameStd
+
+def dlNodesConnect(sourceAttr, targetNode, targetAttrName):
+	if sourceAttr and targetNode and targetAttrName:
+		if targetNode.hasAttr(targetAttrName):
+			sourceAttr >> targetNode.attr(targetAttrName)
+		else:
+			targetAttrIdx = targetAttrName.split("input")[-1]
+			if targetAttrIdx == "1": targetAttrIdx = "0"
+			elif targetAttrIdx == "2": targetAttrIdx = "1"
+			
+			targetAttrName = "input[" + targetAttrIdx + "]"
+			if targetNode.hasAttr(targetAttrName):
+				sourceAttr >> targetNode.attr(targetAttrName)

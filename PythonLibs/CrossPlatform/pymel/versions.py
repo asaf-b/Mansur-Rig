@@ -7,10 +7,6 @@ Class for storing apiVersions, which are the best method for comparing versions.
     ...     print("The current version is later than Maya 2008")
     The current version is later than Maya 2008
 """
-from __future__ import print_function
-from __future__ import division
-from __future__ import absolute_import
-
 import re
 import struct
 from maya.OpenMaya import MGlobal as _MGlobal
@@ -192,6 +188,12 @@ v2024_1 = 20240100
 v2024_2 = 20240200
 v2025 = 20250000
 V2025_3 = 20250300
+v2025_31 = 20250301
+v2026 = 20260000
+v2026_1 = 20260100
+v2026_2 = 20260200
+v2026_3 = 20260300
+
 
 def current():
     # type: () -> int

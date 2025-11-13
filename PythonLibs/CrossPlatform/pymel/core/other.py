@@ -2,11 +2,6 @@
 Functions which are not listed in the maya documentation, such as commands created by plugins,
 as well as the name parsing classes `DependNodeName`, `DagNodeName`, and `AttributeName`.
 """
-from __future__ import print_function
-from __future__ import division
-from __future__ import absolute_import
-from future.utils import PY2
-
 from builtins import str
 import re
 import inspect
@@ -234,10 +229,6 @@ class AttributeName(NameParser):
         'spangle.banner'
 
         """
-        if PY2:
-            # just to get this method returning a builtins.str object, like
-            # nearly everything else here does...
-            return str('.').join(str(self).split('.')[1:])
         return '.'.join(str(self).split('.')[1:])
 
     def lastPlugAttr(self):
@@ -548,6 +539,7 @@ def _getParserClass(strObj):
         else:
             newcls = DependNodeName
     return newcls
+
 
 
 # ------ Do not edit below this line --------

@@ -2045,6 +2045,19 @@ def updateRigTopAttrs(rigTop = None):
 				if attrType != pm.nodetypes.Transform:
 					mnsUtils.addAttrToObj(rigTop.node, name = argKey , type = attrType, value = optArgs[argKey], locked = locked, cb = cb, keyable = keyable)
 
+def update2026DLNodes():
+	#TBD
+	#new node types are not registered on current PyMel version for 2026.
+	#since the types are unknown, there is no way to accuire ADL and MDL nodes safely.
+	pass
+	"""
+	allMdlNodes = pm.ls("*", type = pm.nodetypes.multiplyDoubleLinear)
+	allAdlNodes = pm.ls("*", type = pm.nodetypes.addDoubleLinear)
+
+	for oldDlNode in (allMdlNodes + allAdlNodes):
+		print(oldDlNode)
+	"""
+
 def updateRig(blkWin = None, buildModulesBtns = [], **kwargs):
 	progressBar = kwargs.get("progressBar", None)
 	if progressBar: progressBar.setValue(0)
@@ -2062,7 +2075,8 @@ def updateRig(blkWin = None, buildModulesBtns = [], **kwargs):
 										progBarChunk = 55.0)
 		updateRigTopStruct(rigTop, buildModulesBtns)
 		updateRigTopAttrs(rigTop)
-		
+		update2026DLNodes()
+
 		if progressBar: progressBar.setValue(progressBar.value() + 10)
 
 		progBarStartValue = 70.0

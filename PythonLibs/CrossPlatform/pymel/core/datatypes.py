@@ -2,13 +2,9 @@
 
 A wrap of Maya's Vector, Point, Color, Matrix, TransformationMatrix, Quaternion, EulerRotation types
 """
-from __future__ import print_function
-from __future__ import division
-from __future__ import absolute_import
-
 from builtins import map
 from builtins import range
-from past.builtins import basestring
+
 import os
 import sys
 import math
@@ -23,7 +19,6 @@ from pymel.util.arrays import _toCompOrArrayInstance
 import pymel.internal.factories as _factories
 from pymel.util.enum import Enum
 from functools import reduce
-from future.utils import with_metaclass
 
 if False:
     from typing import *
@@ -290,7 +285,7 @@ class MetaMayaArrayTypeWrapper(_factories.MetaMayaTypeRegistry):
 # to the class methods
 
 
-class Vector(with_metaclass(MetaMayaArrayTypeWrapper, VectorN)):
+class Vector(VectorN, metaclass=MetaMayaArrayTypeWrapper):
 
     """
     A 3 dimensional vector class that wraps Maya's api Vector class
@@ -1550,7 +1545,7 @@ class Color(Vector):
 
 # to specify space of transforms
 
-class Space(with_metaclass(_factories.MetaMayaTypeRegistry, _api.MSpace)):
+class Space(_api.MSpace, metaclass=_factories.MetaMayaTypeRegistry):
     __slots__ = ()
     apicls = _api.MSpace
 # ------ Do not edit below this line --------
@@ -1657,7 +1652,7 @@ def equivalentSpace(space1, space2, rotationOnly=False):
 # mm(3,2)
 # 3.0
 
-class Matrix(with_metaclass(MetaMayaArrayTypeWrapper, MatrixN)):
+class Matrix(MatrixN, metaclass=MetaMayaArrayTypeWrapper):
 
     """
     A 4x4 transformation matrix based on api Matrix
@@ -2184,7 +2179,7 @@ class Quaternion(Matrix):
                 args = args.rotate
                 self.unit = 'radians'
 
-            elif len(args) == 4 and isinstance(args[3], (basestring, util.EnumValue)):  # isinstance(args[3], EulerRotation.RotationOrder) ) :
+            elif len(args) == 4 and isinstance(args[3], ((bytes, str), util.EnumValue)):  # isinstance(args[3], EulerRotation.RotationOrder) ) :
                 quat = _api.MQuaternion()
                 quat.assign(EulerRotation(*args, **kwargs))
                 args = quat
@@ -2714,7 +2709,7 @@ class TransformationMatrix(Matrix):
 # ------ Do not edit above this line --------
 
 
-class EulerRotation(with_metaclass(MetaMayaArrayTypeWrapper, Array)):
+class EulerRotation(Array, metaclass=MetaMayaArrayTypeWrapper):
 
     """
     unit handling:
@@ -2856,7 +2851,7 @@ class EulerRotation(with_metaclass(MetaMayaArrayTypeWrapper, Array)):
         elif args:
             if len(args) == 1:
                 args = list(args[0])
-            elif len(args) == 2 and isinstance(args[1], (basestring, util.EnumValue)):
+            elif len(args) == 2 and isinstance(args[1], ((bytes, str), util.EnumValue)):
                 args = list(args[0]) + [args[1]]
             else:
                 # convert to list, as we may have to do modifications
@@ -2867,7 +2862,7 @@ class EulerRotation(with_metaclass(MetaMayaArrayTypeWrapper, Array)):
             if self.order != 'XYZ' and len(args) == 3:
                 args.append(self.apicls.__dict__['order'].__get__(self, self.apicls))
 
-            elif len(args) == 4 and isinstance(args[3], (basestring, util.EnumValue)):
+            elif len(args) == 4 and isinstance(args[3], ((bytes, str), util.EnumValue)):
                 # allow to initialize directly from 3 rotations and a rotation order as string
                 args[3] = self.RotationOrder.getIndex(args[3])
 
@@ -3339,10 +3334,8 @@ class Time(Unit):
 # ------ Do not edit below this line --------
     if versions.current() >= versions.v2024:
         Unit = Enum('Unit', [('invalid', 0), ('kInvalid', 0), ('hours', 1), ('kHours', 1), ('minutes', 2), ('kMinutes', 2), ('seconds', 3), ('kSeconds', 3), ('milliseconds', 4), ('kMilliseconds', 4), ('games', 5), ('k15FPS', 5), ('kGames', 5), ('film', 6), ('k24FPS', 6), ('kFilm', 6), ('PALFrame', 7), ('k25FPS', 7), ('kPALFrame', 7), ('NTSCFrame', 8), ('k30FPS', 8), ('kNTSCFrame', 8), ('showScan', 9), ('k48FPS', 9), ('kShowScan', 9), ('PALField', 10), ('k50FPS', 10), ('kPALField', 10), ('NTSCField', 11), ('k60FPS', 11), ('kNTSCField', 11), ('k2FPS', 12), ('k3FPS', 13), ('k4FPS', 14), ('k5FPS', 15), ('k6FPS', 16), ('k8FPS', 17), ('k10FPS', 18), ('k12FPS', 19), ('k16FPS', 20), ('k20FPS', 21), ('k40FPS', 22), ('k75FPS', 23), ('k80FPS', 24), ('k100FPS', 25), ('k120FPS', 26), ('k125FPS', 27), ('k150FPS', 28), ('k200FPS', 29), ('k240FPS', 30), ('k250FPS', 31), ('k300FPS', 32), ('k375FPS', 33), ('k400FPS', 34), ('k500FPS', 35), ('k600FPS', 36), ('k750FPS', 37), ('k1200FPS', 38), ('k1500FPS', 39), ('k2000FPS', 40), ('k3000FPS', 41), ('k6000FPS', 42), ('k23_976FPS', 43), ('k29_97FPS', 44), ('k29_97DF', 45), ('k47_952FPS', 46), ('k59_94FPS', 47), ('k44100FPS', 48), ('k48000FPS', 49), ('k90FPS', 50), ('k119_88FPS', 51), ('userDef', 52), ('kUserDef', 52), ('last', 53), ('kLast', 53)], multiKeys=True)
-    elif versions.current() >= versions.v2022:
-        Unit = Enum('Unit', [('invalid', 0), ('kInvalid', 0), ('hours', 1), ('kHours', 1), ('minutes', 2), ('kMinutes', 2), ('seconds', 3), ('kSeconds', 3), ('milliseconds', 4), ('kMilliseconds', 4), ('games', 5), ('k15FPS', 5), ('kGames', 5), ('film', 6), ('k24FPS', 6), ('kFilm', 6), ('PALFrame', 7), ('k25FPS', 7), ('kPALFrame', 7), ('NTSCFrame', 8), ('k30FPS', 8), ('kNTSCFrame', 8), ('showScan', 9), ('k48FPS', 9), ('kShowScan', 9), ('PALField', 10), ('k50FPS', 10), ('kPALField', 10), ('NTSCField', 11), ('k60FPS', 11), ('kNTSCField', 11), ('k2FPS', 12), ('k3FPS', 13), ('k4FPS', 14), ('k5FPS', 15), ('k6FPS', 16), ('k8FPS', 17), ('k10FPS', 18), ('k12FPS', 19), ('k16FPS', 20), ('k20FPS', 21), ('k40FPS', 22), ('k75FPS', 23), ('k80FPS', 24), ('k100FPS', 25), ('k120FPS', 26), ('k125FPS', 27), ('k150FPS', 28), ('k200FPS', 29), ('k240FPS', 30), ('k250FPS', 31), ('k300FPS', 32), ('k375FPS', 33), ('k400FPS', 34), ('k500FPS', 35), ('k600FPS', 36), ('k750FPS', 37), ('k1200FPS', 38), ('k1500FPS', 39), ('k2000FPS', 40), ('k3000FPS', 41), ('k6000FPS', 42), ('k23_976FPS', 43), ('k29_97FPS', 44), ('k29_97DF', 45), ('k47_952FPS', 46), ('k59_94FPS', 47), ('k44100FPS', 48), ('k48000FPS', 49), ('k90FPS', 50), ('userDef', 51), ('kUserDef', 51), ('last', 52), ('kLast', 52)], multiKeys=True)
     else:
-        Unit = Enum('Unit', [('invalid', 0), ('kInvalid', 0), ('hours', 1), ('kHours', 1), ('minutes', 2), ('kMinutes', 2), ('seconds', 3), ('kSeconds', 3), ('milliseconds', 4), ('kMilliseconds', 4), ('k15FPS', 5), ('games', 5), ('kGames', 5), ('film', 6), ('k24FPS', 6), ('kFilm', 6), ('k25FPS', 7), ('PALFrame', 7), ('kPALFrame', 7), ('NTSCFrame', 8), ('k30FPS', 8), ('kNTSCFrame', 8), ('k48FPS', 9), ('kShowScan', 9), ('showScan', 9), ('k50FPS', 10), ('PALField', 10), ('kPALField', 10), ('NTSCField', 11), ('k60FPS', 11), ('kNTSCField', 11), ('k2FPS', 12), ('k3FPS', 13), ('k4FPS', 14), ('k5FPS', 15), ('k6FPS', 16), ('k8FPS', 17), ('k10FPS', 18), ('k12FPS', 19), ('k16FPS', 20), ('k20FPS', 21), ('k40FPS', 22), ('k75FPS', 23), ('k80FPS', 24), ('k100FPS', 25), ('k120FPS', 26), ('k125FPS', 27), ('k150FPS', 28), ('k200FPS', 29), ('k240FPS', 30), ('k250FPS', 31), ('k300FPS', 32), ('k375FPS', 33), ('k400FPS', 34), ('k500FPS', 35), ('k600FPS', 36), ('k750FPS', 37), ('k1200FPS', 38), ('k1500FPS', 39), ('k2000FPS', 40), ('k3000FPS', 41), ('k6000FPS', 42), ('k23_976FPS', 43), ('k29_97FPS', 44), ('k29_97DF', 45), ('k47_952FPS', 46), ('k59_94FPS', 47), ('k44100FPS', 48), ('k48000FPS', 49), ('k90FPS', 50), ('userDef', 51), ('kUserDef', 51), ('last', 52), ('kLast', 52)], multiKeys=True)
+        Unit = Enum('Unit', [('invalid', 0), ('kInvalid', 0), ('hours', 1), ('kHours', 1), ('minutes', 2), ('kMinutes', 2), ('seconds', 3), ('kSeconds', 3), ('milliseconds', 4), ('kMilliseconds', 4), ('games', 5), ('k15FPS', 5), ('kGames', 5), ('film', 6), ('k24FPS', 6), ('kFilm', 6), ('PALFrame', 7), ('k25FPS', 7), ('kPALFrame', 7), ('NTSCFrame', 8), ('k30FPS', 8), ('kNTSCFrame', 8), ('showScan', 9), ('k48FPS', 9), ('kShowScan', 9), ('PALField', 10), ('k50FPS', 10), ('kPALField', 10), ('NTSCField', 11), ('k60FPS', 11), ('kNTSCField', 11), ('k2FPS', 12), ('k3FPS', 13), ('k4FPS', 14), ('k5FPS', 15), ('k6FPS', 16), ('k8FPS', 17), ('k10FPS', 18), ('k12FPS', 19), ('k16FPS', 20), ('k20FPS', 21), ('k40FPS', 22), ('k75FPS', 23), ('k80FPS', 24), ('k100FPS', 25), ('k120FPS', 26), ('k125FPS', 27), ('k150FPS', 28), ('k200FPS', 29), ('k240FPS', 30), ('k250FPS', 31), ('k300FPS', 32), ('k375FPS', 33), ('k400FPS', 34), ('k500FPS', 35), ('k600FPS', 36), ('k750FPS', 37), ('k1200FPS', 38), ('k1500FPS', 39), ('k2000FPS', 40), ('k3000FPS', 41), ('k6000FPS', 42), ('k23_976FPS', 43), ('k29_97FPS', 44), ('k29_97DF', 45), ('k47_952FPS', 46), ('k59_94FPS', 47), ('k44100FPS', 48), ('k48000FPS', 49), ('k90FPS', 50), ('userDef', 51), ('kUserDef', 51), ('last', 52), ('kLast', 52)], multiKeys=True)
 # ------ Do not edit above this line --------
 
 
@@ -3478,7 +3471,7 @@ class Angle(Unit):
 # ------ Do not edit above this line --------
 
 
-class BoundingBox(with_metaclass(_factories.MetaMayaTypeRegistry, _api.MBoundingBox)):
+class BoundingBox( _api.MBoundingBox, metaclass=_factories.MetaMayaTypeRegistry):
     apicls = _api.MBoundingBox
     __slots__ = ()
 

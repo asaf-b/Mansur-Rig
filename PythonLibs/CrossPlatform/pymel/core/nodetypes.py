@@ -1,12 +1,9 @@
 """
 Contains classes corresponding to the Maya type hierarchy, including `DependNode`, `Transform`, `Mesh`, and `Camera`.
 """
-from __future__ import print_function
-from __future__ import division
-from __future__ import absolute_import
 from builtins import range
 from builtins import str
-from past.builtins import basestring
+
 import sys
 import os
 import re
@@ -42,7 +39,6 @@ from pymel.core import windows
 from pymel.core.animation import listAnimatable as _listAnimatable
 from pymel.core.system import namespaceInfo as _namespaceInfo, FileReference as _FileReference
 from pymel.util.enum import Enum
-from future.utils import PY2, with_metaclass
 
 TYPE_CHECKING = False
 if TYPE_CHECKING:
@@ -177,7 +173,7 @@ def _addTypeNames():
     return NodetypesLazyLoadModule(__name__, globals())
 
 
-class DependNode(with_metaclass(_factories.MetaMayaTypeRegistry, general.PyNode)):
+class DependNode(general.PyNode, metaclass=_factories.MetaMayaTypeRegistry):
     __apicls__ = _api.MFnDependencyNode
 
     # ------------------------------
@@ -262,8 +258,8 @@ class DependNode(with_metaclass(_factories.MetaMayaTypeRegistry, general.PyNode)
         Examples
         --------
         >>> import pymel.core as pm
-        >>> pm.newFile(f=1)
-        ''
+        >>> ();pm.newFile(f=1);() #doctest: +ELLIPSIS
+        (...)
         >>> node = pm.createNode('blinn')
 
         >>> pm.namespace(add='foo')
@@ -404,10 +400,6 @@ class DependNode(with_metaclass(_factories.MetaMayaTypeRegistry, general.PyNode)
     def __str__(self):
         # type: () -> str
         return "%s" % self.name()
-
-    if PY2:
-        def __unicode__(self):
-            return u"%s" % self.name()
 
     def __hash__(self):
         # type: () -> int
@@ -1628,8 +1620,8 @@ class DagNode(Entity):
         Examples
         --------
         >>> import pymel.core as pm
-        >>> pm.newFile(f=1)
-        ''
+        >>> ();pm.newFile(f=1);() #doctest: +ELLIPSIS
+        (...)
         >>> cube1 = pm.polyCube()[0]
         >>> cube2 = pm.polyCube()[0]
         >>> cube3 = pm.polyCube()[0]
@@ -1762,8 +1754,8 @@ class DagNode(Entity):
         Examples
         --------
         >>> import pymel.core as pm
-        >>> pm.newFile(f=1)
-        ''
+        >>> ();pm.newFile(f=1);() #doctest: +ELLIPSIS
+        (...)
         >>> cube1 = pm.polyCube()[0]
         >>> cube2 = pm.polyCube()[0]
         >>> cube3 = pm.polyCube()[0]
@@ -1828,8 +1820,8 @@ class DagNode(Entity):
         Examples
         --------
         >>> import pymel.core as pm
-        >>> pm.newFile(f=1)
-        ''
+        >>> ();pm.newFile(f=1);() #doctest: +ELLIPSIS
+        (...)
         >>> cube1 = pm.polyCube()[0]
         >>> cube2 = pm.polyCube()[0]
         >>> cube3 = pm.polyCube()[0]
@@ -1897,8 +1889,8 @@ class DagNode(Entity):
         Examples
         --------
         >>> import pymel.core as pm
-        >>> pm.newFile(f=1)
-        ''
+        >>> ();pm.newFile(f=1);() #doctest: +ELLIPSIS
+        (...)
         >>> cube1 = pm.polyCube()[0]
         >>> cube2 = pm.polyCube()[0]
         >>> cube3 = pm.polyCube()[0]
@@ -2084,7 +2076,7 @@ class DagNode(Entity):
 #                    self._updateName()
 #                else :
 #                    raise TypeError, "%r might be a dependencyNode, but not a dagNode" % arg
-#            elif isinstance(arg, basestring) :
+#            elif isinstance(arg, (bytes, str)) :
 #                obj = _api.toMObject (arg)
 #                if obj :
 #                    # creation for existing object
@@ -2295,8 +2287,8 @@ class DagNode(Entity):
         Examples
         --------
         >>> from pymel.core import *
-        >>> f=newFile(f=1) #start clean
-        >>>
+        >>> ();f=newFile(f=1);() #doctest: +ELLIPSIS
+        (...)
         >>> s = polyPlane()[0]
         >>> instance(s)
         [nt.Transform('pPlane2')]
@@ -7413,8 +7405,7 @@ class Mesh(SurfaceShape):
     if versions.current() >= versions.v2024:
         BoolClassification = Enum('BoolClassification', [('edgeClassification', 1), ('kEdgeClassification', 1), ('normalClassification', 2), ('kNormalClassification', 2)], multiKeys=True)
     BoolOperation = Enum('BoolOperation', [('union', 1), ('kUnion', 1), ('difference', 2), ('kDifference', 2), ('intersection', 3), ('kIntersection', 3)], multiKeys=True)
-    if versions.current() >= versions.v2023:
-        BorderInfo = Enum('BorderInfo', [('geomBorder', -2), ('kGeomBorder', -2), ('UVBorder', -1), ('kUVBorder', -1), ('sharedUV', 0), ('kSharedUV', 0), ('unsharedUV', 1), ('kUnsharedUV', 1)], multiKeys=True)
+    BorderInfo = Enum('BorderInfo', [('geomBorder', -2), ('kGeomBorder', -2), ('UVBorder', -1), ('kUVBorder', -1), ('sharedUV', 0), ('kSharedUV', 0), ('unsharedUV', 1), ('kUnsharedUV', 1)], multiKeys=True)
     MColorRepresentation = Enum('MColorRepresentation', [('alpha', 1), ('kAlpha', 1), ('RGB', 3), ('kRGB', 3), ('RGBA', 4), ('kRGBA', 4)], multiKeys=True)
     SplitPlacement = Enum('SplitPlacement', [('onEdge', 0), ('kOnEdge', 0), ('internalPoint', 1), ('kInternalPoint', 1), ('invalid', 2), ('kInvalid', 2)], multiKeys=True)
 
@@ -8028,6 +8019,14 @@ class Mesh(SurfaceShape):
         res = _f.getProxyResult(self, _api.MFnMesh, 'hasAlphaChannels', final_do)
         res = _f.ApiArgUtil._castResult(self, res, 'bool', None)
         return res
+
+    @_f.addApiDocs(_api.MFnMesh, 'hasBlindDataComponentIds')
+    def hasBlindDataComponentIds(self, maxCompID, compType, blindDataId):
+        # type: (int, datatypes.Fn.Type, int) -> Tuple[bool, List[int]]
+        do, final_do, outTypes = _f.getDoArgs([maxCompID, compType, blindDataId], [('maxCompID', 'int', 'in', None), ('compType', ('MFn', 'Type'), 'in', None), ('blindDataId', 'int', 'in', None), ('compIndices', 'MIntArray', 'out', None)])
+        res = _f.getProxyResult(self, _api.MFnMesh, 'hasBlindDataComponentIds', final_do)
+        res = _f.ApiArgUtil._castResult(self, res, 'bool', None)
+        return _f.processApiResult(res, outTypes, do)
 
     @_f.addApiDocs(_api.MFnMesh, 'hasColorChannels')
     def hasColorChannels(self, colorSet):
@@ -9316,7 +9315,7 @@ class Particle(DeformableShape):
 # ------ Do not edit above this line --------
 
 
-class SelectionSet(with_metaclass(_factories.MetaMayaTypeRegistry, _api.MSelectionList)):
+class SelectionSet(_api.MSelectionList, metaclass=_factories.MetaMayaTypeRegistry):
     apicls = _api.MSelectionList
 
     def __init__(self, objs):
@@ -9340,7 +9339,7 @@ class SelectionSet(with_metaclass(_factories.MetaMayaTypeRegistry, _api.MSelecti
                     self.apicls.add(self, obj.__apiobject__(), True)
     #            elif isinstance(obj, Component):
     #                sel.add( obj.__apiobject__(), True )
-                elif isinstance(obj, basestring):
+                elif isinstance(obj, (bytes, str)):
                     self.apicls.add(self, obj)
                 else:
                     raise TypeError
@@ -9619,8 +9618,8 @@ class ObjectSet(Entity):
     create some sets:
 
         >>> from pymel.core import *
-        >>> f=newFile(f=1) #start clean
-        >>>
+        >>> ();f=newFile(f=1);() #doctest: +ELLIPSIS
+        (...)
         >>> s = sets()  # create an empty set
         >>> s.union( ls( type=nt.Camera) )  # add some cameras to it
         >>> s.members()  # doctest: +SKIP
@@ -9808,7 +9807,7 @@ class ObjectSet(Entity):
 #        return sets( self, copy=True )
 #
 #    def difference(self, elements):
-#        if isinstance(elements,basestring):
+#        if isinstance(elements,(bytes, str)):
 #            elements = cmds.sets( elements, q=True)
 #        return list(set(self.elements()).difference(elements))
 #
@@ -9831,7 +9830,7 @@ class ObjectSet(Entity):
 #            pass
 #
 #    def intersection(self, elements):
-#        if isinstance(elements,basestring):
+#        if isinstance(elements,(bytes, str)):
 #            elements = cmds.sets( elements, q=True)
 #        return set(self.elements()).intersection(elements)
 #
@@ -9844,12 +9843,12 @@ class ObjectSet(Entity):
 #        return sets( self, remove=[element])
 #
 #    def symmetric_difference(self, elements):
-#        if isinstance(elements,basestring):
+#        if isinstance(elements,(bytes, str)):
 #            elements = cmds.sets( elements, q=True)
 #        return set(self.elements()).symmetric_difference(elements)
 #
 #    def union( self, elements ):
-#        if isinstance(elements,basestring):
+#        if isinstance(elements,(bytes, str)):
 #            elements = cmds.sets( elements, q=True)
 #        return set(self.elements()).union(elements)
 #
@@ -10713,10 +10712,7 @@ class AnimCurve(DependNode):
     __slots__ = ()
     AnimCurveType = Enum('AnimCurveType', [('TA', 0), ('kAnimCurveTA', 0), ('TL', 1), ('kAnimCurveTL', 1), ('TT', 2), ('kAnimCurveTT', 2), ('TU', 3), ('kAnimCurveTU', 3), ('UA', 4), ('kAnimCurveUA', 4), ('UL', 5), ('kAnimCurveUL', 5), ('UT', 6), ('kAnimCurveUT', 6), ('UU', 7), ('kAnimCurveUU', 7), ('unknown', 8), ('kAnimCurveUnknown', 8)], multiKeys=True)
     InfinityType = Enum('InfinityType', [('constant', 0), ('kConstant', 0), ('linear', 1), ('kLinear', 1), ('cycle', 3), ('kCycle', 3), ('cycleRelative', 4), ('kCycleRelative', 4), ('oscillate', 5), ('kOscillate', 5)], multiKeys=True)
-    if versions.current() >= versions.v2022:
-        TangentType = Enum('TangentType', [('global_', 0), ('kTangentGlobal', 0), ('fixed', 1), ('kTangentFixed', 1), ('linear', 2), ('kTangentLinear', 2), ('flat', 3), ('kTangentFlat', 3), ('smooth', 4), ('kTangentSmooth', 4), ('step', 5), ('kTangentStep', 5), ('slow', 6), ('kTangentSlow', 6), ('fast', 7), ('kTangentFast', 7), ('clamped', 8), ('kTangentClamped', 8), ('plateau', 9), ('kTangentPlateau', 9), ('stepNext', 10), ('kTangentStepNext', 10), ('auto', 11), ('kTangentAuto', 11), ('shared1', 19), ('kTangentShared1', 19), ('shared2', 20), ('kTangentShared2', 20), ('shared3', 21), ('kTangentShared3', 21), ('shared4', 22), ('kTangentShared4', 22), ('shared5', 23), ('kTangentShared5', 23), ('shared6', 24), ('kTangentShared6', 24), ('shared7', 25), ('kTangentShared7', 25), ('shared8', 26), ('kTangentShared8', 26), ('autoMix', 27), ('kTangentAutoMix', 27), ('autoEase', 28), ('kTangentAutoEase', 28), ('autoCustom', 29), ('kTangentAutoCustom', 29), ('customStart', 64), ('kTangentCustomStart', 64), ('customEnd', 32767), ('kTangentCustomEnd', 32767), ('typeCount', 32768), ('kTangentTypeCount', 32768)], multiKeys=True)
-    else:
-        TangentType = Enum('TangentType', [('global_', 0), ('kTangentGlobal', 0), ('fixed', 1), ('kTangentFixed', 1), ('linear', 2), ('kTangentLinear', 2), ('flat', 3), ('kTangentFlat', 3), ('smooth', 4), ('kTangentSmooth', 4), ('step', 5), ('kTangentStep', 5), ('slow', 6), ('kTangentSlow', 6), ('fast', 7), ('kTangentFast', 7), ('clamped', 8), ('kTangentClamped', 8), ('plateau', 9), ('kTangentPlateau', 9), ('stepNext', 10), ('kTangentStepNext', 10), ('auto', 11), ('kTangentAuto', 11), ('shared1', 19), ('kTangentShared1', 19), ('shared2', 20), ('kTangentShared2', 20), ('shared3', 21), ('kTangentShared3', 21), ('shared4', 22), ('kTangentShared4', 22), ('shared5', 23), ('kTangentShared5', 23), ('shared6', 24), ('kTangentShared6', 24), ('shared7', 25), ('kTangentShared7', 25), ('shared8', 26), ('kTangentShared8', 26), ('customStart', 64), ('kTangentCustomStart', 64), ('customEnd', 32767), ('kTangentCustomEnd', 32767), ('typeCount', 32768), ('kTangentTypeCount', 32768)], multiKeys=True)
+    TangentType = Enum('TangentType', [('global_', 0), ('kTangentGlobal', 0), ('fixed', 1), ('kTangentFixed', 1), ('linear', 2), ('kTangentLinear', 2), ('flat', 3), ('kTangentFlat', 3), ('smooth', 4), ('kTangentSmooth', 4), ('step', 5), ('kTangentStep', 5), ('slow', 6), ('kTangentSlow', 6), ('fast', 7), ('kTangentFast', 7), ('clamped', 8), ('kTangentClamped', 8), ('plateau', 9), ('kTangentPlateau', 9), ('stepNext', 10), ('kTangentStepNext', 10), ('auto', 11), ('kTangentAuto', 11), ('shared1', 19), ('kTangentShared1', 19), ('shared2', 20), ('kTangentShared2', 20), ('shared3', 21), ('kTangentShared3', 21), ('shared4', 22), ('kTangentShared4', 22), ('shared5', 23), ('kTangentShared5', 23), ('shared6', 24), ('kTangentShared6', 24), ('shared7', 25), ('kTangentShared7', 25), ('shared8', 26), ('kTangentShared8', 26), ('autoMix', 27), ('kTangentAutoMix', 27), ('autoEase', 28), ('kTangentAutoEase', 28), ('autoCustom', 29), ('kTangentAutoCustom', 29), ('customStart', 64), ('kTangentCustomStart', 64), ('customEnd', 32767), ('kTangentCustomEnd', 32767), ('typeCount', 32768), ('kTangentTypeCount', 32768)], multiKeys=True)
 
     @_f.addApiDocs(_api.MFnAnimCurve, 'addKeysWithTangents')
     def addKeysWithTangents(self, timeArray, valueArray, tangentInType='global_', tangentOutType='global_', tangentInTypeArray=None, tangentOutTypeArray=None, tangentInXArray=None, tangentInYArray=None, tangentOutXArray=None, tangentOutYArray=None, tangentsLockedArray=None, weightsLockedArray=None, convertUnits=True, keepExistingKeys=False):
@@ -17260,64 +17256,6 @@ class Untrim(AbstractBaseCreate):
         return _f.asEdit(self, modeling.untrim, kwargs, 'untrimAll', val)
 
 
-class AddDoubleLinear(DependNode):
-    __melnode__ = 'addDoubleLinear'
-    __slots__ = ()
-
-    @_f.deprecated
-    def findAlias(self, alias):
-        # type: (str) -> Tuple[bool, DependNode]
-        do, final_do, outTypes = _f.getDoArgs([alias], [('alias', 'MString', 'in', None), ('attrObj', 'MObject', 'out', None)])
-        res = _f.getProxyResult(self, _api.MFnDependencyNode, 'findAlias', final_do)
-        res = _f.ApiArgUtil._castResult(self, res, 'bool', None)
-        return _f.processApiResult(res, outTypes, do)
-
-    @_f.deprecated('Use Attribute.affected instead.')
-    def getAffectedAttributes(self, attr):
-        # type: (str | DependNode) -> List[DependNode]
-        do, final_do, outTypes = _f.getDoArgs([attr], [('attr', 'MObject', 'in', None), ('affectedAttributes', 'MObjectArray', 'out', None)])
-        res = _f.getProxyResult(self, _api.MFnDependencyNode, 'getAffectedAttributes', final_do)
-        return _f.processApiResult(res, outTypes, do)
-
-    @_f.deprecated('Use Attribute.affects instead.')
-    def getAffectedByAttributes(self, attr):
-        # type: (str | DependNode) -> List[DependNode]
-        do, final_do, outTypes = _f.getDoArgs([attr], [('attr', 'MObject', 'in', None), ('affectedByAttributes', 'MObjectArray', 'out', None)])
-        res = _f.getProxyResult(self, _api.MFnDependencyNode, 'getAffectedByAttributes', final_do)
-        return _f.processApiResult(res, outTypes, do)
-
-    @_f.deprecated('Use listAliases instead.')
-    def getAliasList(self):
-        # type: () -> Tuple[bool, List[str]]
-        do, final_do, outTypes = _f.getDoArgs([], [('strArray', 'MStringArray', 'out', None)])
-        res = _f.getProxyResult(self, _api.MFnDependencyNode, 'getAliasList', final_do)
-        res = _f.ApiArgUtil._castResult(self, res, 'bool', None)
-        return _f.processApiResult(res, outTypes, do)
-
-    @_f.deprecated('Use inputs/outputs, or general.listConnections instead.')
-    def getConnections(self):
-        # type: () -> List[general.Attribute]
-        do, final_do, outTypes = _f.getDoArgs([], [('array', 'MPlugArray', 'out', None)])
-        res = _f.getProxyResult(self, _api.MFnDependencyNode, 'getConnections', final_do)
-        return _f.processApiResult(res, outTypes, do)
-
-    @_f.deprecated('Use Attribute.getAlias instead.')
-    def plugsAlias(self, plug):
-        # type: (str | general.Attribute) -> str
-        do, final_do, outTypes = _f.getDoArgs([plug], [('plug', 'MPlug', 'in', None)])
-        res = _f.getProxyResult(self, _api.MFnDependencyNode, 'plugsAlias', final_do)
-        res = _f.ApiArgUtil._castResult(self, res, 'MString', None)
-        return res
-
-    @_f.deprecated('Use Attribute.setAlias instead.')
-    def setAlias(self, alias, name, plug, add=True):
-        # type: (str, str, str | general.Attribute, bool) -> bool
-        do, final_do, outTypes = _f.getDoArgs([alias, name, plug, add], [('alias', 'MString', 'in', None), ('name', 'MString', 'in', None), ('plug', 'MPlug', 'in', None), ('add', 'bool', 'in', None)])
-        res = _f.getProxyResult(self, _api.MFnDependencyNode, 'setAlias', final_do)
-        res = _f.ApiArgUtil._castResult(self, res, 'bool', None)
-        return res
-
-
 class AddMatrix(DependNode):
     __melnode__ = 'addMatrix'
     __slots__ = ()
@@ -21260,6 +21198,8 @@ class VolumeLight(PointLight):
     __apicls__ = _api.MFnVolumeLight
     __melnode__ = 'volumeLight'
     __slots__ = ()
+    if versions.current() >= versions.v2026:
+        Axis = Enum('Axis', [('xaxis', 0), ('kXaxis', 0), ('yaxis', 1), ('kYaxis', 1), ('zaxis', 2), ('kZaxis', 2)], multiKeys=True)
     MLightDirection = Enum('MLightDirection', [('outward', 0), ('kOutward', 0), ('inward', 1), ('kInward', 1), ('downAxis', 2), ('kDownAxis', 2)], multiKeys=True)
     MLightShape = Enum('MLightShape', [('boxVolume', 0), ('kBoxVolume', 0), ('sphereVolume', 1), ('kSphereVolume', 1), ('cylinderVolume', 2), ('kCylinderVolume', 2), ('coneVolume', 3), ('kConeVolume', 3)], multiKeys=True)
 
@@ -21321,6 +21261,13 @@ class VolumeLight(PointLight):
         do, final_do, outTypes, undoItem = _f.getDoArgsGetterUndo([emit_ambient], [('emit_ambient', 'bool', 'in', None)], self.getEmitAmbient, self.setEmitAmbient, [])
         res = _f.getProxyResult(self, _api.MFnVolumeLight, 'setEmitAmbient', final_do)
         if undoItem is not None: _f.apiUndo.append(undoItem)
+        return res
+
+    @_f.addApiDocs(_api.MFnVolumeLight, 'setFaceAxis')
+    def setFaceAxis(self, axis):
+        # type: (VolumeLight.Axis) -> None
+        do, final_do, outTypes = _f.getDoArgs([axis], [('axis', ('MFnVolumeLight', 'Axis'), 'in', None)])
+        res = _f.getProxyResult(self, _api.MFnVolumeLight, 'setFaceAxis', final_do)
         return res
 
     @_f.addApiDocs(_api.MFnVolumeLight, 'setLightShape')
@@ -31698,64 +31645,6 @@ class THmotionPath(MotionPath):
     __slots__ = ()
 
 
-class MultDoubleLinear(DependNode):
-    __melnode__ = 'multDoubleLinear'
-    __slots__ = ()
-
-    @_f.deprecated
-    def findAlias(self, alias):
-        # type: (str) -> Tuple[bool, DependNode]
-        do, final_do, outTypes = _f.getDoArgs([alias], [('alias', 'MString', 'in', None), ('attrObj', 'MObject', 'out', None)])
-        res = _f.getProxyResult(self, _api.MFnDependencyNode, 'findAlias', final_do)
-        res = _f.ApiArgUtil._castResult(self, res, 'bool', None)
-        return _f.processApiResult(res, outTypes, do)
-
-    @_f.deprecated('Use Attribute.affected instead.')
-    def getAffectedAttributes(self, attr):
-        # type: (str | DependNode) -> List[DependNode]
-        do, final_do, outTypes = _f.getDoArgs([attr], [('attr', 'MObject', 'in', None), ('affectedAttributes', 'MObjectArray', 'out', None)])
-        res = _f.getProxyResult(self, _api.MFnDependencyNode, 'getAffectedAttributes', final_do)
-        return _f.processApiResult(res, outTypes, do)
-
-    @_f.deprecated('Use Attribute.affects instead.')
-    def getAffectedByAttributes(self, attr):
-        # type: (str | DependNode) -> List[DependNode]
-        do, final_do, outTypes = _f.getDoArgs([attr], [('attr', 'MObject', 'in', None), ('affectedByAttributes', 'MObjectArray', 'out', None)])
-        res = _f.getProxyResult(self, _api.MFnDependencyNode, 'getAffectedByAttributes', final_do)
-        return _f.processApiResult(res, outTypes, do)
-
-    @_f.deprecated('Use listAliases instead.')
-    def getAliasList(self):
-        # type: () -> Tuple[bool, List[str]]
-        do, final_do, outTypes = _f.getDoArgs([], [('strArray', 'MStringArray', 'out', None)])
-        res = _f.getProxyResult(self, _api.MFnDependencyNode, 'getAliasList', final_do)
-        res = _f.ApiArgUtil._castResult(self, res, 'bool', None)
-        return _f.processApiResult(res, outTypes, do)
-
-    @_f.deprecated('Use inputs/outputs, or general.listConnections instead.')
-    def getConnections(self):
-        # type: () -> List[general.Attribute]
-        do, final_do, outTypes = _f.getDoArgs([], [('array', 'MPlugArray', 'out', None)])
-        res = _f.getProxyResult(self, _api.MFnDependencyNode, 'getConnections', final_do)
-        return _f.processApiResult(res, outTypes, do)
-
-    @_f.deprecated('Use Attribute.getAlias instead.')
-    def plugsAlias(self, plug):
-        # type: (str | general.Attribute) -> str
-        do, final_do, outTypes = _f.getDoArgs([plug], [('plug', 'MPlug', 'in', None)])
-        res = _f.getProxyResult(self, _api.MFnDependencyNode, 'plugsAlias', final_do)
-        res = _f.ApiArgUtil._castResult(self, res, 'MString', None)
-        return res
-
-    @_f.deprecated('Use Attribute.setAlias instead.')
-    def setAlias(self, alias, name, plug, add=True):
-        # type: (str, str, str | general.Attribute, bool) -> bool
-        do, final_do, outTypes = _f.getDoArgs([alias, name, plug, add], [('alias', 'MString', 'in', None), ('name', 'MString', 'in', None), ('plug', 'MPlug', 'in', None), ('add', 'bool', 'in', None)])
-        res = _f.getProxyResult(self, _api.MFnDependencyNode, 'setAlias', final_do)
-        res = _f.ApiArgUtil._castResult(self, res, 'bool', None)
-        return res
-
-
 class MultMatrix(DependNode):
     __melnode__ = 'multMatrix'
     __slots__ = ()
@@ -32755,64 +32644,6 @@ class PassMatrix(DependNode):
 class PickMatrix(DependNode):
     __melnode__ = 'pickMatrix'
     __slots__ = ()
-
-
-class PointMatrixMult(DependNode):
-    __melnode__ = 'pointMatrixMult'
-    __slots__ = ()
-
-    @_f.deprecated
-    def findAlias(self, alias):
-        # type: (str) -> Tuple[bool, DependNode]
-        do, final_do, outTypes = _f.getDoArgs([alias], [('alias', 'MString', 'in', None), ('attrObj', 'MObject', 'out', None)])
-        res = _f.getProxyResult(self, _api.MFnDependencyNode, 'findAlias', final_do)
-        res = _f.ApiArgUtil._castResult(self, res, 'bool', None)
-        return _f.processApiResult(res, outTypes, do)
-
-    @_f.deprecated('Use Attribute.affected instead.')
-    def getAffectedAttributes(self, attr):
-        # type: (str | DependNode) -> List[DependNode]
-        do, final_do, outTypes = _f.getDoArgs([attr], [('attr', 'MObject', 'in', None), ('affectedAttributes', 'MObjectArray', 'out', None)])
-        res = _f.getProxyResult(self, _api.MFnDependencyNode, 'getAffectedAttributes', final_do)
-        return _f.processApiResult(res, outTypes, do)
-
-    @_f.deprecated('Use Attribute.affects instead.')
-    def getAffectedByAttributes(self, attr):
-        # type: (str | DependNode) -> List[DependNode]
-        do, final_do, outTypes = _f.getDoArgs([attr], [('attr', 'MObject', 'in', None), ('affectedByAttributes', 'MObjectArray', 'out', None)])
-        res = _f.getProxyResult(self, _api.MFnDependencyNode, 'getAffectedByAttributes', final_do)
-        return _f.processApiResult(res, outTypes, do)
-
-    @_f.deprecated('Use listAliases instead.')
-    def getAliasList(self):
-        # type: () -> Tuple[bool, List[str]]
-        do, final_do, outTypes = _f.getDoArgs([], [('strArray', 'MStringArray', 'out', None)])
-        res = _f.getProxyResult(self, _api.MFnDependencyNode, 'getAliasList', final_do)
-        res = _f.ApiArgUtil._castResult(self, res, 'bool', None)
-        return _f.processApiResult(res, outTypes, do)
-
-    @_f.deprecated('Use inputs/outputs, or general.listConnections instead.')
-    def getConnections(self):
-        # type: () -> List[general.Attribute]
-        do, final_do, outTypes = _f.getDoArgs([], [('array', 'MPlugArray', 'out', None)])
-        res = _f.getProxyResult(self, _api.MFnDependencyNode, 'getConnections', final_do)
-        return _f.processApiResult(res, outTypes, do)
-
-    @_f.deprecated('Use Attribute.getAlias instead.')
-    def plugsAlias(self, plug):
-        # type: (str | general.Attribute) -> str
-        do, final_do, outTypes = _f.getDoArgs([plug], [('plug', 'MPlug', 'in', None)])
-        res = _f.getProxyResult(self, _api.MFnDependencyNode, 'plugsAlias', final_do)
-        res = _f.ApiArgUtil._castResult(self, res, 'MString', None)
-        return res
-
-    @_f.deprecated('Use Attribute.setAlias instead.')
-    def setAlias(self, alias, name, plug, add=True):
-        # type: (str, str, str | general.Attribute, bool) -> bool
-        do, final_do, outTypes = _f.getDoArgs([alias, name, plug, add], [('alias', 'MString', 'in', None), ('name', 'MString', 'in', None), ('plug', 'MPlug', 'in', None), ('add', 'bool', 'in', None)])
-        res = _f.getProxyResult(self, _api.MFnDependencyNode, 'setAlias', final_do)
-        res = _f.ApiArgUtil._castResult(self, res, 'bool', None)
-        return res
 
 
 class PolyBase(DependNode):

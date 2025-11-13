@@ -96,7 +96,7 @@ class WorkspaceEntryDict:
     def __iter__(self): ...
     has_key = __contains__
 
-class Workspace:
+class Workspace(metaclass=_util.Singleton):
     objectTypes: Incomplete
     fileRules: Incomplete
     renderTypes: Incomplete
@@ -130,7 +130,7 @@ workspace: Workspace
 
 class SingletonABCMeta(_util.Singleton, abc.ABCMeta): ...
 
-class FileInfo(MutableMapping):
+class FileInfo(MutableMapping, metaclass=SingletonABCMeta):
     def __getitem__(self, item: str) -> str: ...
     def __setitem__(self, item, value) -> None: ...
     def __delitem__(self, item: str) -> None: ...

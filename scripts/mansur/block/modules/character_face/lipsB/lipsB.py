@@ -1164,37 +1164,37 @@ def postConstruct(mansur, MnsBuildModule, **kwargs):
 									clampNode = mnsNodes.clampNode([jawCtrl.node.rx, 0, 0], 
 																	[180.0, 0.0, 0.0],
 																	[0.0, 0.0, 0.0])
-									clampNode.node.outputR >> weightMdlNode.node.input1
+									mnsNodes.dlNodesConnect(clampNode.node.outputR, weightMdlNode.node, "input1")
 									weightMdlNode.node.output >> offsetA.node.rx
 								elif upMotionRotAxis == "y":
 									clampNode = mnsNodes.clampNode([jawCtrl.node.ry, 0, 0], 
 																	[180.0, 0.0, 0.0],
 																	[0.0, 0.0, 0.0])
-									clampNode.node.outputR >> weightMdlNode.node.input1
+									mnsNodes.dlNodesConnect(clampNode.node.outputR, weightMdlNode.node, "input1")
 									weightMdlNode.node.output >> offsetA.node.ry
 								elif upMotionRotAxis == "z":
 									clampNode = mnsNodes.clampNode([jawCtrl.node.rz, 0, 0], 
 																	[180.0, 0.0, 0.0],
 																	[0.0, 0.0, 0.0])
-									clampNode.node.outputR >> weightMdlNode.node.input1
+									mnsNodes.dlNodesConnect(clampNode.node.outputR, weightMdlNode.node, "input1")
 									weightMdlNode.node.output >> offsetA.node.rz
 								elif upMotionRotAxis == "-x":
 									clampNode = mnsNodes.clampNode([jawCtrl.node.rx, 0, 0], 
 																	[0.0, 0.0, 0.0],
 																	[-180.0, 0.0, 0.0])
-									clampNode.node.outputR >> weightMdlNode.node.input1
+									mnsNodes.dlNodesConnect(clampNode.node.outputR, weightMdlNode.node, "input1")
 									weightMdlNode.node.output >> offsetA.node.rx
 								elif upMotionRotAxis == "-y":
 									clampNode = mnsNodes.clampNode([jawCtrl.node.ry, 0, 0], 
 																	[0.0, 0.0, 0.0],
 																	[-180.0, 0.0, 0.0])
-									clampNode.node.outputR >> weightMdlNode.node.input1
+									mnsNodes.dlNodesConnect(clampNode.node.outputR, weightMdlNode.node, "input1")
 									weightMdlNode.node.output >> offsetA.node.ry
 								elif upMotionRotAxis == "-z":
 									clampNode = mnsNodes.clampNode([jawCtrl.node.rz, 0, 0], 
 																	[0.0, 0.0, 0.0],
 																	[-180.0, 0.0, 0.0])
-									clampNode.node.outputR >> weightMdlNode.node.input1
+									mnsNodes.dlNodesConnect(clampNode.node.outputR, weightMdlNode.node, "input1")
 									weightMdlNode.node.output >> offsetA.node.rz
 
 							status, connectUpMotionTran = mnsUtils.validateAttrAndGet(rootGuide, "connectUpMotionTran", True)
@@ -1207,37 +1207,37 @@ def postConstruct(mansur, MnsBuildModule, **kwargs):
 									clampNode = mnsNodes.clampNode([jawCtrl.node.tx, 0, 0], 
 																	[180.0, 0.0, 0.0],
 																	[0.0, 0.0, 0.0])
-									clampNode.node.outputR >> weightMdlNode.node.input1
+									mnsNodes.dlNodesConnect(clampNode.node.outputR, weightMdlNode.node, "input1")
 									weightMdlNode.node.output >> offsetA.node.tx
 								elif upMotionTranAxis == "y":
 									clampNode = mnsNodes.clampNode([jawCtrl.node.ty, 0, 0], 
 																	[180.0, 0.0, 0.0],
 																	[0.0, 0.0, 0.0])
-									clampNode.node.outputR >> weightMdlNode.node.input1
+									mnsNodes.dlNodesConnect(clampNode.node.outputR, weightMdlNode.node, "input1")
 									weightMdlNode.node.output >> offsetA.node.ty
 								elif upMotionTranAxis == "z":
 									clampNode = mnsNodes.clampNode([jawCtrl.node.tz, 0, 0], 
 																	[180.0, 0.0, 0.0],
 																	[0.0, 0.0, 0.0])
-									clampNode.node.outputR >> weightMdlNode.node.input1
+									mnsNodes.dlNodesConnect(clampNode.node.outputR, weightMdlNode.node, "input1")
 									weightMdlNode.node.output >> offsetA.node.tz
 								elif upMotionTranAxis == "-x":
 									clampNode = mnsNodes.clampNode([jawCtrl.node.tx, 0, 0], 
 																	[0.0, 0.0, 0.0],
 																	[-180.0, 0.0, 0.0])
-									clampNode.node.outputR >> weightMdlNode.node.input1
+									mnsNodes.dlNodesConnect(clampNode.node.outputR, weightMdlNode.node, "input1")
 									weightMdlNode.node.output >> offsetA.node.tx
 								elif upMotionTranAxis == "-y":
 									clampNode = mnsNodes.clampNode([jawCtrl.node.ty, 0, 0], 
 																	[0.0, 0.0, 0.0],
 																	[-180.0, 0.0, 0.0])
-									clampNode.node.outputR >> weightMdlNode.node.input1
+									mnsNodes.dlNodesConnect(clampNode.node.outputR, weightMdlNode.node, "input1")
 									weightMdlNode.node.output >> offsetA.node.ty
 								elif upMotionTranAxis == "-z":
 									clampNode = mnsNodes.clampNode([jawCtrl.node.tz, 0, 0], 
 																	[0.0, 0.0, 0.0],
 																	[-180.0, 0.0, 0.0])
-									clampNode.node.outputR >> weightMdlNode.node.input1
+									mnsNodes.dlNodesConnect(clampNode.node.outputR, weightMdlNode.node, "input1")
 									weightMdlNode.node.output >> offsetA.node.tz
 
 							

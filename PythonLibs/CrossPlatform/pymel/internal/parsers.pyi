@@ -1,8 +1,8 @@
 from typing import *
-import abc
 from . import plogging as plogging
+from ..versions import shortName as shortName
 from _typeshed import Incomplete
-from abc import abstractmethod
+from abc import ABCMeta, abstractmethod
 from collections.abc import Generator
 from html.parser import HTMLParser
 from pymel.mayautils import getMayaLocation as getMayaLocation
@@ -43,6 +43,7 @@ class CommandDocParser(HTMLParser):
     example: str
     emptyModeFlags: Incomplete
     internal: bool
+    baseline: Incomplete
     def __init__(self, command) -> None: ...
     def startFlag(self, data) -> None: ...
     def addFlagData(self, data) -> None: ...
@@ -94,7 +95,7 @@ class ParamInfo:
     def doc(self, rawVal) -> None: ...
     def qualifiedTypeName(self): ...
 
-class ApiDocParser(metaclass=abc.ABCMeta):
+class ApiDocParser(metaclass=ABCMeta):
     NO_PYTHON_MSG: Incomplete
     DEPRECATED_MSG: Incomplete
     PYMEL_ENUM_DEFAULTS: Incomplete

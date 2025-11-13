@@ -1,6 +1,3 @@
-from __future__ import print_function
-from __future__ import absolute_import
-from __future__ import division
 from builtins import range
 from builtins import str
 from past.builtins import basestring
@@ -23,7 +20,6 @@ from pymel.core import other
 from pymel.core import rendering
 from pymel.core import system
 from pymel.core import windows
-from future.utils import with_metaclass
 
 if False:
     from typing import *
@@ -3937,7 +3933,7 @@ class AELoader(type):
 
     @staticmethod
     def load(modname, classname, nodename):
-        mod = __import__(modname, globals(), locals(), [classname], -1)
+        mod = __import__(modname, globals(), locals(), [classname], 0)
         try:
             cls = getattr(mod, classname)
             cls(nodename)
@@ -3952,7 +3948,7 @@ class AELoader(type):
         return cls._loaded
 
 
-class AETemplate(with_metaclass(AELoader, object)):
+class AETemplate(object, metaclass=AELoader):
 
     """
     To create an Attribute Editor template using python, do the following:

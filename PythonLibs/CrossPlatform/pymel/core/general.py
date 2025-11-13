@@ -6,14 +6,11 @@ and `Attribute <pymel.core.nodetypes.Attribute>`, see :mod:`pymel.core.nodetypes
 
 
 """
-from __future__ import absolute_import
-from __future__ import print_function
-from __future__ import division
 from builtins import next
 from builtins import str
 from builtins import zip
 from builtins import range
-from past.builtins import basestring
+
 from builtins import object
 import sys
 import os
@@ -30,14 +27,11 @@ import pymel.core.datatypes as datatypes
 from maya.cmds import about as _about
 from pymel.internal import getLogger as _getLogger
 from pymel.util.enum import Enum
-from future.utils import PY2, with_metaclass
+
 
 from pymel.util.py2to3 import RePattern
 
-if PY2:
-    import collections as abc
-else:
-    from collections import abc
+from collections import abc
 
 TYPE_CHECKING = False
 
@@ -250,7 +244,7 @@ def move(*args, **kwargs):
     NOTE: this command also reorders the argument order to be more intuitive, with the object first
     """
     obj = None
-    if args and isinstance(args[0], (basestring, PyNode)):
+    if args and isinstance(args[0], ((bytes, str), PyNode)):
         obj = args[0]
         args = args[1:]
 
@@ -521,7 +515,7 @@ def setAttr(attr, *args, **kwargs):
                     attrName = nameparse.parse(attr)
                     assert attrName.isAttributeName(), "passed object is not an attribute"
                     try:
-                        if isinstance(arg[0], (basestring, _util.ProxyUnicode)):
+                        if isinstance(arg[0], ((bytes, str), _util.ProxyUnicode)):
                             datatype = 'stringArray'
                         elif isinstance(arg[0], (list, datatypes.Vector)):
                             datatype = 'vectorArray'
@@ -628,7 +622,7 @@ def setAttr(attr, *args, **kwargs):
                     attrName = nameparse.parse(attr)
                     assert attrName.isAttributeName(), \
                         "passed object is not an attribute"
-                    if isinstance(arg, basestring):
+                    if isinstance(arg, (bytes, str)):
                         addAttr(attrName.nodePath, ln=attrName.attribute,
                                 dt='string')
                         kwargs['type'] = 'string'
@@ -646,7 +640,7 @@ def setAttr(attr, *args, **kwargs):
                                         "type for use with the force flag" %
                                         (__name__, type(arg)))
 
-                elif isinstance(arg, (basestring, _util.ProxyUnicode)):
+                elif isinstance(arg, ((bytes, str), _util.ProxyUnicode)):
                     if asString is None:
                         if isinstance(attr, Attribute):
                             attrType = attr.type()
@@ -749,12 +743,7 @@ def addAttr(*args, **kwargs):
             ['autoLong2', 'autoLong2_first', 'autoLong2_second']
     """
     # temp hack, because str is currently builtins.str...
-    if PY2:
-        from __builtin__ import str
-    else:
-        # the same as what's at global scope, but the above import makes str
-        # a local variable - and unbound in PY3 without this!
-        from builtins import str
+    from builtins import str
 
     attributeTypes = ['bool', 'long', 'short', 'byte', 'char', 'enum',
                       'float', 'double', 'doubleAngle', 'doubleLinear',
@@ -958,13 +947,13 @@ def _toEnumStr(enums):
     if isinstance(enums, dict):
         firstKey = next(iter(enums.keys()))
         firstVal = next(iter(enums.values()))
-        if isinstance(firstKey, basestring) and isinstance(firstVal, int):
+        if isinstance(firstKey, (bytes, str)) and isinstance(firstVal, int):
             enums = ['%s=%s' % (key, val) for key, val in enums.items()]
-        elif isinstance(firstKey, int) and isinstance(firstVal, basestring):
+        elif isinstance(firstKey, int) and isinstance(firstVal, (bytes, str)):
             enums = ['%s=%s' % (val, key) for key, val in enums.items()]
         else:
             raise ValueError('dict must map from strings to ints, or vice-versa')
-    if isinstance(enums, basestring):
+    if isinstance(enums, (bytes, str)):
         enumStr = enums
     else:
         enumStr = ":".join(enums)
@@ -1482,11 +1471,11 @@ def ls(*args, **kwargs):
 #        if isinstance(arg, (list, tuple)):
 #            # maya only goes one deep, and only checks for lists or tuples
 #            for subarg in arg:
-#                if isinstance(subarg, basestring) and not validGlobChars.match(subarg):
+#                if isinstance(subarg, (bytes, str)) and not validGlobChars.match(subarg):
 #                    regexArgs.append(subarg)
 #                else:
 #                    newArgs.append(subarg)
-#        elif isinstance(arg, basestring) and not validGlobChars.match(arg):
+#        elif isinstance(arg, (bytes, str)) and not validGlobChars.match(arg):
 #            regexArgs.append(arg)
 #        else:
 #            newArgs.append(arg)
@@ -1494,7 +1483,7 @@ def ls(*args, **kwargs):
     for i, val in enumerate(regexArgs):
         # add a prefix which allows the regex to match against a dag path,
         # mounted at the right
-        if isinstance(val, basestring):
+        if isinstance(val, (bytes, str)):
             if not val.endswith('$'):
                 val = val + '$'
             val = re.compile(r'(\||^)' + val)
@@ -1665,7 +1654,7 @@ def nodeType(node, **kwargs):
 #        else :
 #            obj = None
     else:
-        # if isinstance(node,basestring) :
+        # if isinstance(node,(bytes, str)) :
         #obj = _api.toMObject( node.split('.')[0] )
         # don't spend the extra time converting to MObject
         # don't do unicode(node) - let pmcmds wrap handle it - 'node' may
@@ -2257,8 +2246,8 @@ Modifications
   - resolved confusing syntax: operating set is always the first and only arg:
 
         >>> from pymel.core import *
-        >>> f=newFile(f=1) #start clean
-        >>>
+        >>> ();f=newFile(f=1);() #doctest: +ELLIPSIS
+        (...)
         >>> shdr, sg = createSurfaceShader( 'blinn' )
         >>> shdr
         nt.Blinn('blinn1')
@@ -2311,7 +2300,7 @@ Modifications
             # move arg over to kwarg
             if _util.isIterable(value):
                 args = tuple(value)
-            elif isinstance(value, (basestring, PyNode)):
+            elif isinstance(value, ((bytes, str), PyNode)):
                 args = (value,)
             else:
                 args = ()
@@ -2360,7 +2349,7 @@ Modifications
         return cmds.sets( **kwargs )
 
 
-    #if isinstance(elements,basestring) and cmds.ls( elements, sets=True):
+    #if isinstance(elements,(bytes, str)) and cmds.ls( elements, sets=True):
     #    elements = cmds.sets( elements, q=True )
 
     #print elements, kwargs
@@ -2459,7 +2448,7 @@ def spaceLocator(*args, **kwargs):
             and not kwargs.get('edit', kwargs.get('e', False))):
         if isinstance(res, list):
             res = res[0]
-        if isinstance(res, basestring):
+        if isinstance(res, (bytes, str)):
             res = '|' + res
         res = nodetypes.Transform(res)
     return res
@@ -2691,7 +2680,7 @@ class PyNode(_util.ProxyUnicode):
                 elif hasattr(argObj, '__module__') and argObj.__module__.startswith('maya.OpenMaya'):
                     pass
 
-                # elif isinstance(argObj,basestring) : # got rid of this check
+                # elif isinstance(argObj,(bytes, str)) : # got rid of this check
                 # because of nameparse objects
                 else:
                     # didn't match any known types. treat as a string
@@ -2836,7 +2825,7 @@ class PyNode(_util.ProxyUnicode):
                 # ---------------------------------
                 if vClassInfo and vClassInfo.create:
                     newNode = vClassInfo.create(**kwargs)
-                    assert isinstance(newNode, basestring), \
+                    assert isinstance(newNode, (bytes, str)), \
                         "_createVirtual must return the name created node"
 
                 elif hasattr(cls, '__melcmd__') and not cls.__melcmd_isinfo__:
@@ -2989,7 +2978,7 @@ class PyNode(_util.ProxyUnicode):
         return u"%s(%r)" % (self.__class__.__name__, self.name())
 
     def __radd__(self, other):
-        if isinstance(other, basestring):
+        if isinstance(other, (bytes, str)):
             return other.__add__(self.name())
         else:
             raise TypeError("cannot concatenate '%s' and '%s' objects" %
@@ -3044,25 +3033,25 @@ class PyNode(_util.ProxyUnicode):
         return self.exists()
 
     def __lt__(self, other):
-        if isinstance(other, (basestring, PyNode)):
+        if isinstance(other, ((bytes, str), PyNode)):
             return self.name().__lt__(str(other))
         else:
             return NotImplemented
 
     def __gt__(self, other):
-        if isinstance(other, (basestring, PyNode)):
+        if isinstance(other, ((bytes, str), PyNode)):
             return self.name().__gt__(str(other))
         else:
             return NotImplemented
 
     def __le__(self, other):
-        if isinstance(other, (basestring, PyNode)):
+        if isinstance(other, ((bytes, str), PyNode)):
             return self.name().__le__(str(other))
         else:
             return NotImplemented
 
     def __ge__(self, other):
-        if isinstance(other, (basestring, PyNode)):
+        if isinstance(other, ((bytes, str), PyNode)):
             return self.name().__ge__(str(other))
         else:
             return NotImplemented
@@ -3250,7 +3239,7 @@ def _getParent(getter, obj, generations):
             return allParents[generations]
 
 
-class Attribute(with_metaclass(_factories.MetaMayaTypeRegistry, PyNode)):
+class Attribute(PyNode, metaclass=_factories.MetaMayaTypeRegistry):
 
     """Attribute class
 
@@ -3509,8 +3498,8 @@ class Attribute(with_metaclass(_factories.MetaMayaTypeRegistry, PyNode)):
         iterator for multi-attributes
 
             >>> from pymel.core import *
-            >>> f=newFile(f=1) #start clean
-            >>>
+            >>> ();f=newFile(f=1);() #doctest: +ELLIPSIS
+            (...)
             >>> at = PyNode( 'defaultLightSet.dagSetMembers' )
             >>> nt.SpotLight()
             nt.SpotLight('spotLightShape1')
@@ -3532,34 +3521,15 @@ class Attribute(with_metaclass(_factories.MetaMayaTypeRegistry, PyNode)):
             raise TypeError("%s is not a multi-attribute and cannot be "
                             "iterated over" % self)
 
-    if PY2:
-        def __str__(self):
-            # type: () -> str
-            """
-            Returns
-            -------
-            str
-            """
-            import __builtin__
-            return __builtin__.str(self.name())
 
-        def __unicode__(self):
-            # type: () -> str
-            """
-            Returns
-            -------
-            str
-            """
-            return self.name()
-    else:
-        def __str__(self):
-            # type: () -> str
-            """
-            Returns
-            -------
-            str
-            """
-            return self.name()
+    def __str__(self):
+        # type: () -> str
+        """
+        Returns
+        -------
+        str
+        """
+        return self.name()
 
     def __eq__(self, other):
         # type: (Any) -> bool
@@ -3882,8 +3852,8 @@ class Attribute(with_metaclass(_factories.MetaMayaTypeRegistry, PyNode)):
         that you use `Attribute.numElements` instead.  This is a maya bug, *not* a pymel bug.
 
             >>> from pymel.core import *
-            >>> f=newFile(f=1) #start clean
-            >>>
+            >>> ();f=newFile(f=1);() # doctest: +ELLIPSIS
+            (...)
             >>> dls = SCENE.defaultLightSet
             >>> dls.dagSetMembers.numElements()
             0
@@ -5322,7 +5292,7 @@ class HashableSlice(ProxySlice):
         return self._slice.step
 
 
-class Component(with_metaclass(_factories.MetaMayaTypeRegistry, PyNode)):
+class Component(PyNode, metaclass=_factories.MetaMayaTypeRegistry):
 
     """
     Abstract base class for pymel components.
@@ -5493,16 +5463,8 @@ class Component(with_metaclass(_factories.MetaMayaTypeRegistry, PyNode)):
         """
         return bool(len(self))
 
-    if PY2:
-        def __str__(self):
-            import __builtin__
-            return __builtin__.str(self.name())
-
-        def __unicode__(self):
-            return self.name()
-    else:
-        def __str__(self):
-            return self.name()
+    def __str__(self):
+        return self.name()
 
     def _completeNameString(self):
         return u'%s.%s' % (self.node(), self.plugAttr())
@@ -5568,7 +5530,7 @@ class Component(with_metaclass(_factories.MetaMayaTypeRegistry, PyNode)):
     def name(self):
         # type: () -> str
         melObj = self.__melobject__()
-        if isinstance(melObj, basestring):
+        if isinstance(melObj, (bytes, str)):
             return melObj
         return repr(melObj)
 
@@ -6461,7 +6423,7 @@ class Component1D(DiscreteComponent):
         # type: () -> str
         # this function produces a name that uses extended slice notation, such as vtx[10:40:2]
         melobj = self.__melobject__()
-        if isinstance(melobj, basestring):
+        if isinstance(melobj, (bytes, str)):
             return melobj
         else:
             compSlice = self._sequenceToComponentSlice(self.indicesIter())
@@ -6619,10 +6581,7 @@ class Component1D64(DiscreteComponent):
         # The ContinuousComponent version works fine for us - just
         # make sure we grab the original function object, not the method
         # object, since we don't inherit from ContinuousComponent
-        if PY2:
-            _sliceToIndices = ContinuousComponent._sliceToIndices.__func__
-        else:
-            _sliceToIndices = ContinuousComponent._sliceToIndices
+        _sliceToIndices = ContinuousComponent._sliceToIndices
 
         # We're basically having to fall back on strings here, so revert 'back'
         # to the string implementation of various methods...
@@ -6650,7 +6609,7 @@ class Component1D64(DiscreteComponent):
         def _flatIter(self):
             if not hasattr(self, '_fullIndices'):
                 melobj = self.__melobject__()
-                if isinstance(melobj, basestring):
+                if isinstance(melobj, (bytes, str)):
                     melobj = [melobj]
                 indices = [self._indicesRe.search(x).groups() for x in melobj]
                 for i, indicePair in enumerate(indices):
@@ -7900,7 +7859,7 @@ class NurbsSurfaceIsoparm(Component2DFloat):
         elif isinstance(index, (list, tuple)) \
                 and not isinstance(index, ComponentIndex):
             index = [cls._convertUVtoU(x) for x in index]
-        elif isinstance(index, basestring):
+        elif isinstance(index, (bytes, str)):
             if index == 'uv':
                 index = 'u'
         return index
@@ -8160,7 +8119,7 @@ class ParticleComponent(Component1D):
 #        return rotate( self, *args, **kwargs )
 
 
-class AttributeSpec(with_metaclass(_factories.MetaMayaTypeRegistry, PyNode)):
+class AttributeSpec(PyNode, metaclass=_factories.MetaMayaTypeRegistry):
     '''Represents a specification for the type of an attribute.
 
     This is different from an Attribute, which is a particular instance of
@@ -8181,7 +8140,7 @@ class AttributeSpec(with_metaclass(_factories.MetaMayaTypeRegistry, PyNode)):
     def __new__(cls, *args, **kwargs):
         if len(args) == 1:
             argObj = args[0]
-            if isinstance(argObj, basestring):
+            if isinstance(argObj, (bytes, str)):
                 # PyNode's __new__ will translate a string to an Attribute, and
                 # then complain that's not a subclass of AttributeSpec...
                 argObj = Attribute(argObj)
@@ -8647,7 +8606,7 @@ AttributeDefaults = AttributeSpec
 #  Scene Class
 # ----------------------------------------------
 
-class Scene(with_metaclass(_util.Singleton, object)):
+class Scene(object, metaclass=_util.Singleton):
 
     """
     The Scene class provides an attribute-based method for retrieving `PyNode` instances of
@@ -8674,6 +8633,7 @@ class Scene(with_metaclass(_util.Singleton, object)):
         return PyNode(obj)
 
 SCENE = Scene()
+
 
 
 # ------ Do not edit below this line --------

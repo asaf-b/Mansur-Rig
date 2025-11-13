@@ -1,3 +1,4 @@
+import pymel.internal.factories as _factories
 import pymel.util as _util
 import pymel.core.datatypes as datatypes
 import pymel.core.nodetypes as nodetypes
@@ -208,7 +209,7 @@ class PyNode(_util.ProxyUnicode):
 deprecated_str_methods: Incomplete
 strDeprecateDecorator: Incomplete
 
-class Attribute(PyNode):
+class Attribute(PyNode, metaclass=_factories.MetaMayaTypeRegistry):
     __apicls__: Incomplete
     attrItemReg: Incomplete
     def __apiobject__(self): ...
@@ -318,10 +319,6 @@ class Attribute(PyNode):
     def setRange(self, range: Tuple[Optional[float], Optional[float]]) -> None: ...
     @overload
     def setRange(self, newMin: Optional[float], newMax: Optional[float]) -> None: ...
-    @overload
-    def setRange(self, range: Tuple[Optional[float], Optional[float]]) -> None: ...
-    @overload
-    def setRange(self, newMin: Optional[float], newMax: Optional[float]) -> None: ...
     def setSoftRange(self, *args) -> None: ...
     def getChildren(self) -> List[Attribute]: ...
     children = getChildren
@@ -399,7 +396,7 @@ class HashableSlice(ProxySlice):
     @property
     def step(self) -> int: ...
 
-class Component(PyNode):
+class Component(PyNode, metaclass=_factories.MetaMayaTypeRegistry):
     _apienum__: Incomplete
     _ComponentLabel__: str
     def __init__(self, *args, **kwargs) -> None: ...
@@ -693,7 +690,7 @@ class ParticleComponent(Component1D):
     def attr(self, attr): ...
     def __getattr__(self, attr): ...
 
-class AttributeSpec(PyNode):
+class AttributeSpec(PyNode, metaclass=_factories.MetaMayaTypeRegistry):
     __apicls__: Incomplete
     def __new__(cls, *args, **kwargs): ...
     def __apiobject__(self): ...
@@ -760,7 +757,7 @@ class AttributeSpec(PyNode):
     def shortName(self) -> str: ...
 AttributeDefaults = AttributeSpec
 
-class Scene:
+class Scene(metaclass=_util.Singleton):
     def __getattr__(self, obj): ...
 
 SCENE: Incomplete

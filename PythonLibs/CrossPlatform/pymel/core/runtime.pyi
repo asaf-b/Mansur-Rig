@@ -30,7 +30,6 @@ AddHolder: Incomplete
 AddHolderOptions: Incomplete
 AddInBetweenTargetShape: Incomplete
 AddInBetweenTargetShapeOptions: Incomplete
-AddInbetween: Incomplete
 AddInfluence: Incomplete
 AddInfluenceOptions: Incomplete
 AddKeyToolActivate: Incomplete
@@ -727,7 +726,6 @@ DistributeUVs: Incomplete
 DistributeUVsOptions: Incomplete
 DollyTool: Incomplete
 DopeSheetEditor: Incomplete
-DownloadBonusTools: Incomplete
 Drag: Incomplete
 DragOptions: Incomplete
 Duplicate: Incomplete
@@ -1978,7 +1976,6 @@ RemoveConstraintTargetOptions: Incomplete
 RemoveFromCharacterSet: Incomplete
 RemoveFromContainer: Incomplete
 RemoveFromContainerOptions: Incomplete
-RemoveInbetween: Incomplete
 RemoveInfluence: Incomplete
 RemoveJoint: Incomplete
 RemoveLatticeTweaks: Incomplete
