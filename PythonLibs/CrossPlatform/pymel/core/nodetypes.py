@@ -49217,5 +49217,140 @@ class WtAddMatrix(DependNode):
         res = _f.ApiArgUtil._castResult(self, res, 'bool', None)
         return res
 
+class crossProductDL(ShadingDependNode):
+    __melnode__ = 'crossProductDL'
+    __slots__ = ()
 
+class determinantDL(ShadingDependNode):
+    __melnode__ = 'determinantDL'
+    __slots__ = ()
+
+class distanceBetweenDL(ShadingDependNode):
+    __melnode__ = 'distanceBetweenDL'
+    __slots__ = ()
+
+class divideDL(ShadingDependNode):
+    __melnode__ = 'divideDL'
+    __slots__ = ()
+
+class dotProductDL(ShadingDependNode):
+    __melnode__ = 'dotProductDL'
+    __slots__ = ()
+     
+class equalDL(ShadingDependNode):
+    __melnode__ = 'equalDL'
+    __slots__ = ()
+     
+class floorDL(ShadingDependNode):
+    __melnode__ = 'floorDL'
+    __slots__ = ()
+
+class greaterThanDL(ShadingDependNode):
+    __melnode__ = 'greaterThanDL'
+    __slots__ = ()
+
+class inverseLerpDL(ShadingDependNode):
+    __melnode__ = 'inverseLerpDL'
+    __slots__ = ()
+
+class lengthDL(ShadingDependNode):
+    __melnode__ = 'lengthDL'
+    __slots__ = ()
+
+class lerpDL(ShadingDependNode):
+    __melnode__ = 'lerpDL'
+    __slots__ = ()
+
+class lessThanDL(ShadingDependNode):
+    __melnode__ = 'lessThanDL'
+    __slots__ = ()
+
+class logDL(ShadingDependNode):
+    __melnode__ = 'logDL'
+    __slots__ = () 
+
+class maxDL(ShadingDependNode):
+    __melnode__ = 'maxDL'
+    __slots__ = () 
+
+class minDL(ShadingDependNode):
+    __melnode__ = 'minDL'
+    __slots__ = () 
+    
+class moduloDL(ShadingDependNode):
+    __melnode__ = 'moduloDL'
+    __slots__ = () 
+
+class multDL(ShadingDependNode):
+    __melnode__ = 'multDL'
+    __slots__ = () 
+
+class multiplyDL(ShadingDependNode):
+    __melnode__ = 'multiplyDL'
+    __slots__ = () 
+
+class multiplyPointByMatrixDL(ShadingDependNode):
+    __melnode__ = 'multiplyPointByMatrixDL'
+    __slots__ = () 
+
+class multiplyVectorByMatrixDL(ShadingDependNode):
+    __melnode__ = 'multiplyVectorByMatrixDL'
+    __slots__ = () 
+
+class negateDL(ShadingDependNode):
+    __melnode__ = 'negateDL'
+    __slots__ = () 
+
+class normalizeDL(ShadingDependNode):
+    __melnode__ = 'normalizeDL'
+    __slots__ = () 
+    
+class powerDL(ShadingDependNode):
+    __melnode__ = 'powerDL'
+    __slots__ = () 
+
+class rotateVectorDL(ShadingDependNode):
+    __melnode__ = 'rotateVectorDL'
+    __slots__ = () 
+
+class roundDL(ShadingDependNode):
+    __melnode__ = 'roundDL'
+    __slots__ = () 
+
+class rowFromMatrixDL(ShadingDependNode):
+    __melnode__ = 'rowFromMatrixDL'
+    __slots__ = () 
+
+class scaleFromMatrixDL(ShadingDependNode):
+    __melnode__ = 'scaleFromMatrixDL'
+    __slots__ = () 
+
+class sinDL(ShadingDependNode):
+    __melnode__ = 'sinDL'
+    __slots__ = () 
+
+class smoothStepDL(ShadingDependNode):
+    __melnode__ = 'smoothStepDL'
+    __slots__ = () 
+
+class subtractDL(ShadingDependNode):
+    __melnode__ = 'subtractDL'
+    __slots__ = () 
+
+class sumDL(ShadingDependNode):
+    __melnode__ = 'sumDL'
+    __slots__ = () 
+
+class tanDL(ShadingDependNode):
+    __melnode__ = 'tanDL'
+    __slots__ = () 
+
+class translationFromMatrixDL(ShadingDependNode):
+    __melnode__ = 'translationFromMatrixDL'
+    __slots__ = () 
+
+class truncateDL(ShadingDependNode):
+    __melnode__ = 'truncateDL'
+    __slots__ = () 
+    
 dynModule = _addTypeNames()
