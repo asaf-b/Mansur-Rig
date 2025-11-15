@@ -2056,8 +2056,16 @@ def update2026DLNodes():
 				input1Attr = oldDlNode.input1.listConnections(d = False, s = True, p = True)
 				input2Attr = oldDlNode.input2.listConnections(d = False, s = True, p = True)
 				outputAttr = oldDlNode.output.listConnections(s = False, d = True, p = True)
-				if input1Attr: input1Attr = input1Attr[0]
-				if input2Attr: input2Attr = input2Attr[0]
+				if input1Attr: 
+					input1Attr = input1Attr[0]
+				else:
+					input1Attr = oldDlNode.input1.get()
+
+				if input2Attr: 
+					input2Attr = input2Attr[0]
+				else:
+					input2Attr = oldDlNode.input2.get()
+
 				if outputAttr: outputAttr = outputAttr[0]
 
 				if type(oldDlNode) is pm.nodetypes.addDL:
