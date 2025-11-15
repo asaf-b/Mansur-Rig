@@ -49217,6 +49217,10 @@ class WtAddMatrix(DependNode):
         res = _f.ApiArgUtil._castResult(self, res, 'bool', None)
         return res
 
+class addDL(ShadingDependNode):
+    __melnode__ = 'addDL'
+    __slots__ = ()
+
 class crossProductDL(ShadingDependNode):
     __melnode__ = 'crossProductDL'
     __slots__ = ()

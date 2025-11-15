@@ -2046,17 +2046,38 @@ def updateRigTopAttrs(rigTop = None):
 					mnsUtils.addAttrToObj(rigTop.node, name = argKey , type = attrType, value = optArgs[argKey], locked = locked, cb = cb, keyable = keyable)
 
 def update2026DLNodes():
-	#TBD
-	#new node types are not registered on current PyMel version for 2026.
-	#since the types are unknown, there is no way to accuire ADL and MDL nodes safely.
-	pass
-	"""
-	allMdlNodes = pm.ls("*", type = pm.nodetypes.multiplyDoubleLinear)
-	allAdlNodes = pm.ls("*", type = pm.nodetypes.addDoubleLinear)
+	if GLOB_mayaVersion > 2025:
+		try:
+			allMdlNodes = pm.ls("*", type = pm.nodetypes.multDL)
+			allAdlNodes = pm.ls("*", type = pm.nodetypes.addDL)
 
-	for oldDlNode in (allMdlNodes + allAdlNodes):
-		print(oldDlNode)
-	"""
+			for oldDlNode in (allMdlNodes + allAdlNodes):
+				#replace all nodes with new DL nodes
+				input1Attr = oldDlNode.input1.listConnections(d = False, s = True, p = True)
+				input2Attr = oldDlNode.input2.listConnections(d = False, s = True, p = True)
+				outputAttr = oldDlNode.output.listConnections(s = False, d = True, p = True)
+				if input1Attr: input1Attr = input1Attr[0]
+				if input2Attr: input2Attr = input2Attr[0]
+				if outputAttr: outputAttr = outputAttr[0]
+
+				if type(oldDlNode) is pm.nodetypes.addDL:
+					adlNode = mnsNodes.adlNode(input1Attr, input2Attr, outputAttr)
+					nameDup = oldDlNode.nodeName()
+					oldDlNode.rename(oldDlNode.nodeName() + "_tempRename")
+					adlNode.node.rename(nameDup)
+				else:
+					mdlNode = mnsNodes.mdlNode(input1Attr, input2Attr, outputAttr)
+					nameDup = oldDlNode.nodeName()
+					oldDlNode.rename(oldDlNode.nodeName() + "_tempRename")
+					mdlNode.node.rename(nameDup)
+
+				oldDlNode.input1.disconnect()
+				oldDlNode.input2.disconnect()
+				oldDlNode.output.disconnect()
+
+			pm.delete((allMdlNodes + allAdlNodes))
+		except:
+			pass
 
 def updateRig(blkWin = None, buildModulesBtns = [], **kwargs):
 	progressBar = kwargs.get("progressBar", None)
