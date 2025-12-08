@@ -112,13 +112,15 @@ def duplicateBlendShapeNodes(origMesh, meshTwin, **kwargs):
 	if bshps:
 		for bsNode in bshps:
 			newTarGroup, newTargets = extractBlendShapeTragets(origMesh, bsNode)
-			
+
 			#all dat collected, recreate the BS and connect
 			newBS = pm.blendShape(newTargets, meshTwin, foc = True, name = bsNode.nodeName() + "_copy")[0]
 			pm.delete(newTarGroup)
-			
+
 			if connect:
 				for targetName in newTargets:
+					targetName = targetName.split("|")[-1]
 					bsNode.attr(targetName) >> newBS.attr(targetName)
 
+			
 			return newBS

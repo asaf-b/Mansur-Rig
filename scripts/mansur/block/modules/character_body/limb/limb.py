@@ -1067,45 +1067,24 @@ def construct(mansur, MnsBuildModule, **kwargs):
 		# connect the root FK Y rotation revrese
 		# to a new tweak slot 
 		# muting Y rotation at the start position
-		sourceValueMdl = mnsNodes.mdlNode(fkRoot.node.ry, muteRootTwistAttr)
 		
+		#make sure to zero out the y value for the root jnt
+		zeroYRotAdl = mnsNodes.adlNode(rootJnt.node.ry, rootJnt.node.ry.get() * -1.0)
+		mdlNode = mnsNodes.mdlNode(zeroYRotAdl.node.output, -1.0)
+		
+		#add tweak y twist
 		if rootGuide.side == "r":
-			mdlNode = mnsNodes.mdlNode(sourceValueMdl.node.output, fkIkBlendAttr)
-			mdlNode.node.output >> psocn.customPosition[tweakerIndex].twist
+			sourceValueMdl = mnsNodes.mdlNode(rootTweak.node.ry, -1.0)
+			sourceValueMdl = mnsNodes.adlNode(sourceValueMdl.node.output, mdlNode.node.output)
 		else:
-			mdlNode = mnsNodes.mdlNode(sourceValueMdl.node.output, -1.0)
-			mdlNode1 = mnsNodes.mdlNode(mdlNode.node.output, fkIkBlendAttr)
-			mdlNode1.node.output >> psocn.customPosition[tweakerIndex].twist
+			sourceValueMdl = mnsNodes.adlNode(rootTweak.node.ry, mdlNode.node.output)
 		
+		sourceValueMdl = mnsNodes.mdlNode(sourceValueMdl.node.output, muteRootTwistAttr)
+		
+		sourceValueMdl.node.output >> psocn.customPosition[tweakerIndex].twist
+	
 		psocn.customPosition[tweakerIndex].uPosition.set(0.0)
 		tweakerIndex += 1
-
-		#create another muting channel for the ik state
-		startPositionLoc = mnsUtils.createNodeReturnNameStd(parentNode = animGrp,side =  MnsBuildModule.rootGuide.side, body = MnsBuildModule.rootGuide.body + "StartPosition", alpha = MnsBuildModule.rootGuide.alpha, id =  MnsBuildModule.rootGuide.id, buildType = "locator", incrementAlpha = False)
-		startPositionLoc.node.v.set(False)
-		
-		parentConstraint = mnsNodes.mayaConstraint([fkRefs[0].node], startPositionLoc.node, type = "parent", maintainOffset = True, side = fkCtrl.side, alpha = fkCtrl.alpha, id = fkCtrl.id)
-		parentConstraint.node.interpType.set(0)
-		scaleConstraint = mnsNodes.mayaConstraint([fkRefs[0].node], startPositionLoc.node, type = "scale", maintainOffset = False, side = fkCtrl.side, alpha = fkCtrl.alpha, id = fkCtrl.id)
-					
-		#mnsNodes.mnsMatrixConstraintNode(side = fkCtrl.side, alpha = fkCtrl.alpha, id = fkCtrl.id, targets = [startPositionLoc.node], sources = [fkRefs[0].node], connectScale = True)
-		
-		sourceValueMdl = mnsNodes.mdlNode(startPositionLoc.node.ry, muteRootTwistAttr)
-		revNode = mnsNodes.reverseNode([fkIkBlendAttr, 0.0, 0.0])
-		mdlNode = mnsNodes.mdlNode(sourceValueMdl.node.output, -1.0)
-		mdlNode1 = mnsNodes.mdlNode(mdlNode.node.output, revNode.node.outputX)
-		mdlNode1.node.output >> psocn.customPosition[tweakerIndex].twist
-		psocn.customPosition[tweakerIndex].uPosition.set(0.0)
-		tweakerIndex += 1
-
-		endPositionLoc = mnsUtils.createNodeReturnNameStd(parentNode = rigComponentsGrp,side =  MnsBuildModule.rootGuide.side, body = MnsBuildModule.rootGuide.body + "EndPosition", alpha = MnsBuildModule.rootGuide.alpha, id =  MnsBuildModule.rootGuide.id, buildType = "locator", incrementAlpha = False)
-		offGrp = mnsUtils.createOffsetGroup(endPositionLoc)
-		parConst = mnsNodes.mayaConstraint([endJnt.node], offGrp.node, type = "parent", maintainOffset = False)
-		endPositionAnimOffsetLoc = mnsUtils.createNodeReturnNameStd(parentNode = animGrp, side =  MnsBuildModule.rootGuide.side, body = MnsBuildModule.rootGuide.body + "endPositionAnimOffset", alpha = MnsBuildModule.rootGuide.alpha, id =  MnsBuildModule.rootGuide.id, buildType = "locator", incrementAlpha = False)
-		endPositionAnimOffsetLoc.node.v.set(False)
-		pm.delete(pm.parentConstraint(endJnt.node, endPositionAnimOffsetLoc.node))
-		#orConst = mnsNodes.mayaConstraint([endPositionAnimOffsetLoc.node], endPositionLoc.node, type = "orient", maintainOffset = False, skip = ["x", "z"])
-		endPositionLoc.node.worldMatrix[0] >> primBtcNode.transforms[2].matrix
 
 		psocn.excludeBaseRotation.set(False)
 

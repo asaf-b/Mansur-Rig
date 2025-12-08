@@ -736,7 +736,12 @@ def findNamingIssuesInHierarchy():
 	if sel:
 		for s in sel:
 			for tran in s.listRelatives(ad = True, type = "transform"):
-				nStd = mnsUtils.validateNameStd(tran)
+				nStd = None
+				try:
+					nStd = mnsUtils.validateNameStd(tran)
+				except:
+					faultyNodes.append(tran)
+
 				if not nStd or not nStd.suffix in validSuffixes:
 					faultyNodes.append(tran)
 	if faultyNodes: 
