@@ -2091,7 +2091,7 @@ def getEulaText():
 
 	for root, dirs, files in os.walk(versiondir):
 		for file in files:
-			if file == "mansurRig_EULA.txt":
+			if file == "LICENSE":
 				fullEulaPath = os.path.join(root, file)
 				lines = []
 				if sys.version_info[0] >= 3:
@@ -2100,7 +2100,8 @@ def getEulaText():
 					lines = list(open(fullEulaPath, 'r'))
 				eulaText = ""
 				for line in lines: eulaText += line
-
+				break
+				
 	return eulaText
 
 def createAboutWindow():
