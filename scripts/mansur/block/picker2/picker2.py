@@ -749,7 +749,7 @@ class MnsPicker2(form_class, base_class):
 								visAttrNameRelated = []
 								if outModuleRoot.hasAttr(visAttrName):
 									for visSlaveCtrl in outModuleRoot.attr(visAttrName).listConnections(d = True, s = False):
-										if type(visSlaveCtrl) == pm.nodetypes.MultDoubleLinear:
+										if type(visSlaveCtrl) == (pm.nodetypes.multDL if cmds.about(v=True) >= "2026" else pm.nodetypes.MultDoubleLinear):
 											outMdlCons = visSlaveCtrl.listConnections(d = True, s = False)
 											for outMdlCon in outMdlCons:
 												visSlaveCtrlA = self.validateVisCtrl(outMdlCon)
