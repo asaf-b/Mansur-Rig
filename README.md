@@ -4,8 +4,6 @@ Mansur-Rig is an advanced modular rig builder for Maya, based on a dedicated C++
 # MANSUR-RIG - Installation
 
 ## Installation
-* Go to Mansur-Rig.com and create an accout (if you havn't already).
-* Log in to your acount.
 * Download the latest version of Mansur-Rig.
 * Extract the .zip library to your preferred location.
    * If you have another version already installed, preferably extract to the same location (version root folder should be placed in the same root folder of the previous version) 
